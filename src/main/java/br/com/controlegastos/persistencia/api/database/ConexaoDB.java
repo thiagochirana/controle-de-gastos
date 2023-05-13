@@ -29,4 +29,17 @@ public class ConexaoDB {
         }
     }
 
+    public static Connection conectar() throws Exception{
+        if (con == null){
+            realizarConexao();
+        }
+        return con;
+    }
+
+    public static void desconectar() throws Exception{
+        String banco = con.getMetaData().getDatabaseProductName();
+        con.commit();
+        con.close();
+        LOG.debug("Encerrado as conexoes com o banco "+banco);
+    }
 }
