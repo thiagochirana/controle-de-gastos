@@ -1,5 +1,6 @@
 package br.com.controlegastos.persistencia.propriedades;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Propriedade {
@@ -12,9 +13,12 @@ public class Propriedade {
     public Propriedade(String chave, String valor) {
         this.chave = chave;
         this.valor = valor;
+        this.listagem = new HashMap<>();
     }
 
-    public Propriedade(){}
+    public Propriedade(){
+        this.listagem = new HashMap<>();
+    }
 
     public String getChave() {
         return chave;
@@ -41,6 +45,6 @@ public class Propriedade {
     }
 
     public void put(String chave, String valor) {
-        listagem.put(chave, valor);
+        this.listagem.put(chave, valor);
     }
 }
