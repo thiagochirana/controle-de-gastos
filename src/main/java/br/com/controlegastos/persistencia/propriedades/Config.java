@@ -31,8 +31,11 @@ public class Config {
     }
 
     private static Map<String, String> loadProperties(String caminhoArquivo) throws IOException {
-        if (propriedade.getListagem().size() == 0) {
-            try(FileInputStream arquivo = new FileInputStream(caminhoArquivo)){
+        if (propriedade == null) {
+            propriedade = new Propriedade();
+        }
+        if ((propriedade.getListagem() == null) || (propriedade.getListagem().size() == 0)) {
+            try(InputStream arquivo = Config.class.getClassLoader().getResourceAsStream(caminhoArquivo)){
                 Properties props = new Properties();
                 props.load(arquivo);
                 for (Map.Entry<Object, Object> linha : props.entrySet()){
