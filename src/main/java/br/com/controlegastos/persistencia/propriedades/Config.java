@@ -12,7 +12,7 @@ public class Config {
 
     public static String obterPropriedade(String chaveConfiguracao) throws PropriedadeException, IOException {
         try{
-            String caminhoArquivo = "C:\\ControleGastos\\Configuracao\\configControleGasto.properties";
+            String caminhoArquivo = "config\\config.properties";
             String valorEncontrado = null;
             for(Map.Entry<String, String> linha : loadProperties(caminhoArquivo).entrySet()){
                 if(linha.getKey().toUpperCase().equals(chaveConfiguracao.toUpperCase())){
