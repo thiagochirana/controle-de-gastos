@@ -26,11 +26,11 @@
 
   ## Junte-se a nós! 
   A nossa equipe composta por 4 pessoas! São elas:
-  |     Nome     |     Função    |      GitHUB       |
+| # |     Nome     |     Função    |      GitHUB       |
 |--------------|--------------|-----------------|
-|    Rodrigo Dourado    |  Desenvolvedor Frontend  |   Rodrigodourado2001   |
-|   Thiago Chirana      |  Desenvolvedor Backend   |   othiagomacedo  |
-|   Pedro Augusto    |  Designer UI/UX   |   PedroAugusto-sys  |
-|   Hugo Dias    |  Gerente de Projeto   |   Hugodias95  |
+|😎|    Rodrigo Dourado    |  Desenvolvedor Frontend  |   Rodrigodourado2001   |
+|🐐|   Thiago Chirana      |  Desenvolvedor Backend   |   othiagomacedo  |
+|🐀|   Pedro Augusto    |  Designer UI/UX   |   PedroAugusto-sys  |
+|👨🏻‍🦽|   Hugo Dias    |  Gerente de Projeto   |   Hugodias95  |
 
 A tabela acima apresenta informações pessoais de quatro desenvolvedores do projeto, incluindo seus nomes, funções e GITHUB! Vai lá, segue os ninjas! 🐱‍👤
