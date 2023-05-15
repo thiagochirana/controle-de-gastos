@@ -15,6 +15,7 @@ public class FlywayImpl {
 
     public static void start() throws Exception {
         try{
+            LOG.info("Inicio da execução do Flyway");
             StringBuilder banco = new StringBuilder();
             banco.append(Config.obterPropriedade("persistencia.url"));
             banco.append(Config.obterPropriedade("persistencia.banco"));
@@ -42,8 +43,10 @@ public class FlywayImpl {
                 boolean versionamentoAoReiniciar = Boolean.parseBoolean(Config.obterPropriedade("flyway.realizar.versionamento.no.restart"));
                 LOG.debug("Reaplicacao de patches ao reiniciar? "+versionamentoAoReiniciar);
                 if (versionamentoAoReiniciar){
+                    LOG.debug("Realizando a reaplicação de patches");
                     flyway.baseline();
-                    LOG.debug("Realizado a reaplicação de patches");
+                } else {
+                    LOG.debug("Patches ao reiniciar não serão reaplicados");
                 }
             }catch (PropriedadeException pe){
                 LOG.warn("Não encontrado o campo \"flyway.realizar.versionamento.no.restart\" no config.properties. Logo a reaplicação de patches será FALSE");
@@ -52,11 +55,15 @@ public class FlywayImpl {
 
             try{
                 boolean versionamentoAtivo = Boolean.parseBoolean(Config.obterPropriedade("flyway.versionamento"));
+                LOG.debug("Aplicar patches? "+versionamentoAtivo);
                 if (versionamentoAtivo) {
+                    LOG.debug("Iniciando a aplicação de patches");
                     flyway.migrate();
+                } else {
+                    LOG.debug("Aplicacao de patches não está ativo. Para ativar, coloque \"true\" no campo \"flyway.versionamento\"");
                 }
             }catch (PropriedadeException pe){
-                LOG.warn("Não encontrado o campo \"flyway.versionamento\" no config.properties. Logo o versionamento será FALSE");
+                LOG.warn("Não encontrado o campo \"flyway.versionamento\" no config.properties. Logo o versionamento ativo será FALSE");
                 LOG.error(pe.getCause().toString());
             }
 
