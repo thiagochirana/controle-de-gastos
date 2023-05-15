@@ -1,34 +1,51 @@
 package br.com.controlegastos.persistencia.api.persist.tools;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapList {
 
-    public static <Objeto> void printarChaveValores(Objeto classeEntidade){
-        Map<Object,Object> mapa = obterListagem(classeEntidade);
-        for (Map.Entry<Object, Object> entry : mapa.entrySet()) {
+    public MapList() {
+    }
+
+    public static void printarChaveValores(Class classeEntidade) throws Exception {
+        Map<String,String> mapa = obterCampos(classeEntidade);
+        for (Map.Entry<String, String> entry : mapa.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
 
-    private static <Objeto> Map<Object, Object> obterListagem(Objeto classeEntidade) {
-        Map<Object, Object> mapa = new HashMap<>();
-        Field[] campos = classeEntidade.getClass().getDeclaredFields();
+    public static Map<String, String> obterCampos(Class classeEntidade)throws Exception {
+        try{
+            Field[] campos = classeEntidade.getDeclaredFields();
+            Map<String, String> tiposNomes = new HashMap<>();
 
-        for (Field cp : campos) {
-            if (!Modifier.isStatic(cp.getModifiers())) {
-                cp.setAccessible(true);
-                try {
-                    mapa.put(cp.getName(), cp.get(null));
-                } catch (IllegalAccessException ex) {
-                    System.out.println(ex);
-                }
+            for (Field cp : campos) {
+                String nome = cp.getName();
+                String tipoCampo = cp.getType().getSimpleName();
+                tiposNomes.put(nome, tipoCampo);
             }
-        }
 
-        return mapa;
+            if(tiposNomes.size() == 0 ){
+                throw new Exception("Classe "+classeEntidade.getName()+" não contém campos.");
+            }
+
+            return tiposNomes;
+        }catch (Exception ex){
+            throw ex;
+        }
+    }
+
+    public static Map<String, Object> toMap(Object obj) throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
+        Class<?> clazz = obj.getClass();
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            String name = field.getName();
+            Object value = field.get(obj);
+            map.put(name, value);
+        }
+        return map;
     }
 }
