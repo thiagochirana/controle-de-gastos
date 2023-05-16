@@ -55,6 +55,9 @@ public class Query {
         return sqlInsert;
     }
 
-
+    private static StringBuilder querySelect(Object objetoVariavel) throws Exception {
+        StringBuilder sqlSelect = new StringBuilder("SELECT * obj FROM ?OBJETO? obj WHERE 1=1 AND obj.Id = ?");
+        return sqlSelect;
+    }
 
 }
