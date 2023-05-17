@@ -38,7 +38,7 @@ public class Query {
         }
     }
 
-    private static StringBuilder queryInsert(Object objetoVariavel) throws Exception {
+    private static String queryInsert(Object objetoVariavel) throws Exception {
 
         StringBuilder sqlInsert = new StringBuilder("INSERT INTO ? (?CHAVE?) VALUES (?VALORES?)");
 
@@ -71,9 +71,13 @@ public class Query {
         return sqlInsert.toString();
     }
 
-    private static StringBuilder querySelect(Object objetoVariavel) throws Exception {
-        StringBuilder sqlSelect = new StringBuilder("SELECT * obj FROM ?OBJETO? obj WHERE 1=1 AND obj.Id = ?");
-        return sqlSelect;
+    private static String querySelectLista(Object objetoVariavel) throws Exception {
+        StringBuilder sqlSelect = new StringBuilder("SELECT * obj FROM ?OBJETO?");
+        String nomeClasse = objetoVariavel.getClass().getSimpleName();
+        int indexChave = sqlSelect.indexOf("?OBJETO?");
+        sqlSelect.replace(indexChave, indexChave + 8, nomeClasse);
+        LOG.debug("Query tipo Select de listagem gerado: "+sqlSelect);
+        return sqlSelect.toString();
     }
 
 }
