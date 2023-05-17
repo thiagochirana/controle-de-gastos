@@ -14,12 +14,23 @@ public class Query {
         StringBuilder sql = new StringBuilder();
         try{
             switch (crud){
-                case BUSCAR, LISTAR -> sql.append("SELECT ? FROM ? WHERE 1=1 AND ");
+                case LISTAR -> {
+                    LOG.debug("Iniciando geracao de query Listar a ser executada no banco");
+                    return querySelectLista(objetoVariavel);
+                }
+                case BUSCAR -> {
+                    LOG.debug("Iniciando geracao de query Buscar pelo ID a ser executada no banco");
+                    return querySelectByID(objetoVariavel);
+                }
                 case INSERIR -> {
                     LOG.debug("Iniciando geracao de query Insert a ser executada no banco");
                     return queryInsert(objetoVariavel);
                 }
-                case DELETAR -> sql.append("DELETE FROM ? WHERE 1=1 AND ");
+                case DELETAR -> {
+                    LOG.debug("Iniciando geracao de query Delete pelo Id a ser executada no banco");
+                    return queryDeleteByID(objetoVariavel);
+                }
+                default -> throw new Exception("Crud "+crud+" não identificado");
             }
 
         }catch (Exception e){
