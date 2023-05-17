@@ -80,4 +80,22 @@ public class Query {
         return sqlSelect.toString();
     }
 
+    private static String querySelectByID(Object objVariavel){
+        StringBuilder sqlSelect = new StringBuilder("SELECT * obj FROM ?OBJETO? WHERE 1=1 AND id = ?");
+        String nomeClasse = objVariavel.getClass().getSimpleName();
+        int indexChave = sqlSelect.indexOf("?OBJETO?");
+        sqlSelect.replace(indexChave, indexChave + 8, nomeClasse);
+        LOG.debug("Query tipo Select do Objeto "+nomeClasse+" gerado: "+sqlSelect);
+        return sqlSelect.toString();
+    }
+
+    private static String queryDeleteByID(Object objVariavel){
+        StringBuilder sqlDelete = new StringBuilder("DELETE FROM ?OBJETO? WHERE 1=1 AND id = ?");
+        String nomeClasse = objVariavel.getClass().getSimpleName();
+        int indexChave = sqlDelete.indexOf("?OBJETO?");
+        sqlDelete.replace(indexChave, indexChave + 8, nomeClasse);
+        LOG.debug("Query tipo Delete do Objeto "+nomeClasse+" gerado: "+sqlDelete);
+        return sqlDelete.toString();
+    }
+
 }
