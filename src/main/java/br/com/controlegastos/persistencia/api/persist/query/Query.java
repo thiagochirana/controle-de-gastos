@@ -1,10 +1,14 @@
 package br.com.controlegastos.persistencia.api.persist.query;
 
 import br.com.controlegastos.persistencia.api.persist.tools.MapList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class Query {
+
+    private static Logger LOG = LoggerFactory.getLogger(Query.class);
 
     public static String gerar(Crud crud,Object objetoVariavel) throws Exception {
         StringBuilder sql = new StringBuilder();
@@ -12,7 +16,8 @@ public class Query {
             switch (crud){
                 case BUSCAR, LISTAR -> sql.append("SELECT ? FROM ? WHERE 1=1 AND ");
                 case INSERIR -> {
-                    return queryInsert(objetoVariavel).toString();
+                    LOG.debug("Iniciando geracao de query Insert a ser executada no banco");
+                    return queryInsert(objetoVariavel);
                 }
                 case DELETAR -> sql.append("DELETE FROM ? WHERE 1=1 AND ");
             }
@@ -20,7 +25,6 @@ public class Query {
         }catch (Exception e){
             throw new Exception("Não foi possível criar a query. "+e);
         }
-        return "";
     }
 
     private static StringBuilder queryInsert(Object objetoVariavel) throws Exception {
@@ -52,7 +56,8 @@ public class Query {
         sqlInsert.replace(indexChave, indexChave + 7, chave);
         sqlInsert.replace(indexValores, indexValores + 9, valores);
 
-        return sqlInsert;
+        LOG.debug("Query tipo Insert gerado: "+sqlInsert);
+        return sqlInsert.toString();
     }
 
     private static StringBuilder querySelect(Object objetoVariavel) throws Exception {
