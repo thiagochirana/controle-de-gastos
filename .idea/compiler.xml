@@ -9,8 +9,5 @@
         <module name="controle-de-gastos" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="controle-de-gastos" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
