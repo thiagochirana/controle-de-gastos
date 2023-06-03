@@ -1,7 +1,7 @@
 package br.com.controlegastos.persistencia.versionamento;
 
-import br.com.controlegastos.persistencia.propriedades.Config;
 import br.com.controlegastos.persistencia.propriedades.PropriedadeException;
+import br.com.controlegastos.util.Propriedade;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 import org.slf4j.Logger;
@@ -17,14 +17,14 @@ public class FlywayImpl {
         try{
             LOG.info("Inicio da execução do Flyway");
             StringBuilder banco = new StringBuilder();
-            banco.append(Config.obterPropriedade("persistencia.url"));
-            banco.append(Config.obterPropriedade("persistencia.banco"));
-            String usuario = Config.obterPropriedade("persistencia.usuario");
-            String senha = Config.obterPropriedade("persistencia.senha");
+            banco.append(Propriedade.getValor("persistencia.url"));
+            banco.append(Propriedade.getValor("persistencia.banco"));
+            String usuario = Propriedade.getValor("persistencia.usuario");
+            String senha = Propriedade.getValor("persistencia.senha");
 
             String tabelaBanco;
             try {
-                tabelaBanco = Config.obterPropriedade("flyway.tabela.banco");
+                tabelaBanco = Propriedade.getValor("flyway.tabela.banco");
                 LOG.debug("Tabela que será de base para o flyway/versionamento: "+tabelaBanco);
             } catch (PropriedadeException e) {
                 LOG.warn("Não encontrado o campo \"flyway.realizar.versionamento.no.restart\" no config.properties."+
@@ -40,7 +40,7 @@ public class FlywayImpl {
                     .load();
 
             try{
-                boolean versionamentoAoReiniciar = Boolean.parseBoolean(Config.obterPropriedade("flyway.realizar.versionamento.no.restart"));
+                boolean versionamentoAoReiniciar = Boolean.parseBoolean(Propriedade.getValor("flyway.realizar.versionamento.no.restart"));
                 LOG.debug("Reaplicacao de patches ao reiniciar? "+versionamentoAoReiniciar);
                 if (versionamentoAoReiniciar){
                     LOG.debug("Realizando a reaplicação de patches");
@@ -54,7 +54,7 @@ public class FlywayImpl {
             }
 
             try{
-                boolean versionamentoAtivo = Boolean.parseBoolean(Config.obterPropriedade("flyway.versionamento"));
+                boolean versionamentoAtivo = Boolean.parseBoolean(Propriedade.getValor("flyway.versionamento"));
                 LOG.debug("Aplicar patches? "+versionamentoAtivo);
                 if (versionamentoAtivo) {
                     LOG.debug("Iniciando a aplicação de patches");
