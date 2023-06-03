@@ -1,6 +1,6 @@
-package br.com.controlegastos.persistencia.api.database;
+package br.com.controlegastos.persistencia.api.persistencia.database;
 
-import br.com.controlegastos.persistencia.propriedades.Config;
+import br.com.controlegastos.util.Propriedade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,13 +13,13 @@ public class ConexaoDB {
     private static Logger LOG = LoggerFactory.getLogger(ConexaoDB.class);
     private static Connection realizarConexao() throws Exception{
         try{
-            String banco = Config.obterPropriedade("persistencia.banco");
+            String banco = Propriedade.getValor("persistencia.banco");
             StringBuilder sb = new StringBuilder();
-                sb.append(Config.obterPropriedade("persistencia.url"));
+                sb.append(Propriedade.getValor("persistencia.url"));
                 sb.append(banco);
 
-            String usuario = Config.obterPropriedade("persistencia.usuario");
-            String senha = Config.obterPropriedade("persistencia.senha");
+            String usuario = Propriedade.getValor("persistencia.usuario");
+            String senha = Propriedade.getValor("persistencia.senha");
             con = DriverManager.getConnection(sb.toString(), usuario, senha);
             LOG.info("Êxito em realizar conexao com o banco "+banco);
             return con;
@@ -31,6 +31,7 @@ public class ConexaoDB {
 
     public static Connection conectar() throws Exception{
         if (con == null){
+            LOG.warn("Conexão com banco não criada/inexistente. Vou criar um e retornar ao cliente.");
             realizarConexao();
         }
         return con;
