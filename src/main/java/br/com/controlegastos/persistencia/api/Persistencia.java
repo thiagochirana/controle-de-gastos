@@ -10,7 +10,7 @@ public interface Persistencia<Classe>{
 
     List listar();
 
-    void deletar(Object objeto);
+    void deletar(long id);
 
     ResultSet obterResultadoCru(String queryPronta) throws Exception;
 }
