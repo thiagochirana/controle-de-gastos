@@ -1,4 +1,4 @@
-package br.com.controlegastos.persistencia.api.database;
+package br.com.controlegastos.persistencia.database;
 
 import br.com.controlegastos.persistencia.propriedades.Propriedade;
 import org.slf4j.Logger;

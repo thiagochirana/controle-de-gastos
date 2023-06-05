@@ -1,6 +1,5 @@
-package br.com.controlegastos.persistencia.DAO;
+package br.com.controlegastos.persistencia.database;
 
-import br.com.controlegastos.persistencia.api.database.ConexaoDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
