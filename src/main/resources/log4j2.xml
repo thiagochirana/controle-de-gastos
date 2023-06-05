@@ -11,6 +11,9 @@
         <Logger name="br.com.controlegastos" level="debug" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
+        <Logger name="org.flywaydb" level="trace" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
     </Loggers>
 </Configuration>
 
