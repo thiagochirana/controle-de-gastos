@@ -1,50 +1,28 @@
 package br.com.controlegastos.persistencia.propriedades;
 
-import java.util.HashMap;
-import java.util.Map;
+import br.com.controlegastos.ControleGastosStartAplication;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class Propriedade {
 
-    String chave;
-    String valor;
+    private static Properties properties = new Properties();
 
-    Map<String, String> listagem;
-
-    public Propriedade(String chave, String valor) {
-        this.chave = chave;
-        this.valor = valor;
-        this.listagem = new HashMap<>();
-    }
-
-    public Propriedade(){
-        this.listagem = new HashMap<>();
-    }
-
-    public String getChave() {
-        return chave;
-    }
-
-    public void setChave(String chave) {
-        this.chave = chave;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
-    public Map<String, String> getListagem() {
-        return listagem;
-    }
-
-    public void setListagem(Map<String, String> listagem) {
-        this.listagem = listagem;
-    }
-
-    public void put(String chave, String valor) {
-        this.listagem.put(chave, valor);
+    public static String getValor(String chave){
+        try (InputStream input = ControleGastosStartAplication.class.getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                System.out.println("Arquivo config.properties não encontrado.");
+                throw new Exception("Arquivo config.properties não encontrado.");
+            }
+            properties.load(input);
+            return properties.getProperty(chave);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
