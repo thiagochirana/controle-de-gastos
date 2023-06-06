@@ -1,0 +1,8 @@
+CREATE TABLE Proprietario (
+  id_proprietario BIGINT PRIMARY KEY,
+  cpf VARCHAR(11) NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  telefone VARCHAR(40) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  cnh VARCHAR(10) NOT NULL
+);
