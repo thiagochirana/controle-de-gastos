@@ -27,7 +27,6 @@ public class Executador {
             LOG.debug("Vou realizar a consulta ao banco");
             Statement stm = con.createStatement();
             ResultSet resultSet = stm.executeQuery(query);
-            stm.close();
             LOG.debug("Consulta realizada, vou devolver a resposta ao cliente");
             return resultSet;
         } catch (SQLException se){
