@@ -1,6 +1,6 @@
-package br.com.controlegastos.persistencia.api.persistencia.query;
+package br.com.controlegastos.persistencia.api.utils.query;
 
-import br.com.controlegastos.persistencia.api.persistencia.tools.MapList;
+import br.com.controlegastos.persistencia.api.utils.tools.MapList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

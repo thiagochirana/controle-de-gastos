@@ -1,18 +1,14 @@
 package br.com.controlegastos.persistencia.api.controller;
 
 import br.com.controlegastos.persistencia.api.Persistencia;
-import br.com.controlegastos.persistencia.api.persistencia.interpretador.Interpretador;
 
 import java.sql.ResultSet;
 import java.util.List;
 
 public class Controller<Classe> implements Persistencia {
 
-    private Interpretador interpretador = new Interpretador();
-
     @Override
     public Object buscarById(long id){
-
         System.out.println(id);
         return null;
     }
@@ -28,14 +24,14 @@ public class Controller<Classe> implements Persistencia {
     }
 
     @Override
-    public void deletar(Object objeto) {
+    public void deletar(long objeto) {
 
     }
 
 
     @Override
     public ResultSet obterResultadoCru(String queryPronta) throws Exception {
-        return interpretador.obterResultadoCru(queryPronta);
+        return null;
     }
 
 }
