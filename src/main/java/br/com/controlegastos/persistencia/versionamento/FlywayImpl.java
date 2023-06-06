@@ -31,23 +31,9 @@ public class FlywayImpl {
             LOG.debug("Inicio implementacao Flyway.");
             Flyway flyway = Flyway.configure()
                     .dataSource(banco.toString(), usuario, senha)
-                    .locations("classpath:db/patches")
+                    .locations("classpath:db/migration")
                     .table(tabelaBanco)
                     .load();
-
-            try{
-                boolean versionamentoAoReiniciar = Boolean.parseBoolean(Propriedade.getValor("flyway.realizar.versionamento.no.restart"));
-                LOG.debug("Reaplicacao de patches ao reiniciar? "+versionamentoAoReiniciar);
-                if (versionamentoAoReiniciar){
-                    LOG.debug("Realizando a reaplicação de patches");
-                    flyway.baseline();
-                } else {
-                    LOG.debug("Patches ao reiniciar não serão reaplicados");
-                }
-            }catch (Exception pe){
-                LOG.warn("Não encontrado o campo \"flyway.realizar.versionamento.no.restart\" no config.properties. Logo a reaplicação de patches será FALSE");
-                LOG.error(pe.getCause().toString());
-            }
 
             try{
                 boolean versionamentoAtivo = Boolean.parseBoolean(Propriedade.getValor("flyway.versionamento"));
@@ -60,6 +46,20 @@ public class FlywayImpl {
                 }
             }catch (Exception pe){
                 LOG.warn("Houve um erro ao tentar executar a aplicação de migrações do Flyway.",pe);
+                LOG.error(pe.getCause().toString());
+            }
+
+            try{
+                boolean versionamentoAoReiniciar = Boolean.parseBoolean(Propriedade.getValor("flyway.realizar.versionamento.no.restart"));
+                LOG.debug("Reaplicacao de patches ao reiniciar? "+versionamentoAoReiniciar);
+                if (versionamentoAoReiniciar){
+                    LOG.debug("Realizando a reaplicação de patches");
+                    flyway.baseline();
+                } else {
+                    LOG.debug("Patches ao reiniciar não serão reaplicados");
+                }
+            }catch (Exception pe){
+                LOG.warn("Não encontrado o campo \"flyway.realizar.versionamento.no.restart\" no config.properties. Logo a reaplicação de patches será FALSE");
                 LOG.error(pe.getCause().toString());
             }
 
