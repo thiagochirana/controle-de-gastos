@@ -1,5 +1,5 @@
 CREATE TABLE Gastos (
-  id_gastos BIGINT PRIMARY KEY,
+  id_gastos SERIAL PRIMARY KEY UNIQUE,
   descricao VARCHAR(240) NOT NULL,
   data DATE NOT NULL,
   valor NUMERIC(10, 2) NOT NULL,

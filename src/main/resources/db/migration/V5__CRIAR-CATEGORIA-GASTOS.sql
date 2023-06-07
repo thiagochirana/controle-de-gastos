@@ -1,4 +1,4 @@
 CREATE TABLE Categoria_Gasto (
-  id_categoria BIGINT PRIMARY KEY,
+  id_categoria SERIAL PRIMARY KEY UNIQUE,
   nome VARCHAR(100) NOT NULL
 );
