@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: white; -fx-border-color: #4385F4; -fx-border-radius: 10px;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controlegastos.front.controller.TelaModalCadastroMarcaController">
+<AnchorPane prefHeight="230.0" prefWidth="425.0" style="-fx-background-color: white; -fx-border-color: #4385F4; -fx-border-radius: 10px;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controlegastos.front.controller.TelaModalCadastroMarcaController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="14.0" prefHeight="42.0" prefWidth="184.0" text="Cadastrar Marca" textAlignment="CENTER">
          <font>
@@ -20,9 +19,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="108.0" layoutY="73.0" prefHeight="30.0" prefWidth="270.0">
+      <TextField fx:id="TxFdNomeMarca" layoutX="108.0" layoutY="73.0" prefHeight="30.0" prefWidth="270.0">
          <cursor>
-            <Cursor fx:constant="NONE" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TextField>
       <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="29.0" layoutY="120.0" prefHeight="30.0" prefWidth="67.0" text="Logotipo" textAlignment="RIGHT">
@@ -30,11 +29,16 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnFileChooserImgMarca" layoutX="108.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#abrirEscolharArquivo" prefHeight="30.0" prefWidth="270.0" style="-fx-background-color: #4385F4;" text="Escolher Imagem" textFill="WHITE">
+      <Button fx:id="btnFileChooserImgMarca" accessibleHelp="Escolha uma imagem" layoutX="108.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#abrirEscolharArquivo" prefHeight="30.0" prefWidth="270.0" style="-fx-background-color: white; -fx-border-color: #4385F4; -fx-border-radius: 4px;" text="Escolher Imagem" textFill="#4385f4">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
       <Button fx:id="btnCloseModalMarca" layoutX="352.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#fecharModal" prefHeight="42.0" prefWidth="52.0" style="-fx-background-color: white;" text="Fechar" textFill="#a8a8a8" />
+      <Button fx:id="btnObterDadosModalMarca" layoutX="44.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#obterDadosMarca" prefHeight="30.0" prefWidth="335.0" style="-fx-background-color: #4385F4; -fx-border-radius: 10px;" text="Salvar Marca" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
