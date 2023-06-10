@@ -134,7 +134,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                br.com.controlegastos.controlegastosapp/br.com.controlegastos.front.view.TelaLogin
+                                br.com.controlegastos.ControleGastosStartAplication/br.com.controlegastos.front.view.TelaLogin
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
