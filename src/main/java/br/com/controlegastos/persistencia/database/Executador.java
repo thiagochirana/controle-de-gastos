@@ -35,6 +35,21 @@ public class Executador {
         }
     }
 
+    public static ResultSet obterResultado(PreparedStatement query) throws SQLException{
+        try{
+            LOG.debug("Vou realizar a consulta ao banco");
+            ResultSet resultSet = query.executeQuery();
+            LOG.debug("Consulta realizada, vou devolver a resposta ao cliente");
+            return resultSet;
+        } catch (SQLException se){
+            LOG.error("Houve um erro ao executar o SQL "+query,se);
+            throw se;
+        } catch (Exception e) {
+            LOG.error("Houve um erro ao realizar a consulta no banco com a query "+query,e);
+            throw e;
+        }
+    }
+
     public static int insertUpdateNoBanco(PreparedStatement query) throws Exception{
         try {
             LOG.debug("Vou realizar a inserção/update ao banco.");
