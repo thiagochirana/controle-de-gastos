@@ -2,6 +2,7 @@ package br.com.controlegastos.persistencia.versionamento;
 
 import br.com.controlegastos.persistencia.propriedades.Propriedade;
 import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.FlywayException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,7 @@ public class FlywayImpl {
                     .dataSource(banco.toString(), usuario, senha)
                     .locations("classpath:db/migration")
                     .table(tabelaBanco)
+                    .baselineOnMigrate(true)
                     .load();
 
             try{
@@ -46,7 +48,6 @@ public class FlywayImpl {
                 }
             }catch (Exception pe){
                 LOG.warn("Houve um erro ao tentar executar a aplicação de migrações do Flyway.",pe);
-                LOG.error(pe.getCause().toString());
             }
 
             try{
@@ -60,10 +61,10 @@ public class FlywayImpl {
                 }
             }catch (Exception pe){
                 LOG.warn("Não encontrado o campo \"flyway.realizar.versionamento.no.restart\" no config.properties. Logo a reaplicação de patches será FALSE");
-                LOG.error(pe.getCause().toString());
+                LOG.error("Erro ao executar a verificacao de versionamento.",pe);
             }
 
-        }catch (Exception fe){
+        }catch (FlywayException fe){
             throw new Exception("Houve um erro ao carregar o Flyway.",fe);
         }
     }
