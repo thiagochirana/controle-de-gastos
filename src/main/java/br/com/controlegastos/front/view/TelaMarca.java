@@ -15,7 +15,7 @@ public class TelaMarca extends Application {
 
     @Override
     public void start(Stage stage) throws IOException  {
-        FXMLLoader fxmlLoader = new FXMLLoader(TelaLogin.class.getResource("TelaLogin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TelaMarca.class.getResource("TelaLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Controle de Gastos Veicular PESSOAL | Login");
         stage.setScene(scene);

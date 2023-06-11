@@ -17,7 +17,7 @@ public class TelaModalCadastroMarca extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.initStyle(StageStyle.UNDECORATED);
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("TelaModalCadastroMarca.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TelaModalCadastroMarca.class.getResource("TelaModalCadastroMarca.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();
