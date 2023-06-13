@@ -9,10 +9,7 @@ import br.com.controlegastos.util.Conversor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class MarcaService{
         try{
             String caminho = dados.caminhoArquivo();
             PreparedStatement stm = con.prepareStatement("INSERT INTO Marca (nome,logotipo_img) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
-            stm.setString(1,dados.nome());
+            stm.setString(1,dados.nome().toUpperCase().trim());
             if (caminho != null){
                 stm.setBytes(2, Conversor.converterCaminhoArquivoParaBytes(caminho));
             } else {
@@ -62,6 +59,58 @@ public class MarcaService{
                     "Ocorreu um erro ao cadastrar Marca "+dados.nome(),
                     false
             );
+        }
+    }
+
+    public Marca obterMarcaByNome(String nome) throws Exception {
+        String marcaNome = nome.trim().toUpperCase();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT m FROM Marca m WHERE m.nome = ?");
+            ps.setString(1, marcaNome);
+            ResultSet rs = ps.executeQuery();
+            int row = rs.getRow();
+            if (row==0){
+                LOG.warn("Marca de nome "+ marcaNome + " não existe, logo vou persistir esta nova Marca");
+                throw new SQLException("Marca de nome "+ marcaNome + " não existe, logo vou persistir esta nova Marca");
+            }
+            Marca marca = new Marca(
+                    rs.getLong("id_marca"),
+                    rs.getString("nome"),
+                    rs.getBytes("logotipo_img")
+            );
+            return marca;
+        }catch (SQLException pe){
+            DadosRespostaCadastroMarca data = cadastrarMarca(new DadosCadastroMarca(
+                    marcaNome,
+                    null
+            ));
+            Marca marca = obterMarcaById(data.idMarca());
+            return marca;
+        }
+        catch (Exception e){
+            LOG.error("Não foi possível obter marca pelo nome "+marcaNome,e);
+            throw e;
+        }
+    }
+
+    public Marca obterMarcaById(long id) throws Exception{
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT m FROM Marca m WHERE m.id_marca = ?");
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            int row = rs.getRow();
+            if (row != 1){
+                throw new Exception("Marca de ID " + id + " não foi encontrada");
+            }
+            Marca marca = new Marca(
+                    rs.getLong("id_marca"),
+                    rs.getString("nome"),
+                    rs.getBytes("logotipo_img")
+            );
+            return marca;
+        }catch (Exception e){
+            LOG.error("Marca de ID " + id + " não foi encontrada",e);
+            throw e;
         }
     }
 

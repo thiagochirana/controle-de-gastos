@@ -1,5 +1,7 @@
 package br.com.controlegastos.entidades;
 
+import java.util.Arrays;
+
 public class Marca {
 
     private long idMarca;
@@ -35,5 +37,14 @@ public class Marca {
 
     public void setLogotipoImg(byte[] logotipoImg) {
         this.logotipoImg = logotipoImg;
+    }
+
+    @Override
+    public String toString() {
+        return "Marca{" +
+                "idMarca=" + idMarca +
+                ", nome='" + nome + '\'' +
+                ", logotipoImg=" + Arrays.toString(logotipoImg) +
+                '}';
     }
 }
