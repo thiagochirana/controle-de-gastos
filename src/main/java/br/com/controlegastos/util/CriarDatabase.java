@@ -53,6 +53,7 @@ public class CriarDatabase {
                             LOG.error("Não foi possível criar banco de dados de nome "+banco+", será necessário ser criado manualmente antes da aplicação iniciar.");
                         }
                     }catch (Exception e){
+                        conec.close();
                         throw new Exception("Erro ao criar banco de dados",e);
                     }
                 }
@@ -69,9 +70,11 @@ public class CriarDatabase {
                     LOG.error("Não foi possível criar banco de dados de nome "+banco+", será necessário ser criado manualmente antes da aplicação iniciar.");
                     throw e;
                 }
+                con.close();
             }
 
         }catch (Exception e){
+            con.close();
             throw e;
         }
     }
