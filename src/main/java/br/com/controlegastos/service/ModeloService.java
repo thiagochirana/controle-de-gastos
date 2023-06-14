@@ -1,13 +1,11 @@
 package br.com.controlegastos.service;
 
-import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.Modelo;
 import br.com.controlegastos.entidades.records.DadosCadastroModelo;
-import br.com.controlegastos.entidades.records.DadosRespostaCadastroMarca;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroModelo;
 import br.com.controlegastos.persistencia.database.ConexaoDB;
 import br.com.controlegastos.persistencia.database.Executador;
-import br.com.controlegastos.util.Conversor;
+import br.com.controlegastos.util.Arquivos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +38,7 @@ public class ModeloService {
         try{
             PreparedStatement ps = con.prepareStatement("INSERT INTO Modelo (nome,imagem,marca_id) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,dados.nome());
-            ps.setBytes(2, Conversor.converterCaminhoArquivoParaBytes(dados.caminhoImagem()));
+            ps.setBytes(2, Arquivos.converterCaminhoArquivoParaBytes(dados.caminhoImagem()));
             ps.setLong(3,dados.marcaId());
             LOG.info("Query pronta para execução para persistir Modelo no banco, vou cadastrar.");
             ResultSet rs = ps.executeQuery();
