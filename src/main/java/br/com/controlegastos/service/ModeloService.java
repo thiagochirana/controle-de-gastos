@@ -36,17 +36,39 @@ public class ModeloService {
     public DadosRespostaCadastroModelo cadastrarModelo(DadosCadastroModelo dados) throws Exception {
         LOG.info("Irei buscar cadastrar modelo de nome "+dados.nome());
         try{
+            String caminhoImg = null;
             PreparedStatement ps = con.prepareStatement("INSERT INTO Modelo (nome,imagem,marca_id) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,dados.nome());
-            ps.setBytes(2, Arquivos.converterCaminhoArquivoParaBytes(dados.caminhoImagem()));
+
+            if (dados.caminhoImagem() != null) {
+                ps.setBytes(2, Arquivos.converterCaminhoArquivoParaBytes(dados.caminhoImagem()));
+            } else {
+                ps.setBytes(2, null);
+            }
+
             ps.setLong(3,dados.marcaId());
+
             LOG.info("Query pronta para execução para persistir Modelo no banco, vou cadastrar.");
-            ResultSet rs = ps.executeQuery();
-            DadosRespostaCadastroModelo data = new DadosRespostaCadastroModelo(
-                rs.getLong("id_modelo"),
-                "Modelo de nome "+ dados.nome()+ " foi cadastrado",
+
+            int idGerado = Executador.insertUpdateNoBanco(ps);
+
+            Modelo modelo = obterModeloById(Long.valueOf(idGerado));
+
+            DadosRespostaCadastroModelo data;
+            if (modelo == null){
+                data = new DadosRespostaCadastroModelo(
+                        -1,
+                        "Modelo de nome "+ dados.nome()+ " não foi cadastrado. Motivo: Não foi possível cadastrar o modelo.",
+                        false
+                );
+            }
+
+
+            data = new DadosRespostaCadastroModelo(
+                modelo.getIdModelo(),
+                "Modelo de nome "+ modelo.getNome()+ " foi cadastrado",
                     true
-            ) ;
+            );
             return data;
         }catch (Exception e){
             LOG.error("Erro ao persistir o Modelo.",e);
@@ -84,5 +106,50 @@ public class ModeloService {
             LOG.error("Erro ao buscar lista de modelos cadastrados.",e);
             throw e;
         }
+    }
+
+    public Modelo obterModeloById(Long id) throws Exception {
+        try{
+            LOG.info("Buscando modelo pelo id "+id+" ...");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Modelo WHERE id_modelo= ?");
+            ps.setLong(1, id);
+            ResultSet rs = Executador.obterResultado(ps);
+            if(rs.next()) {
+                Modelo mod = new Modelo(
+                        id,
+                        rs.getString("nome"),
+                        rs.getBytes("imagem"),
+                        rs.getLong("marca_id")
+                );
+                LOG.info("Modelo obtido, vou retornar ao cliente solicitante.");
+                return mod;
+            } else {
+                LOG.info("Modelo não encontrado. Vou retornar consulta Nula.");
+                return null;
+            }
+        }catch (Exception e) {
+            LOG.error("Erro ao buscar modelo pelo id "+id+".",e);
+            throw e;
+        }
+    }
+
+    public boolean verificarSeModeloCadastradoParaEstaMarca(String nomeModelo, long idMarca){
+        LOG.info("Verificando se modelo existe cadastrado com esta marca.");
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Modelo WHERE nome=? AND marca_id=?");
+            ps.setString(1, nomeModelo);
+            ps.setLong(2, idMarca);
+            ResultSet rs = Executador.obterResultado(ps);
+            if (rs.next()) {
+                LOG.info("Modelo existe cadastrado com esta marca.");
+                return true;
+            } else {
+                LOG.info("Modelo não existe cadastrado com esta marca.");
+                return false;
+            }
+        } catch (Exception e) {
+            LOG.error("Erro ao verificar se modelo existe cadastrado com esta marca.",e);
+        }
+        return false;
     }
 }

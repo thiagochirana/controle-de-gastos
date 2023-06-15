@@ -60,7 +60,7 @@ public class MarcaController {
                 LOG.warn("Caminho do arquivo logotipo da Marca é nulo.");
             }
 
-            return marca.cadastrarMarca(new DadosCadastroMarca(nome,caminho));
+            return marca.cadastrarMarca(new DadosCadastroMarca(nome.toUpperCase().trim(),caminho));
         }catch (Exception e){
             LOG.error("Erro em cadastrar marca "+ dados.nome(),e);
             throw e;

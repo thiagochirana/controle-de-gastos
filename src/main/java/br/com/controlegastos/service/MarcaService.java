@@ -76,7 +76,7 @@ public class MarcaService{
     public Marca obterMarcaByNome(String nome) throws Exception {
         String marcaNome = nome.trim().toUpperCase();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT m FROM Marca m WHERE m.nome = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Marca WHERE nome = ?");
             ps.setString(1, marcaNome);
             ResultSet rs = Executador.obterResultado(ps);
             if(rs.next()) {
@@ -100,15 +100,41 @@ public class MarcaService{
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Marca WHERE id_marca = ?");
             ps.setLong(1, id);
             ResultSet rs = Executador.obterResultado(ps);
-            Marca marca = new Marca(
-                    rs.getLong("id_marca"),
-                    rs.getString("nome"),
-                    rs.getBytes("logotipo_img")
-            );
+            Marca marca;
+            if(rs.next()) {
+                marca = new Marca(
+                        rs.getLong("id_marca"),
+                        rs.getString("nome"),
+                        rs.getBytes("logotipo_img")
+                );
+            } else {
+                LOG.info("Marca não encontrada com o id "+id+". ");
+                marca = null;
+            }
             return marca;
         }catch (Exception e){
             LOG.error("Marca de ID " + id + " não foi encontrada",e);
             throw e;
+        }
+    }
+
+    public boolean verificarSeMarcaExiste(String nomeMarca) throws Exception {
+        try{
+            LOG.info("Irei verificar se marca de nome "+nomeMarca+" existe localmente.");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Marca WHERE nome = ?");
+            ps.setString(1, nomeMarca);
+            ResultSet rs = Executador.obterResultado(ps);
+            boolean achou = rs.next();
+            if (achou){
+                LOG.info("Marca de nome "+nomeMarca+" existe localmente.");
+                return true;
+            } else {
+                LOG.info("Marca de nome "+nomeMarca+" não existe localmente.");
+                return false;
+            }
+        }catch (Exception e){
+            LOG.error("Não foi possível verificar marca nome "+nomeMarca);
+            return false;
         }
     }
 
