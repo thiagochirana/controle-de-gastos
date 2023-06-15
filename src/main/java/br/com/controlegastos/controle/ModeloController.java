@@ -43,12 +43,6 @@ public class ModeloController {
             String nomeModelo = dados.nome().toUpperCase().trim();
             Marca m;
 
-            //Verificar se Modelo já existe cadastrado com essa Marca. Se sim retornar o mesmo.
-            try{
-
-            }catch (Exception e){
-
-            }
 
             //Verificar se marca existe
             LOG.info("Vou verificar se marca "+nomeMarca+" existe");
@@ -69,6 +63,20 @@ public class ModeloController {
                         null
                 ));
                 LOG.info("Marca obtida: "+m.toString()+". Irá ser usada para persistir o modelo " +dados.nome());
+            }
+
+            //Verificar se Modelo já existe cadastrado com essa Marca. Se sim retornar o mesmo.
+            try{
+                boolean achou = model.verificarSeModeloCadastradoParaEstaMarca(nomeModelo, m.getIdMarca());
+                if (achou){
+                    LOG.info("Como existe modelo já cadastrado com esta marca, vou retornar a mesma ao cliente");
+                    Modelo mod = model.obterModelo(nomeModelo, m.getIdMarca());
+                    return new DadosRespostaCadastroModelo(mod.getIdModelo(),
+                            "Modelo "+mod.getNome()+" já cadastrado com sucesso.",
+                            false);
+                }
+            }catch (Exception e){
+                LOG.error("Modelo "+nomeModelo+" não existe persistido localmente");
             }
 
             //Verificar se tem algo no caminho da imagem e se sim verificar se é um arquivo válido
@@ -96,7 +104,7 @@ public class ModeloController {
 
             //preparar os dados para cadastro de Modelo com marca já devidamente inserido
             DadosCadastroModelo dadosModel = new DadosCadastroModelo(
-                    dados.nome(),
+                    nomeModelo,
                     dados.caminhoImagem(),
                     m.getIdMarca(),
                     m.getNome()

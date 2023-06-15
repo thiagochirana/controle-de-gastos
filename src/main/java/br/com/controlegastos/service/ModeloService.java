@@ -137,7 +137,7 @@ public class ModeloService {
         LOG.info("Verificando se modelo existe cadastrado com esta marca.");
         try{
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Modelo WHERE nome=? AND marca_id=?");
-            ps.setString(1, nomeModelo);
+            ps.setString(1, nomeModelo.toUpperCase().trim());
             ps.setLong(2, idMarca);
             ResultSet rs = Executador.obterResultado(ps);
             if (rs.next()) {
@@ -151,5 +151,32 @@ public class ModeloService {
             LOG.error("Erro ao verificar se modelo existe cadastrado com esta marca.",e);
         }
         return false;
+    }
+
+    public Modelo obterModelo(String nomeModelo, long idMarca) throws Exception{
+        LOG.info("Vou buscar obter modelo de nome "+nomeModelo);
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Modelo WHERE nome=? AND marca_id=?");
+            ps.setString(1, nomeModelo.toUpperCase().trim());
+            ps.setLong(2, idMarca);
+            ResultSet rs = Executador.obterResultado(ps);
+            Modelo modelo;
+            if (rs.next()) {
+                LOG.info("Modelo existe cadastrado com esta marca. Vou enviar ao cliente");
+                modelo = new Modelo(
+                        rs.getLong("id_modelo"),
+                        rs.getString("nome"),
+                        rs.getBytes("imagem"),
+                        rs.getLong("marca_id")
+                );
+            } else {
+                LOG.info("Modelo não existe cadastrado com esta marca. Retornarei nulo");
+                return null;
+            }
+            return modelo;
+        } catch ( Exception e){
+            LOG.error("Houve um erro ao tentar obter Modelo de nome "+nomeModelo,e);
+            throw e;
+        }
     }
 }
