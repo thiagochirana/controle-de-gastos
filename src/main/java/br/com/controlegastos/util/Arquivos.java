@@ -35,6 +35,11 @@ public class Arquivos {
     public static boolean verficaSeArquivoExiste(String caminhoArquivo) throws Exception {
         try{
             LOG.info("Irei verificar se existe arquivo no caminho "+caminhoArquivo);
+            if (caminhoArquivo == null){
+                LOG.info("Arquivo não existe, pois caminho é nulo.");
+                return false;
+            }
+
             File file = new File(caminhoArquivo);
             boolean existe;
             if (existe = file.exists()) {
@@ -44,8 +49,8 @@ public class Arquivos {
             }
             return existe;
         }catch (Exception e) {
-            LOG.error("Não foi possível obter informações do arquivo no suposto caminho "+caminhoArquivo,e);
-            throw new Exception("Não foi possível obter informações do arquivo no suposto caminho "+caminhoArquivo);
+            LOG.error("Não foi possível obter informações do arquivo e assim verificar se é um arquivo "+caminhoArquivo+". Vou retornar como falso, arquivo inexistente",e);
+            return false;
         }
     }
 
