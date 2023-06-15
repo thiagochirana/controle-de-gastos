@@ -24,7 +24,7 @@ public class FlywayImpl {
                 tabelaBanco = Propriedade.getValor("flyway.tabela.banco");
                 LOG.debug("Tabela que será de base para o flyway/versionamento: "+tabelaBanco);
             } catch (Exception e) {
-                LOG.warn("Não encontrado o campo \"flyway.realizar.versionamento.no.restart\" no config.properties."+
+                LOG.warn("Não encontrado o campo \"flyway.tabela.banco\" no config.properties."+
                         "Setarei a tabela para padrão \"schema_version\"");
                 tabelaBanco = "schema_version";
             }
@@ -34,7 +34,6 @@ public class FlywayImpl {
                     .dataSource(banco.toString(), usuario, senha)
                     .locations("classpath:db/migration")
                     .table(tabelaBanco)
-                    .baselineOnMigrate(true)
                     .load();
 
             try{
