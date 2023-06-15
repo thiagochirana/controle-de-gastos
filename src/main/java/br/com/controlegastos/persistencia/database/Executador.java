@@ -37,9 +37,9 @@ public class Executador {
 
     public static ResultSet obterResultado(PreparedStatement query) throws SQLException{
         try{
-            LOG.debug("Vou realizar a consulta ao banco");
+            LOG.info("Vou realizar a consulta ao banco. Query é "+query.toString());
             ResultSet resultSet = query.executeQuery();
-            LOG.debug("Consulta realizada, vou devolver a resposta ao cliente");
+            LOG.info("Consulta realizada, vou devolver a resposta ao cliente");
             return resultSet;
         } catch (SQLException se){
             LOG.error("Houve um erro ao executar o SQL "+query,se);
