@@ -28,11 +28,13 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -40,25 +42,31 @@ public class TelaHomeSwing extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/sair.png"))); // NOI18N
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(800, 10, 116, 50);
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/relatorio.png"))); // NOI18N
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(570, 30, 116, 50);
+        jLabel4.setBounds(590, 20, 116, 50);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/veiculos.png"))); // NOI18N
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(180, 30, 116, 50);
+        jLabel3.setBounds(200, 20, 116, 50);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/proprietario.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(310, 30, 116, 50);
+        jLabel2.setBounds(330, 20, 116, 50);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/PROPRIETARIO.gif"))); // NOI18N
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(440, 30, 116, 50);
+        jLabel5.setBounds(460, 20, 116, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/imageLogo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 910, 80);
+        getContentPane().add(jDesktopPane1);
+        jDesktopPane1.setBounds(0, 80, 910, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,10 +108,12 @@ public class TelaHomeSwing extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }
