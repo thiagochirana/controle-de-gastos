@@ -22,6 +22,15 @@ public class TelaControleGrafico extends javax.swing.JInternalFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
         bi.setNorthPane(null);
         setMaximum(true);
+        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Gráfico Barra");
+        setSize(910, 520);
+        setVisible(true);
+    }
+    
+    public void GraficoBarra() {
+     
     }
 
     /**
