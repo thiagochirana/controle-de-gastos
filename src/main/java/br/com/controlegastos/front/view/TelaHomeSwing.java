@@ -21,12 +21,12 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     //private JDesktopPane desktopPane;
     public TelaHomeSwing() {
         initComponents();
-        setLocationRelativeTo(null);
 
         // Define o tamanho da tela
         int largura = 910;
         int altura = 600;
         this.setSize(largura, altura);
+        setLocationRelativeTo(null);
 
         // Impede que a tela possa ser redimensionada pelo usuário
         this.setResizable(false);
