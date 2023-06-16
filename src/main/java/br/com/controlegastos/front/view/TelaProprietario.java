@@ -22,10 +22,18 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
     public TelaProprietario() throws PropertyVetoException {
         initComponents();
 
+        formataTextFieldCPF();
+        formataTextFieldTelefone();
+        estilizaFields();
+
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         setMaximum(true);
+
+    }
+
+    private void estilizaFields() {
 
         jLabelProprietario.setOpaque(false);
         jLabelProprietario.setBackground(new Color(0, 0, 0, 0));
@@ -33,14 +41,34 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jTextFieldCNH.setBackground(new Color(0, 0, 0, 0));
         jTextFieldCategoriaCNH.setOpaque(false);
         jTextFieldCategoriaCNH.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldTelefone.setOpaque(false);
-        jTextFieldTelefone.setBackground(new Color(0, 0, 0, 0));
+        jFormattedTextFieldTelefone.setOpaque(false);
+        jFormattedTextFieldTelefone.setBackground(new Color(0, 0, 0, 0));
         jTextFieldEmail.setOpaque(false);
         jTextFieldEmail.setBackground(new Color(0, 0, 0, 0));
         jTextFieldNome.setOpaque(false);
         jTextFieldNome.setBackground(new Color(0, 0, 0, 0));
         jFormattedTextFieldCPF.setOpaque(false);
         jFormattedTextFieldCPF.setBackground(new Color(0, 0, 0, 0));
+
+    }
+
+    private void formataTextFieldTelefone() {
+
+        try {
+            MaskFormatter telefoneFormatter = new MaskFormatter("(##)#####-####");
+            JFormattedTextField jFormattedTextFieldTelefone = new JFormattedTextField(telefoneFormatter);
+            // Configurar o tamanho máximo do campo
+            jFormattedTextFieldTelefone.setColumns(14);
+
+            // Restringir a entrada apenas para números
+            jFormattedTextFieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void formataTextFieldCPF() {
 
         try {
             MaskFormatter cpfFormatter = new MaskFormatter("###.###.###-##");
@@ -71,8 +99,8 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jTextFieldCategoriaCNH = new javax.swing.JTextField();
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldCNH = new javax.swing.JTextField();
-        jTextFieldTelefone = new javax.swing.JTextField();
         jLabelButtonEditar = new javax.swing.JLabel();
+        jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
         jLabelProprietario = new javax.swing.JLabel();
 
         setBorder(null);
@@ -85,7 +113,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         getContentPane().add(jFormattedTextFieldCPF);
-        jFormattedTextFieldCPF.setBounds(190, 150, 220, 16);
+        jFormattedTextFieldCPF.setBounds(190, 149, 220, 20);
 
         jLabelButtonSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,11 +143,6 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         getContentPane().add(jTextFieldCNH);
         jTextFieldCNH.setBounds(640, 100, 185, 25);
 
-        jTextFieldTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldTelefone.setBorder(null);
-        getContentPane().add(jTextFieldTelefone);
-        jTextFieldTelefone.setBounds(195, 195, 215, 25);
-
         jLabelButtonEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelButtonEditarMouseClicked(evt);
@@ -127,6 +150,15 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         });
         getContentPane().add(jLabelButtonEditar);
         jLabelButtonEditar.setBounds(570, 440, 150, 40);
+
+        jFormattedTextFieldTelefone.setBorder(null);
+        try {
+            jFormattedTextFieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jFormattedTextFieldTelefone);
+        jFormattedTextFieldTelefone.setBounds(190, 198, 220, 20);
 
         jLabelProprietario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaProprietario.png"))); // NOI18N
         getContentPane().add(jLabelProprietario);
@@ -150,6 +182,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
+    private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JLabel jLabelButtonEditar;
     private javax.swing.JLabel jLabelButtonSalvar;
     private javax.swing.JLabel jLabelProprietario;
@@ -157,7 +190,6 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldCategoriaCNH;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldTelefone;
     // End of variables declaration//GEN-END:variables
 
 }
