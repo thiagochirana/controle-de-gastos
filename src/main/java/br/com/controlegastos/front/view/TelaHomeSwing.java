@@ -21,18 +21,19 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     //private JDesktopPane desktopPane;
     public TelaHomeSwing() {
         initComponents();
-        
+
         // Define o tamanho da tela
         int largura = 910;
         int altura = 600;
         this.setSize(largura, altura);
+        setLocationRelativeTo(null);
 
         // Impede que a tela possa ser redimensionada pelo usuário
         this.setResizable(false);
 
         // Define o comportamento ao fechar a tela
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         setLocationRelativeTo(null);
     }
 
@@ -71,6 +72,11 @@ public class TelaHomeSwing extends javax.swing.JFrame {
         jLabelSair.setBounds(790, 20, 116, 50);
 
         jLabelRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/dashboard.png"))); // NOI18N
+        jLabelRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelRelatorioMouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabelRelatorio);
         jLabelRelatorio.setBounds(630, 20, 116, 50);
 
@@ -156,6 +162,20 @@ public class TelaHomeSwing extends javax.swing.JFrame {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabelControleMouseClicked
+
+    private void jLabelRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRelatorioMouseClicked
+        // TODO add your handling code here:
+        TelaControleGrafico telaGrafico;
+        try {
+            telaGrafico = new TelaControleGrafico();
+            telaGrafico.setVisible(true);
+            jDesktopPaneTelas.add(telaGrafico);
+
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabelRelatorioMouseClicked
 
     /**
      * @param args the command line arguments
