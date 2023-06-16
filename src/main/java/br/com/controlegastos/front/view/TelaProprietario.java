@@ -6,7 +6,9 @@ package br.com.controlegastos.front.view;
 
 import java.awt.Color;
 import java.beans.PropertyVetoException;
+import javax.swing.JFormattedTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -29,8 +31,6 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jLabelProprietario.setBackground(new Color(0, 0, 0, 0));
         jTextFieldCNH.setOpaque(false);
         jTextFieldCNH.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldCPF.setOpaque(false);
-        jTextFieldCPF.setBackground(new Color(0, 0, 0, 0));
         jTextFieldCategoriaCNH.setOpaque(false);
         jTextFieldCategoriaCNH.setBackground(new Color(0, 0, 0, 0));
         jTextFieldTelefone.setOpaque(false);
@@ -39,6 +39,21 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jTextFieldEmail.setBackground(new Color(0, 0, 0, 0));
         jTextFieldNome.setOpaque(false);
         jTextFieldNome.setBackground(new Color(0, 0, 0, 0));
+        jFormattedTextFieldCPF.setOpaque(false);
+        jFormattedTextFieldCPF.setBackground(new Color(0, 0, 0, 0));
+
+        try {
+            MaskFormatter cpfFormatter = new MaskFormatter("###.###.###-##");
+            JFormattedTextField jFormattedTextFieldCPF = new JFormattedTextField(cpfFormatter);
+            // Configurar o tamanho máximo do campo
+            jFormattedTextFieldCPF.setColumns(14);
+
+            // Restringir a entrada apenas para números
+            jFormattedTextFieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     /**
@@ -50,9 +65,9 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
         jLabelButtonSalvar = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
-        jTextFieldCPF = new javax.swing.JTextField();
         jTextFieldCategoriaCNH = new javax.swing.JTextField();
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldCNH = new javax.swing.JTextField();
@@ -62,6 +77,15 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
         setBorder(null);
         getContentPane().setLayout(null);
+
+        jFormattedTextFieldCPF.setBorder(null);
+        try {
+            jFormattedTextFieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jFormattedTextFieldCPF);
+        jFormattedTextFieldCPF.setBounds(190, 150, 220, 16);
 
         jLabelButtonSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -75,11 +99,6 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jTextFieldEmail.setBorder(null);
         getContentPane().add(jTextFieldEmail);
         jTextFieldEmail.setBounds(645, 197, 185, 25);
-
-        jTextFieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldCPF.setBorder(null);
-        getContentPane().add(jTextFieldCPF);
-        jTextFieldCPF.setBounds(195, 147, 215, 25);
 
         jTextFieldCategoriaCNH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldCategoriaCNH.setBorder(null);
@@ -118,25 +137,23 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
     private void jLabelButtonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonEditarMouseClicked
         // TODO add your handling code here:
-        
-        
-        
+
+
     }//GEN-LAST:event_jLabelButtonEditarMouseClicked
 
     private void jLabelButtonSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonSalvarMouseClicked
         // TODO add your handling code here:
-        
-        
-        
+
+
     }//GEN-LAST:event_jLabelButtonSalvarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JLabel jLabelButtonEditar;
     private javax.swing.JLabel jLabelButtonSalvar;
     private javax.swing.JLabel jLabelProprietario;
     private javax.swing.JTextField jTextFieldCNH;
-    private javax.swing.JTextField jTextFieldCPF;
     private javax.swing.JTextField jTextFieldCategoriaCNH;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldNome;
