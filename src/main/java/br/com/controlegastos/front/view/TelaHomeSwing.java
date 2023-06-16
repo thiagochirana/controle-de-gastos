@@ -4,6 +4,11 @@
  */
 package br.com.controlegastos.front.view;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Rodrigo
@@ -13,9 +18,22 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     /**
      * Creates new form TelaHomeSwing
      */
+    //private JDesktopPane desktopPane;
     public TelaHomeSwing() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+
+        // Define o tamanho da tela
+        int largura = 910;
+        int altura = 600;
+        this.setSize(largura, altura);
+
+        // Impede que a tela possa ser redimensionada pelo usuário
+        this.setResizable(false);
+
+        // Define o comportamento ao fechar a tela
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     /**
@@ -28,48 +46,116 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabelSair = new javax.swing.JLabel();
+        jLabelRelatorio = new javax.swing.JLabel();
+        jLabelVeiculo = new javax.swing.JLabel();
+        jLabelProprietario = new javax.swing.JLabel();
+        jLabelControle = new javax.swing.JLabel();
+        jLabelFundoTopBar = new javax.swing.JLabel();
+        jDesktopPaneTelas = new javax.swing.JDesktopPane();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(null);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/sair.png"))); // NOI18N
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(800, 10, 116, 50);
+        jLabelSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/sair.png"))); // NOI18N
+        jLabelSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelSairMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelSair);
+        jLabelSair.setBounds(790, 20, 116, 50);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/relatorio.png"))); // NOI18N
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(590, 20, 116, 50);
+        jLabelRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/relatorio.png"))); // NOI18N
+        getContentPane().add(jLabelRelatorio);
+        jLabelRelatorio.setBounds(630, 20, 116, 50);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/veiculos.png"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(200, 20, 116, 50);
+        jLabelVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/veiculo.png"))); // NOI18N
+        jLabelVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelVeiculoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelVeiculo);
+        jLabelVeiculo.setBounds(340, 20, 116, 50);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/proprietario.png"))); // NOI18N
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(330, 20, 116, 50);
+        jLabelProprietario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/proprietario.png"))); // NOI18N
+        jLabelProprietario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelProprietarioMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelProprietario);
+        jLabelProprietario.setBounds(190, 20, 116, 50);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/PROPRIETARIO.gif"))); // NOI18N
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(460, 20, 116, 50);
+        jLabelControle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/controle.gif"))); // NOI18N
+        jLabelControle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelControleMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelControle);
+        jLabelControle.setBounds(490, 20, 116, 50);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/imageLogo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 910, 80);
-        getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(0, 80, 910, 520);
+        jLabelFundoTopBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/imageLogo.png"))); // NOI18N
+        getContentPane().add(jLabelFundoTopBar);
+        jLabelFundoTopBar.setBounds(0, 0, 910, 80);
+        getContentPane().add(jDesktopPaneTelas);
+        jDesktopPaneTelas.setBounds(0, 80, 910, 670);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabelVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelVeiculoMouseClicked
+        // TODO add your handling code here:
+        TelaVeiculo telaVeiculo;
+        try {
+            telaVeiculo = new TelaVeiculo();
+            telaVeiculo.setVisible(true);
+            jDesktopPaneTelas.add(telaVeiculo);
+
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jLabelVeiculoMouseClicked
+
+    private void jLabelProprietarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelProprietarioMouseClicked
+        // TODO add your handling code here:
+        TelaProprietario telaProprietario;
+        try {
+            telaProprietario = new TelaProprietario();
+            telaProprietario.setVisible(true);
+            jDesktopPaneTelas.add(telaProprietario);
+
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabelProprietarioMouseClicked
+
+    private void jLabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSairMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelSairMouseClicked
+
+    private void jLabelControleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelControleMouseClicked
+        // TODO add your handling code here:
+        TelaControleGasto telaGastos;
+        try {
+            telaGastos = new TelaControleGasto();
+            telaGastos.setVisible(true);
+            jDesktopPaneTelas.add(telaGastos);
+
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabelControleMouseClicked
 
     /**
      * @param args the command line arguments
@@ -85,16 +171,24 @@ public class TelaHomeSwing extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaHomeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaHomeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaHomeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaHomeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHomeSwing.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -108,12 +202,12 @@ public class TelaHomeSwing extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JDesktopPane jDesktopPaneTelas;
+    private javax.swing.JLabel jLabelControle;
+    private javax.swing.JLabel jLabelFundoTopBar;
+    private javax.swing.JLabel jLabelProprietario;
+    private javax.swing.JLabel jLabelRelatorio;
+    private javax.swing.JLabel jLabelSair;
+    private javax.swing.JLabel jLabelVeiculo;
     // End of variables declaration//GEN-END:variables
 }
