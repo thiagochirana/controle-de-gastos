@@ -21,8 +21,7 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     //private JDesktopPane desktopPane;
     public TelaHomeSwing() {
         initComponents();
-        setLocationRelativeTo(null);
-
+        
         // Define o tamanho da tela
         int largura = 910;
         int altura = 600;
@@ -33,7 +32,8 @@ public class TelaHomeSwing extends javax.swing.JFrame {
 
         // Define o comportamento ao fechar a tela
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -70,7 +70,7 @@ public class TelaHomeSwing extends javax.swing.JFrame {
         getContentPane().add(jLabelSair);
         jLabelSair.setBounds(790, 20, 116, 50);
 
-        jLabelRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/relatorio.png"))); // NOI18N
+        jLabelRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/dashboard.png"))); // NOI18N
         getContentPane().add(jLabelRelatorio);
         jLabelRelatorio.setBounds(630, 20, 116, 50);
 
