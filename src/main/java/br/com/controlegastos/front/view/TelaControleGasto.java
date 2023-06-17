@@ -5,7 +5,9 @@
 
 package br.com.controlegastos.front.view;
 
+import java.awt.Color;
 import java.beans.PropertyVetoException;
+import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -21,6 +23,18 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
         bi.setNorthPane(null);
         setMaximum(true);
+        
+        jComboBoxBuscarVeiculo.setOpaque(false);
+        jComboBoxBuscarVeiculo.setBackground(new Color(0, 0, 0, 0));
+        jComboBoxTipoGasto.setOpaque(false);
+        jComboBoxTipoGasto.setBackground(new Color(0, 0, 0, 0));
+        jFormattedTextFieldData.setOpaque(false);
+        jFormattedTextFieldData.setBackground(new Color(0, 0, 0, 0));
+        jFormattedTextFieldValorGasto.setOpaque(false);
+        jFormattedTextFieldValorGasto.setBackground(new Color(0, 0, 0, 0));
+        jScroolPaneGasto.setOpaque(false);
+        jScroolPaneGasto.setBackground(new Color(0, 0, 0, 0));
+        
     }
 
     /** This method is called from within the constructor to
@@ -32,21 +46,135 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jScroolPaneGasto = new javax.swing.JScrollPane();
+        jTableGastos = new javax.swing.JTable();
+        jLabelExcluirGasto = new javax.swing.JLabel();
+        jLabelSalvarGasto = new javax.swing.JLabel();
+        jLabelAddTipoGasto = new javax.swing.JLabel();
+        jFormattedTextFieldData = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldValorGasto = new javax.swing.JFormattedTextField();
+        jComboBoxBuscarVeiculo = new javax.swing.JComboBox<>();
+        jComboBoxTipoGasto = new javax.swing.JComboBox<>();
+        jLabelFundoGastos = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaGastos.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -20, 910, 540);
+        jTableGastos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Veículo", "Valor", "Tipo de Gasto", "Data"
+            }
+        ));
+        jTableGastos.setGridColor(new java.awt.Color(153, 255, 0));
+        jScroolPaneGasto.setViewportView(jTableGastos);
+
+        getContentPane().add(jScroolPaneGasto);
+        jScroolPaneGasto.setBounds(22, 182, 860, 260);
+
+        jLabelExcluirGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelExcluirGastoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelExcluirGasto);
+        jLabelExcluirGasto.setBounds(570, 450, 150, 30);
+
+        jLabelSalvarGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelSalvarGastoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelSalvarGasto);
+        jLabelSalvarGasto.setBounds(730, 450, 150, 30);
+
+        jLabelAddTipoGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAddTipoGastoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelAddTipoGasto);
+        jLabelAddTipoGasto.setBounds(715, 60, 35, 35);
+
+        jFormattedTextFieldData.setBorder(null);
+        jFormattedTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        getContentPane().add(jFormattedTextFieldData);
+        jFormattedTextFieldData.setBounds(540, 110, 160, 20);
+
+        jFormattedTextFieldValorGasto.setBorder(null);
+        jFormattedTextFieldValorGasto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        getContentPane().add(jFormattedTextFieldValorGasto);
+        jFormattedTextFieldValorGasto.setBounds(190, 110, 190, 20);
+
+        jComboBoxBuscarVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBoxBuscarVeiculo);
+        jComboBoxBuscarVeiculo.setBounds(190, 70, 190, 22);
+
+        jComboBoxTipoGasto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBoxTipoGasto);
+        jComboBoxTipoGasto.setBounds(540, 70, 160, 22);
+
+        jLabelFundoGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaGastos.png"))); // NOI18N
+        getContentPane().add(jLabelFundoGastos);
+        jLabelFundoGastos.setBounds(0, -20, 910, 540);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabelAddTipoGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddTipoGastoMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelAddTipoGastoMouseClicked
+
+    private void jLabelExcluirGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExcluirGastoMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelExcluirGastoMouseClicked
+
+    private void jLabelSalvarGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSalvarGastoMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelSalvarGastoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> jComboBoxBuscarVeiculo;
+    private javax.swing.JComboBox<String> jComboBoxTipoGasto;
+    private javax.swing.JFormattedTextField jFormattedTextFieldData;
+    private javax.swing.JFormattedTextField jFormattedTextFieldValorGasto;
+    private javax.swing.JLabel jLabelAddTipoGasto;
+    private javax.swing.JLabel jLabelExcluirGasto;
+    private javax.swing.JLabel jLabelFundoGastos;
+    private javax.swing.JLabel jLabelSalvarGasto;
+    private javax.swing.JScrollPane jScroolPaneGasto;
+    private javax.swing.JTable jTableGastos;
     // End of variables declaration//GEN-END:variables
 
 }

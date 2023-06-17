@@ -31,16 +31,14 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jTextFieldCNH.setBackground(new Color(0, 0, 0, 0));
         jTextFieldCPF.setOpaque(false);
         jTextFieldCPF.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldDataNascimento.setOpaque(false);
-        jTextFieldDataNascimento.setBackground(new Color(0, 0, 0, 0));
+        jTextFieldCategoriaCNH.setOpaque(false);
+        jTextFieldCategoriaCNH.setBackground(new Color(0, 0, 0, 0));
         jTextFieldTelefone.setOpaque(false);
         jTextFieldTelefone.setBackground(new Color(0, 0, 0, 0));
         jTextFieldEmail.setOpaque(false);
         jTextFieldEmail.setBackground(new Color(0, 0, 0, 0));
         jTextFieldNome.setOpaque(false);
         jTextFieldNome.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldEndereco.setOpaque(false);
-        jTextFieldEndereco.setBackground(new Color(0, 0, 0, 0));
     }
 
     /**
@@ -52,52 +50,64 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldEndereco = new javax.swing.JTextField();
+        jLabelButtonSalvar = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jTextFieldCPF = new javax.swing.JTextField();
-        jTextFieldDataNascimento = new javax.swing.JTextField();
+        jTextFieldCategoriaCNH = new javax.swing.JTextField();
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldCNH = new javax.swing.JTextField();
         jTextFieldTelefone = new javax.swing.JTextField();
+        jLabelButtonEditar = new javax.swing.JLabel();
         jLabelProprietario = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(null);
 
-        jTextFieldEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldEndereco.setBorder(null);
-        getContentPane().add(jTextFieldEndereco);
-        jTextFieldEndereco.setBounds(250, 310, 610, 30);
+        jLabelButtonSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelButtonSalvarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelButtonSalvar);
+        jLabelButtonSalvar.setBounds(730, 440, 150, 40);
 
         jTextFieldEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldEmail.setBorder(null);
         getContentPane().add(jTextFieldEmail);
-        jTextFieldEmail.setBounds(680, 260, 180, 30);
+        jTextFieldEmail.setBounds(645, 197, 185, 25);
 
         jTextFieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldCPF.setBorder(null);
         getContentPane().add(jTextFieldCPF);
-        jTextFieldCPF.setBounds(250, 210, 220, 30);
+        jTextFieldCPF.setBounds(195, 147, 215, 25);
 
-        jTextFieldDataNascimento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldDataNascimento.setBorder(null);
-        getContentPane().add(jTextFieldDataNascimento);
-        jTextFieldDataNascimento.setBounds(250, 260, 220, 30);
+        jTextFieldCategoriaCNH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldCategoriaCNH.setBorder(null);
+        getContentPane().add(jTextFieldCategoriaCNH);
+        jTextFieldCategoriaCNH.setBounds(645, 150, 185, 25);
 
         jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldNome.setBorder(null);
         getContentPane().add(jTextFieldNome);
-        jTextFieldNome.setBounds(250, 160, 220, 30);
+        jTextFieldNome.setBounds(192, 100, 215, 25);
 
         jTextFieldCNH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldCNH.setBorder(null);
         getContentPane().add(jTextFieldCNH);
-        jTextFieldCNH.setBounds(680, 160, 180, 30);
+        jTextFieldCNH.setBounds(640, 100, 185, 25);
 
         jTextFieldTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldTelefone.setBorder(null);
         getContentPane().add(jTextFieldTelefone);
-        jTextFieldTelefone.setBounds(680, 210, 180, 30);
+        jTextFieldTelefone.setBounds(195, 195, 215, 25);
+
+        jLabelButtonEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelButtonEditarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelButtonEditar);
+        jLabelButtonEditar.setBounds(570, 440, 150, 40);
 
         jLabelProprietario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaProprietario.png"))); // NOI18N
         getContentPane().add(jLabelProprietario);
@@ -106,14 +116,29 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabelButtonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonEditarMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelButtonEditarMouseClicked
+
+    private void jLabelButtonSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonSalvarMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelButtonSalvarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelButtonEditar;
+    private javax.swing.JLabel jLabelButtonSalvar;
     private javax.swing.JLabel jLabelProprietario;
     private javax.swing.JTextField jTextFieldCNH;
     private javax.swing.JTextField jTextFieldCPF;
-    private javax.swing.JTextField jTextFieldDataNascimento;
+    private javax.swing.JTextField jTextFieldCategoriaCNH;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldEndereco;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldTelefone;
     // End of variables declaration//GEN-END:variables

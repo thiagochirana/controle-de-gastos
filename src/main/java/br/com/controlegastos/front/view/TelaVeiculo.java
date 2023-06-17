@@ -4,6 +4,7 @@
  */
 package br.com.controlegastos.front.view;
 
+import java.awt.Color;
 import java.beans.PropertyVetoException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -21,7 +22,21 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
         bi.setNorthPane(null);
-        setMaximum(true);        
+        setMaximum(true);    
+        
+        jComboBoxMarca.setOpaque(false);
+        jComboBoxMarca.setBackground(new Color(0, 0, 0, 0));
+        jTextFieldCombustivel.setOpaque(false);
+        jTextFieldCombustivel.setBackground(new Color(0, 0, 0, 0));
+        jComboBoxModelo.setOpaque(false);
+        jComboBoxModelo.setBackground(new Color(0, 0, 0, 0));
+        jTextFieldPlaca.setOpaque(false);
+        jTextFieldPlaca.setBackground(new Color(0, 0, 0, 0));
+        jTextFieldQuilometragem.setOpaque(false);
+        jTextFieldQuilometragem.setBackground(new Color(0, 0, 0, 0));
+        jComboBoxCategoria.setOpaque(false);
+        jComboBoxCategoria.setBackground(new Color(0, 0, 0, 0));
+        
     }
 
     /**
@@ -33,10 +48,119 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBoxModelo = new javax.swing.JComboBox<>();
+        jScrollPaneVeiculos = new javax.swing.JScrollPane();
+        jTableVeiculos = new javax.swing.JTable();
+        jComboBoxMarca = new javax.swing.JComboBox<>();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jLabelExcluirVeiculo = new javax.swing.JLabel();
+        jLabelCadastrarVeiculo = new javax.swing.JLabel();
+        jLabelAddCategoria = new javax.swing.JLabel();
+        jLabelAddMarca = new javax.swing.JLabel();
+        jLabelAddModelo = new javax.swing.JLabel();
+        jTextFieldQuilometragem = new javax.swing.JTextField();
+        jTextFieldCombustivel = new javax.swing.JTextField();
+        jTextFieldPlaca = new javax.swing.JTextField();
         jLabelVeiculo = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(null);
+
+        jComboBoxModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBoxModelo);
+        jComboBoxModelo.setBounds(540, 149, 160, 22);
+
+        jTableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Placa", "Modelo", "Marca", "Categoria", "Marca", "Modelo"
+            }
+        ));
+        jScrollPaneVeiculos.setViewportView(jTableVeiculos);
+
+        getContentPane().add(jScrollPaneVeiculos);
+        jScrollPaneVeiculos.setBounds(22, 182, 860, 260);
+
+        jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBoxMarca);
+        jComboBoxMarca.setBounds(540, 106, 160, 22);
+
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBoxCategoria);
+        jComboBoxCategoria.setBounds(540, 65, 160, 22);
+
+        jLabelExcluirVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelExcluirVeiculoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelExcluirVeiculo);
+        jLabelExcluirVeiculo.setBounds(570, 450, 150, 30);
+
+        jLabelCadastrarVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelCadastrarVeiculoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelCadastrarVeiculo);
+        jLabelCadastrarVeiculo.setBounds(730, 450, 150, 30);
+
+        jLabelAddCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAddCategoriaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelAddCategoria);
+        jLabelAddCategoria.setBounds(720, 60, 30, 30);
+
+        jLabelAddMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAddMarcaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelAddMarca);
+        jLabelAddMarca.setBounds(720, 100, 30, 30);
+
+        jLabelAddModelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAddModeloMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelAddModelo);
+        jLabelAddModelo.setBounds(720, 140, 30, 30);
+
+        jTextFieldQuilometragem.setBorder(null);
+        getContentPane().add(jTextFieldQuilometragem);
+        jTextFieldQuilometragem.setBounds(205, 105, 180, 25);
+
+        jTextFieldCombustivel.setBorder(null);
+        getContentPane().add(jTextFieldCombustivel);
+        jTextFieldCombustivel.setBounds(205, 145, 180, 25);
+
+        jTextFieldPlaca.setBorder(null);
+        getContentPane().add(jTextFieldPlaca);
+        jTextFieldPlaca.setBounds(205, 65, 180, 25);
 
         jLabelVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaVeiculo.png"))); // NOI18N
         getContentPane().add(jLabelVeiculo);
@@ -45,7 +169,55 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabelAddCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddCategoriaMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelAddCategoriaMouseClicked
+
+    private void jLabelAddMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddMarcaMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelAddMarcaMouseClicked
+
+    private void jLabelAddModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddModeloMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelAddModeloMouseClicked
+
+    private void jLabelCadastrarVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastrarVeiculoMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelCadastrarVeiculoMouseClicked
+
+    private void jLabelExcluirVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExcluirVeiculoMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelExcluirVeiculoMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JComboBox<String> jComboBoxMarca;
+    private javax.swing.JComboBox<String> jComboBoxModelo;
+    private javax.swing.JLabel jLabelAddCategoria;
+    private javax.swing.JLabel jLabelAddMarca;
+    private javax.swing.JLabel jLabelAddModelo;
+    private javax.swing.JLabel jLabelCadastrarVeiculo;
+    private javax.swing.JLabel jLabelExcluirVeiculo;
     private javax.swing.JLabel jLabelVeiculo;
+    private javax.swing.JScrollPane jScrollPaneVeiculos;
+    private javax.swing.JTable jTableVeiculos;
+    private javax.swing.JTextField jTextFieldCombustivel;
+    private javax.swing.JTextField jTextFieldPlaca;
+    private javax.swing.JTextField jTextFieldQuilometragem;
     // End of variables declaration//GEN-END:variables
 }
