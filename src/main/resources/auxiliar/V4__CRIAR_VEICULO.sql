@@ -1,7 +1,7 @@
 CREATE TABLE Veiculo (
   id_veiculo SERIAL PRIMARY KEY UNIQUE,
   tem_placa BOOLEAN NOT NULL DEFAULT TRUE,
-  placa VARCHAR(10) NOT NULL,
+  placa VARCHAR(10),
   tipo_combustivel VARCHAR(30),
   quilometragem FLOAT,
   categoria_veiculo VARCHAR(60),
