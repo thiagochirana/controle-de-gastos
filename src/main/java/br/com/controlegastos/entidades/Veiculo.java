@@ -3,33 +3,67 @@ package br.com.controlegastos.entidades;
 public class Veiculo {
 
     private long idVeiculo;
+    private boolean temPlaca;
     private String placa;
-    private byte[] foto;
     private String tipoCombustivel;
     private float quilometragem;
     private String categoriaVeiculo;
     private long modeloId;
     private long proprietarioId;
+    private boolean ativo;
 
-    public Veiculo(long idVeiculo, String placa, byte[] foto, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId) {
+
+    public Veiculo(long idVeiculo, boolean temPlaca, String placa, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
         this.idVeiculo = idVeiculo;
+        this.temPlaca = temPlaca;
         this.placa = placa;
-        this.foto = foto;
         this.tipoCombustivel = tipoCombustivel;
         this.quilometragem = quilometragem;
         this.categoriaVeiculo = categoriaVeiculo;
         this.modeloId = modeloId;
         this.proprietarioId = proprietarioId;
+        this.ativo = ativo;
     }
 
-    public Veiculo(String placa, byte[] foto, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId) {
+    public Veiculo(long idVeiculo, String placa, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
+        this.idVeiculo = idVeiculo;
         this.placa = placa;
-        this.foto = foto;
         this.tipoCombustivel = tipoCombustivel;
         this.quilometragem = quilometragem;
         this.categoriaVeiculo = categoriaVeiculo;
         this.modeloId = modeloId;
         this.proprietarioId = proprietarioId;
+        this.ativo = ativo;
+    }
+
+    public Veiculo(String placa, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
+        this.placa = placa;
+        this.tipoCombustivel = tipoCombustivel;
+        this.quilometragem = quilometragem;
+        this.categoriaVeiculo = categoriaVeiculo;
+        this.modeloId = modeloId;
+        this.proprietarioId = proprietarioId;
+        this.ativo = ativo;
+    }
+
+    public boolean isTemPlaca() {
+        return temPlaca;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setIdVeiculo(long idVeiculo) {
+        this.idVeiculo = idVeiculo;
+    }
+
+    public void setTemPlaca(boolean temPlaca) {
+        this.temPlaca = temPlaca;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public long getIdVeiculo() {
@@ -42,14 +76,6 @@ public class Veiculo {
 
     public void setPlaca(String placa) {
         this.placa = placa;
-    }
-
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
     }
 
     public String getTipoCombustivel() {
