@@ -61,7 +61,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jTextFieldQuilometragem = new javax.swing.JTextField();
         jTextFieldCombustivel = new javax.swing.JTextField();
         jTextFieldPlaca = new javax.swing.JTextField();
-        jLabelVeiculo = new javax.swing.JLabel();
+        jLabelFundoVeiculo = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(null);
@@ -162,9 +162,9 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().add(jTextFieldPlaca);
         jTextFieldPlaca.setBounds(205, 65, 180, 25);
 
-        jLabelVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaVeiculo.png"))); // NOI18N
-        getContentPane().add(jLabelVeiculo);
-        jLabelVeiculo.setBounds(0, -1, 910, 500);
+        jLabelFundoVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaVeiculo.png"))); // NOI18N
+        getContentPane().add(jLabelFundoVeiculo);
+        jLabelFundoVeiculo.setBounds(0, -1, 910, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -213,7 +213,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelAddModelo;
     private javax.swing.JLabel jLabelCadastrarVeiculo;
     private javax.swing.JLabel jLabelExcluirVeiculo;
-    private javax.swing.JLabel jLabelVeiculo;
+    private javax.swing.JLabel jLabelFundoVeiculo;
     private javax.swing.JScrollPane jScrollPaneVeiculos;
     private javax.swing.JTable jTableVeiculos;
     private javax.swing.JTextField jTextFieldCombustivel;
