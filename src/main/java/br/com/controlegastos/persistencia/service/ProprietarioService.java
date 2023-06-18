@@ -2,15 +2,28 @@ package br.com.controlegastos.persistencia.service;
 
 import br.com.controlegastos.entidades.records.DadosCadastroProprietario;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroProprietario;
+import br.com.controlegastos.persistencia.database.ConexaoDB;
 import br.com.controlegastos.persistencia.database.Executador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class ProprietarioService {
 
     private static Logger LOG = LoggerFactory.getLogger(ProprietarioService.class);
+
+    private static Connection con;
+
+    static {
+        try {
+            con = ConexaoDB.conectar();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public ProprietarioService() {
     }
@@ -18,8 +31,9 @@ public class ProprietarioService {
     public boolean verificaSeExisteProprietario() throws Exception{
         LOG.info("Irei verificar se existe algum proprietario no banco local.");
         try{
-            String query = "SELECT p FROM Proprietario p";
-            ResultSet rs = Executador.obterResultado(query);
+            String query = "SELECT * FROM Proprietario";
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = Executador.obterResultado(ps);
             int row = rs.getRow();
             return (row > 0);
         }catch (Exception e){
