@@ -213,7 +213,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         getContentPane().add(jComboBoxTipoGasto);
         jComboBoxTipoGasto.setBounds(540, 70, 160, 22);
 
-        jLabelFundoGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaGasto.gif"))); // NOI18N
+        jLabelFundoGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaGastos.png"))); // NOI18N
         getContentPane().add(jLabelFundoGastos);
         jLabelFundoGastos.setBounds(0, -20, 910, 540);
 
