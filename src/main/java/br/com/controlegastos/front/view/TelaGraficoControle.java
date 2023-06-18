@@ -4,12 +4,7 @@
  */
 package br.com.controlegastos.front.view;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.beans.PropertyVetoException;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -27,25 +22,34 @@ public class TelaGraficoControle extends javax.swing.JFrame {
      */
     public TelaGraficoControle() {
         initComponents();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Dashboard Controle de Gastos");
-        setSize(910,520);
-        setLocationRelativeTo(null);
-        
-        criarGrafico();
-        
-        setVisible(true);
-    }
-    
-    public void criarGrafico() {
-        DefaultCategoryDataset barra = new DefaultCategoryDataset();
-        barra.setValue(1400, "Hugo", "");
-        
-        JFreeChart grafico = ChartFactory.createBarChart3D("A", "B", "C", barra, PlotOrientation.VERTICAL, true, true, false);
-        ChartPanel painel = new ChartPanel(grafico);
-        add(painel);
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(10, "Série 1", "Item 1");
+        dataset.addValue(15, "Série 1", "Item 2");
+        dataset.addValue(20, "Série 1", "Item 3");
+        dataset.addValue(5, "Série 1", "Item 4");
+
+        // Criar o gráfico de barras
+        JFreeChart chart = ChartFactory.createBarChart3D("Gráfico de Barras", "Categoria", "Valor", dataset, PlotOrientation.VERTICAL, true, true, false);
+
+        // Criar o painel do gráfico
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Criar o JFrame e adicionar o painel do gráfico
+        JFrame frame = new JFrame("Gráfico de Barras");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        frame.getContentPane().add(chartPanel);
+        frame.setVisible(true);
     }
 
+//    public void criarGrafico() {
+//        DefaultCategoryDataset barra = new DefaultCategoryDataset();
+//        barra.setValue(1400, "Hugo", "");
+//        
+//        JFreeChart grafico = ChartFactory.createBarChart3D("A", "B", "C", barra, PlotOrientation.VERTICAL, true, true, false);
+//        ChartPanel painel = new ChartPanel(grafico);
+//        add(painel);
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
