@@ -11,15 +11,20 @@ import br.com.controlegastos.controle.VeiculoController;
 import br.com.controlegastos.entidades.CategoriaGasto;
 import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.Modelo;
+import br.com.controlegastos.entidades.Veiculo;
+import br.com.controlegastos.entidades.records.DadosCadastroVeiculo;
+import br.com.controlegastos.entidades.records.DadosRespostaVeiculo;
 import br.com.controlegastos.front.modal.ModalCadastroCategoria;
 import br.com.controlegastos.front.modal.ModalCadastroMarca;
 import br.com.controlegastos.front.modal.ModalCadastroModelo;
 import br.com.controlegastos.front.modal.ModalMensagem;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -69,6 +74,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             setComboBoxMarca();
             setComboBoxModelo();
             setComboBoxCategoria();
+            setComboBoxVeiculo();
+            setTableVeiculos();
         } catch (Exception e) {
             msg.exibirMensagem(e.getMessage(), false);
         }
@@ -77,7 +84,14 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     public void setComboBoxMarca() throws Exception {
         jComboBoxMarca.removeAllItems();
         for (Marca m : marca.listarMarcas()) {
-            jComboBoxMarca.addItem(m.getNome());
+            jComboBoxMarca.addItem(m.getIdMarca()+" - "+m.getNome());
+        }
+    }
+    
+    public void setComboBoxVeiculo() throws Exception{
+        jComboBoxCombustivel.removeAllItems();
+        for (String v : veiculo.listarTiposCombustivel()){
+            jComboBoxCombustivel.addItem(v);
         }
     }
 
@@ -95,7 +109,29 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     public void setComboBoxModelo() throws Exception {
         jComboBoxModelo.removeAllItems();
         for (Modelo model : modelo.listaModelos()) {
-            jComboBoxModelo.addItem(model.getNome());
+            jComboBoxModelo.addItem(model.getIdModelo()+" - "+model.getNome());
+        }
+    }
+    
+    public void setTableVeiculos() throws Exception{
+        List<Veiculo> veiculos = veiculo.listarVeiculos(true);
+        
+        DefaultTableModel modelTable = new DefaultTableModel();
+        modelTable.setNumRows(0);
+        
+        
+        for (Veiculo v : veiculos){
+            String[] cell = new String[7];
+            
+            cell[0] = v.getIdVeiculo()+"";
+            cell[1] = v.getPlaca();
+            cell[2] = v.getModeloId()+"";
+            cell[3] = "MARCA AQUI";
+            cell[4] = v.getCategoriaVeiculo();
+            cell[5] = v.getQuilometragem()+"";
+            cell[6] = v.getTipoCombustivel();
+            
+            modelTable.addRow(cell);
         }
     }
 
@@ -128,7 +164,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(null);
 
         getContentPane().add(jComboBoxCombustivel);
-        jComboBoxCombustivel.setBounds(206, 146, 180, 22);
+        jComboBoxCombustivel.setBounds(206, 146, 180, 26);
 
         jLabelAddCombustivel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -139,35 +175,43 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabelAddCombustivel.setBounds(400, 140, 0, 40);
 
         getContentPane().add(jComboBoxModelo);
-        jComboBoxModelo.setBounds(540, 149, 160, 22);
+        jComboBoxModelo.setBounds(540, 149, 160, 26);
 
         jTableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Placa", "Modelo", "Marca", "Categoria", "Marca", "Modelo"
+                "#", "Placa", "Modelo", "Marca", "Categoria", "Quilometragem", "Combustível"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPaneVeiculos.setViewportView(jTableVeiculos);
 
         getContentPane().add(jScrollPaneVeiculos);
@@ -179,7 +223,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jComboBoxMarca);
-        jComboBoxMarca.setBounds(540, 106, 160, 22);
+        jComboBoxMarca.setBounds(540, 106, 160, 26);
 
         jComboBoxCategoria.setToolTipText("");
         jComboBoxCategoria.setName(""); // NOI18N
@@ -189,7 +233,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jComboBoxCategoria);
-        jComboBoxCategoria.setBounds(540, 65, 160, 22);
+        jComboBoxCategoria.setBounds(540, 65, 160, 26);
 
         jLabelExcluirVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -285,9 +329,37 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabelAddModeloMouseClicked
 
     private void jLabelCadastrarVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastrarVeiculoMouseClicked
-        // TODO add your handling code here:
-
-
+        
+        String[] categoria = jComboBoxCategoria.getSelectedItem().toString().split(" - ");
+        String[] modelo = jComboBoxModelo.getSelectedItem().toString().split(" - ");
+        
+        boolean temPlaca = !jTextFieldPlaca.getText().isEmpty();
+        String placa = jTextFieldPlaca.getText();
+        String tipoCombustivel = jComboBoxCombustivel.getSelectedItem().toString();
+        float quilometragem = Float.parseFloat(jTextFieldQuilometragem.getText());
+        String idCategoria = categoria[0];
+        long idModelo = Long.parseLong(modelo[0]);
+        
+        DadosCadastroVeiculo dados = new DadosCadastroVeiculo(
+                temPlaca,
+                placa,
+                null,
+                tipoCombustivel,
+                quilometragem,
+                idCategoria,
+                idModelo,
+                1
+        );
+        
+        DadosRespostaVeiculo resp;
+        try {
+            resp = veiculo.cadastrarVeiculo(dados);
+            msg.exibirMensagem(resp.mensagem(), resp.acaoFoiRealizada());
+        } catch (Exception ex) {
+            msg.exibirMensagem(ex.getMessage(), false);
+        }
+        
+        setComboBoxs();
     }//GEN-LAST:event_jLabelCadastrarVeiculoMouseClicked
 
     private void jLabelExcluirVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExcluirVeiculoMouseClicked
@@ -299,7 +371,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private void jComboBoxMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxMarcaMouseClicked
         // TODO add your handling code here:
         setComboBoxs();
-        
     }//GEN-LAST:event_jComboBoxMarcaMouseClicked
 
     private void jLabelAddCombustivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddCombustivelMouseClicked

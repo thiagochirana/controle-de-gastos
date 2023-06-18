@@ -132,9 +132,12 @@ public class VeiculoService {
     public List<Veiculo> listarVeiculos(boolean atividade) throws Exception{
         try{
             List<Veiculo> lista = new ArrayList<>();
-            LOG.info("Irei listar todos os veículos"+ (atividade ? "ativos": "desativados") +" cadastrados");
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo WHERE ativo =? ", Statement.RETURN_GENERATED_KEYS);
-            return getVeiculos(lista, ps);
+            LOG.info("Irei listar todos os veículos "+ (atividade ? "ativos": "desativados") +" cadastrados");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo WHERE ativo = ? ", Statement.RETURN_GENERATED_KEYS);
+            ps.setBoolean(1,atividade);
+            List<Veiculo> listagem = getVeiculos(lista, ps);
+            LOG.info("Veículos "+ (atividade? "ativos": "desativados") +" cadastrados: "+listagem.size());
+            return listagem;
         } catch ( Exception e){
             LOG.error("Houve um erro ao listar veículos "+ (atividade ? "ativos": "desativados"),e);
             throw e;
@@ -207,15 +210,14 @@ public class VeiculoService {
         ResultSet rs = Executador.obterResultado(ps);
         while (rs.next()) {
             lista.add(new Veiculo(
-                    rs.getLong("idVeiculo"),
-                    rs.getBoolean("temPlaca"),
-                    rs.getString("descricao_veiculo"),
+                    rs.getLong("id_veiculo"),
+                    rs.getBoolean("tem_placa"),
                     rs.getString("placa"),
-                    rs.getString("tipoCombustivel"),
+                    rs.getString("tipo_combustivel"),
                     rs.getFloat("quilometragem"),
-                    rs.getString("categoriaVeiculo"),
-                    rs.getLong("modeloId"),
-                    rs.getLong("proprietarioId"),
+                    rs.getString("categoria_veiculo"),
+                    rs.getLong("modelo_id"),
+                    rs.getLong("proprietario_id"),
                     rs.getBoolean("ativo")
             ));
         }
