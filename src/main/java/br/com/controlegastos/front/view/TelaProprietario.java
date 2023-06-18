@@ -9,6 +9,7 @@ import java.beans.PropertyVetoException;
 import javax.swing.JFormattedTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -37,10 +38,10 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
         jLabelProprietario.setOpaque(false);
         jLabelProprietario.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldCNH.setOpaque(false);
-        jTextFieldCNH.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldCategoriaCNH.setOpaque(false);
-        jTextFieldCategoriaCNH.setBackground(new Color(0, 0, 0, 0));
+        jFormattedTextFieldCNH.setOpaque(false);
+        jFormattedTextFieldCNH.setBackground(new Color(0, 0, 0, 0));
+        jComboBoxCategoriaCNH.setOpaque(false);
+        jComboBoxCategoriaCNH.setBackground(new Color(0, 0, 0, 0));
         jFormattedTextFieldTelefone.setOpaque(false);
         jFormattedTextFieldTelefone.setBackground(new Color(0, 0, 0, 0));
         jTextFieldEmail.setOpaque(false);
@@ -84,6 +85,20 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
     }
 
+    private void formataTextFieldCNH() {
+
+        try {
+
+            MaskFormatter maskFormatter = new MaskFormatter("##########");
+            maskFormatter.setValidCharacters("0123456789");
+
+            JFormattedTextField textField = new JFormattedTextField(new NumberFormatter());
+            textField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(maskFormatter));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,12 +109,12 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldCNH = new javax.swing.JFormattedTextField();
         jLabelButtonSalvar = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
-        jTextFieldCategoriaCNH = new javax.swing.JTextField();
         jTextFieldNome = new javax.swing.JTextField();
-        jTextFieldCNH = new javax.swing.JTextField();
         jLabelButtonEditar = new javax.swing.JLabel();
+        jComboBoxCategoriaCNH = new javax.swing.JComboBox<>();
         jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
         jLabelProprietario = new javax.swing.JLabel();
 
@@ -115,6 +130,15 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         getContentPane().add(jFormattedTextFieldCPF);
         jFormattedTextFieldCPF.setBounds(190, 149, 220, 20);
 
+        jFormattedTextFieldCNH.setBorder(null);
+        try {
+            jFormattedTextFieldCNH.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jFormattedTextFieldCNH);
+        jFormattedTextFieldCNH.setBounds(640, 103, 190, 16);
+
         jLabelButtonSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelButtonSalvarMouseClicked(evt);
@@ -128,20 +152,10 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         getContentPane().add(jTextFieldEmail);
         jTextFieldEmail.setBounds(645, 197, 185, 25);
 
-        jTextFieldCategoriaCNH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldCategoriaCNH.setBorder(null);
-        getContentPane().add(jTextFieldCategoriaCNH);
-        jTextFieldCategoriaCNH.setBounds(645, 150, 185, 25);
-
         jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldNome.setBorder(null);
         getContentPane().add(jTextFieldNome);
         jTextFieldNome.setBounds(192, 100, 215, 25);
-
-        jTextFieldCNH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldCNH.setBorder(null);
-        getContentPane().add(jTextFieldCNH);
-        jTextFieldCNH.setBounds(640, 100, 185, 25);
 
         jLabelButtonEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,6 +164,10 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         });
         getContentPane().add(jLabelButtonEditar);
         jLabelButtonEditar.setBounds(570, 440, 150, 40);
+
+        jComboBoxCategoriaCNH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "C", "D", "E" }));
+        getContentPane().add(jComboBoxCategoriaCNH);
+        jComboBoxCategoriaCNH.setBounds(640, 150, 190, 22);
 
         jFormattedTextFieldTelefone.setBorder(null);
         try {
@@ -181,13 +199,13 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBoxCategoriaCNH;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCNH;
     private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JLabel jLabelButtonEditar;
     private javax.swing.JLabel jLabelButtonSalvar;
     private javax.swing.JLabel jLabelProprietario;
-    private javax.swing.JTextField jTextFieldCNH;
-    private javax.swing.JTextField jTextFieldCategoriaCNH;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
