@@ -4,16 +4,21 @@
  */
 package br.com.controlegastos.front.view;
 
+import br.com.controlegastos.controle.CategoriaGastoController;
 import br.com.controlegastos.controle.MarcaController;
 import br.com.controlegastos.controle.ModeloController;
 import br.com.controlegastos.controle.VeiculoController;
+import br.com.controlegastos.entidades.CategoriaGasto;
 import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.Modelo;
+import br.com.controlegastos.front.modal.ModalCadastroCategoria;
 import br.com.controlegastos.front.modal.ModalCadastroMarca;
 import br.com.controlegastos.front.modal.ModalCadastroModelo;
 import br.com.controlegastos.front.modal.ModalMensagem;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -25,6 +30,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     MarcaController marca = new MarcaController();
     ModeloController modelo = new ModeloController();
     VeiculoController veiculo = new VeiculoController();
+    CategoriaGastoController catGasto = new CategoriaGastoController();
     ModalMensagem msg = new ModalMensagem();
 
     /**
@@ -70,6 +76,17 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         }
     }
     
+    public void setComboBoxCategoria() throws Exception{
+        try{
+            jComboBoxCategoria.removeAllItems();
+            for (CategoriaGasto cat : catGasto.listarCategoria()){
+                jComboBoxCategoria.addItem(cat.getIdCategoria()+" - "+cat.getNome());
+            }
+        } catch(Exception e){
+            msg.exibirMensagem(e.getMessage(), false);
+        }
+    }
+    
     public void setComboBoxModelo() throws Exception{
         jComboBoxModelo.removeAllItems();
         for (Modelo model : modelo.listaModelos()){
@@ -77,9 +94,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         }
     }
     
-    public void setComboBoxCategoria() throws Exception{
-        jComboBoxCategoria.removeAllItems();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,7 +225,13 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private void jLabelAddCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddCategoriaMouseClicked
         // TODO add your handling code here:
         
-        
+        try{
+            ModalCadastroCategoria cat = new ModalCadastroCategoria();
+        } catch (Exception ex){
+            msg.exibirMensagem(ex.getMessage(), false);
+        } finally{
+            setComboBoxs();
+        }
         
     }//GEN-LAST:event_jLabelAddCategoriaMouseClicked
 
@@ -219,9 +239,10 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             ModalCadastroMarca modal = new ModalCadastroMarca();
-            setComboBoxMarca();
         } catch (Exception ex) {
             msg.exibirMensagem(ex.getMessage(), false);
+        } finally {
+            setComboBoxs();
         }
     }//GEN-LAST:event_jLabelAddMarcaMouseClicked
 
@@ -230,9 +251,10 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         
         try{
             ModalCadastroModelo modalModelo = new ModalCadastroModelo();
-            setComboBoxModelo();
         } catch (Exception e){
             msg.exibirMensagem(e.getMessage(), false);
+        } finally {
+            setComboBoxs();
         }
                
         
