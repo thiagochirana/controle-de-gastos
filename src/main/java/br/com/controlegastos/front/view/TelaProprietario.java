@@ -32,14 +32,16 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
         formataTextFieldCPF();
         formataTextFieldTelefone();
-        estilizaFields();
+        formataTextFieldCNH();
+        
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         setMaximum(true);
         
-        validaProprietarioExiste();
+//        validaProprietarioExiste();
+        estilizaFields();
     }
 
     private void estilizaFields() {
@@ -155,6 +157,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldCPF.setEnabled(false);
         getContentPane().add(jFormattedTextFieldCPF);
         jFormattedTextFieldCPF.setBounds(190, 149, 220, 20);
 
@@ -164,8 +167,9 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldCNH.setEnabled(false);
         getContentPane().add(jFormattedTextFieldCNH);
-        jFormattedTextFieldCNH.setBounds(640, 103, 190, 16);
+        jFormattedTextFieldCNH.setBounds(640, 103, 190, 20);
 
         jLabelButtonSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -177,14 +181,18 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
         jTextFieldEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldEmail.setBorder(null);
+        jTextFieldEmail.setEnabled(false);
         getContentPane().add(jTextFieldEmail);
         jTextFieldEmail.setBounds(645, 197, 185, 25);
 
         jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldNome.setToolTipText("");
         jTextFieldNome.setBorder(null);
+        jTextFieldNome.setEnabled(false);
         getContentPane().add(jTextFieldNome);
         jTextFieldNome.setBounds(192, 100, 215, 25);
 
+        jLabelButtonEditar.setToolTipText("");
         jLabelButtonEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelButtonEditarMouseClicked(evt);
@@ -194,6 +202,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jLabelButtonEditar.setBounds(570, 440, 150, 40);
 
         jComboBoxCategoriaCNH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "C", "D", "E" }));
+        jComboBoxCategoriaCNH.setEnabled(false);
         getContentPane().add(jComboBoxCategoriaCNH);
         jComboBoxCategoriaCNH.setBounds(640, 150, 190, 22);
 
@@ -203,6 +212,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldTelefone.setEnabled(false);
         getContentPane().add(jFormattedTextFieldTelefone);
         jFormattedTextFieldTelefone.setBounds(190, 198, 220, 20);
 
@@ -215,8 +225,16 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
 
     private void jLabelButtonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonEditarMouseClicked
         // TODO add your handling code here:
-
-
+        jLabelProprietario.setEnabled(true);
+        jFormattedTextFieldCNH.setEnabled(true);
+        jComboBoxCategoriaCNH.setEnabled(true);
+        jFormattedTextFieldTelefone.setEnabled(true);
+        jTextFieldEmail.setEnabled(true);
+        jTextFieldNome.setEnabled(true);
+        jFormattedTextFieldCPF.setEnabled(true);
+        
+ 
+        
     }//GEN-LAST:event_jLabelButtonEditarMouseClicked
 
     private void jLabelButtonSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonSalvarMouseClicked
@@ -240,6 +258,15 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch(Exception e){
             msg.exibirMensagem(e.getMessage(), false);
         }
+        
+        jLabelProprietario.setEnabled(false);
+        jFormattedTextFieldCNH.setEnabled(false);
+        jComboBoxCategoriaCNH.setEnabled(false);
+        jFormattedTextFieldTelefone.setEnabled(false);
+        jTextFieldEmail.setEnabled(false);
+        jTextFieldNome.setEnabled(false);
+        jFormattedTextFieldCPF.setEnabled(false);
+
     }//GEN-LAST:event_jLabelButtonSalvarMouseClicked
 
 

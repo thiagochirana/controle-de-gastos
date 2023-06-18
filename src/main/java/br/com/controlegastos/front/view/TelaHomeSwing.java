@@ -54,6 +54,9 @@ public class TelaHomeSwing extends javax.swing.JFrame {
         jLabelControle = new javax.swing.JLabel();
         jLabelFundoTopBar = new javax.swing.JLabel();
         jDesktopPaneTelas = new javax.swing.JDesktopPane();
+        jLabelPessoal = new javax.swing.JLabel();
+        jLabelBemVindo = new javax.swing.JLabel();
+        jLabelSeuControle = new javax.swing.JLabel();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -110,6 +113,30 @@ public class TelaHomeSwing extends javax.swing.JFrame {
         jLabelFundoTopBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/imageLogo.png"))); // NOI18N
         getContentPane().add(jLabelFundoTopBar);
         jLabelFundoTopBar.setBounds(0, 0, 910, 80);
+
+        jLabelPessoal.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelPessoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelPessoal.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPessoal.setText("software de uso pessoal, para uma pessoa só.");
+        jDesktopPaneTelas.add(jLabelPessoal);
+        jLabelPessoal.setBounds(310, 360, 310, 20);
+
+        jLabelBemVindo.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelBemVindo.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
+        jLabelBemVindo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelBemVindo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBemVindo.setText("Bem-vindo ao Uni Rota Digital,");
+        jDesktopPaneTelas.add(jLabelBemVindo);
+        jLabelBemVindo.setBounds(170, 120, 570, 60);
+
+        jLabelSeuControle.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelSeuControle.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
+        jLabelSeuControle.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSeuControle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSeuControle.setText("seu controle de gastos pessoal!");
+        jDesktopPaneTelas.add(jLabelSeuControle);
+        jLabelSeuControle.setBounds(170, 160, 570, 60);
+
         getContentPane().add(jDesktopPaneTelas);
         jDesktopPaneTelas.setBounds(0, 80, 910, 670);
 
@@ -223,11 +250,14 @@ public class TelaHomeSwing extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDesktopPane jDesktopPaneTelas;
+    private javax.swing.JLabel jLabelBemVindo;
     private javax.swing.JLabel jLabelControle;
     private javax.swing.JLabel jLabelFundoTopBar;
+    private javax.swing.JLabel jLabelPessoal;
     private javax.swing.JLabel jLabelProprietario;
     private javax.swing.JLabel jLabelRelatorio;
     private javax.swing.JLabel jLabelSair;
+    private javax.swing.JLabel jLabelSeuControle;
     private javax.swing.JLabel jLabelVeiculo;
     // End of variables declaration//GEN-END:variables
 }
