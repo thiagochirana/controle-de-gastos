@@ -5,18 +5,12 @@
 package br.com.controlegastos.front.view;
 
 import java.awt.Color;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -29,18 +23,15 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
      */
     public TelaControleGasto() throws PropertyVetoException {
         initComponents();
-        
+
         estilizaFields();
+        preparaDatePicker();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         setMaximum(true);
-        
-        Calendar cal = Calendar.getInstance();
-        jDateChooserDataGasto.setMaxSelectableDate(cal.getTime());
-        jDateChooserDataGasto.getDateEditor().setEnabled(false);
-        
+
     }
 
     private void estilizaFields() {
@@ -57,7 +48,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     }
 
     private void formataTextFieldValor() {
-        
+
         String texto = jTextFieldValorGasto.getText().replaceAll("[^\\d]", "");
 
         try {
@@ -79,6 +70,20 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         }
     }
 
+    private void preparaDatePicker() {
+
+        Calendar cal = Calendar.getInstance();
+        jDateChooserDataGasto.setMaxSelectableDate(cal.getTime());
+        jDateChooserDataGasto.getDateEditor().setEnabled(false);
+
+        jDateChooserDataInicial.setMaxSelectableDate(cal.getTime());
+        jDateChooserDataInicial.getDateEditor().setEnabled(false);
+        
+        jDateChooserDataFinal.setMaxSelectableDate(cal.getTime());
+        jDateChooserDataFinal.getDateEditor().setEnabled(false);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,7 +94,10 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jDateChooserDataGasto = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataInicial = new com.toedter.calendar.JDateChooser();
+        jLabelBuscarGasto = new javax.swing.JLabel();
         jTextFieldValorGasto = new javax.swing.JTextField();
+        jDateChooserDataFinal = new com.toedter.calendar.JDateChooser();
         jScroolPaneGasto = new javax.swing.JScrollPane();
         jTableGastos = new javax.swing.JTable();
         jLabelExcluirGasto = new javax.swing.JLabel();
@@ -106,7 +114,21 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         jDateChooserDataGasto.setDateFormatString("dd/MM/yyyy");
         jDateChooserDataGasto.setFocusCycleRoot(true);
         getContentPane().add(jDateChooserDataGasto);
-        jDateChooserDataGasto.setBounds(540, 108, 160, 25);
+        jDateChooserDataGasto.setBounds(660, 160, 155, 22);
+
+        jDateChooserDataInicial.setForeground(new java.awt.Color(0, 102, 255));
+        jDateChooserDataInicial.setDateFormatString("dd/MM/yyyy");
+        jDateChooserDataInicial.setFocusCycleRoot(true);
+        getContentPane().add(jDateChooserDataInicial);
+        jDateChooserDataInicial.setBounds(542, 105, 155, 22);
+
+        jLabelBuscarGasto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelBuscarGastoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelBuscarGasto);
+        jLabelBuscarGasto.setBounds(830, 140, 40, 40);
 
         jTextFieldValorGasto.setBorder(null);
         jTextFieldValorGasto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -118,7 +140,13 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jTextFieldValorGasto);
-        jTextFieldValorGasto.setBounds(190, 110, 190, 16);
+        jTextFieldValorGasto.setBounds(189, 103, 190, 16);
+
+        jDateChooserDataFinal.setForeground(new java.awt.Color(0, 102, 255));
+        jDateChooserDataFinal.setDateFormatString("dd/MM/yyyy");
+        jDateChooserDataFinal.setFocusCycleRoot(true);
+        getContentPane().add(jDateChooserDataFinal);
+        jDateChooserDataFinal.setBounds(480, 160, 155, 22);
 
         jTableGastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,7 +179,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         jScroolPaneGasto.setViewportView(jTableGastos);
 
         getContentPane().add(jScroolPaneGasto);
-        jScroolPaneGasto.setBounds(22, 182, 860, 260);
+        jScroolPaneGasto.setBounds(22, 192, 860, 250);
 
         jLabelExcluirGasto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -185,7 +213,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         getContentPane().add(jComboBoxTipoGasto);
         jComboBoxTipoGasto.setBounds(540, 70, 160, 22);
 
-        jLabelFundoGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaGastos.png"))); // NOI18N
+        jLabelFundoGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controlegastos/front/image/FundoTelaGasto.gif"))); // NOI18N
         getContentPane().add(jLabelFundoGastos);
         jLabelFundoGastos.setBounds(0, -20, 910, 540);
 
@@ -227,12 +255,22 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTextFieldValorGastoKeyReleased
 
+    private void jLabelBuscarGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBuscarGastoMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_jLabelBuscarGastoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxBuscarVeiculo;
     private javax.swing.JComboBox<String> jComboBoxTipoGasto;
+    private com.toedter.calendar.JDateChooser jDateChooserDataFinal;
     private com.toedter.calendar.JDateChooser jDateChooserDataGasto;
+    private com.toedter.calendar.JDateChooser jDateChooserDataInicial;
     private javax.swing.JLabel jLabelAddTipoGasto;
+    private javax.swing.JLabel jLabelBuscarGasto;
     private javax.swing.JLabel jLabelExcluirGasto;
     private javax.swing.JLabel jLabelFundoGastos;
     private javax.swing.JLabel jLabelSalvarGasto;
