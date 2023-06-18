@@ -81,6 +81,12 @@ public class ProprietarioService {
             String sql = "INSERT INTO Proprietario (cpf,nome,telefone,email,cnh,categoria_cnh)" +
                     " VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, dados.cpf());
+            ps.setString(2, dados.nome());
+            ps.setString(3, dados.telefone());
+            ps.setString(4, dados.email());
+            ps.setString(5, dados.cnh());
+            ps.setString(6, dados.categoriaCnh());
 
             int id = Executador.insertUpdateNoBanco(ps);
             if (id > 0){
