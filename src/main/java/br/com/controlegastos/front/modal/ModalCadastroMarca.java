@@ -17,7 +17,7 @@ public class ModalCadastroMarca extends javax.swing.JFrame {
     public ModalCadastroMarca() {
         initComponents();
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Cadastre uma Marca");
         setSize(360, 220);
         setLocationRelativeTo(null);
