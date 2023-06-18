@@ -5,6 +5,7 @@
 package br.com.controlegastos.front.view;
 
 import br.com.controlegastos.controle.ProprietarioController;
+import br.com.controlegastos.entidades.Proprietario;
 import br.com.controlegastos.entidades.records.DadosCadastroProprietario;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroProprietario;
 import br.com.controlegastos.front.modal.ModalMensagem;
@@ -40,7 +41,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         bi.setNorthPane(null);
         setMaximum(true);
         
-//        validaProprietarioExiste();
+        validaProprietarioExiste();
         estilizaFields();
     }
 
@@ -115,6 +116,8 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
             boolean valida = prop.verificaSePropriatarioExiste();
             if (!valida){
                 msg.exibirMensagem("Por favor preencha os campos com sua informação", false);
+            } else {
+                obterProprietario();
             }
             return valida;
         } catch (Exception e){
@@ -129,6 +132,20 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
             DadosRespostaCadastroProprietario resp = prop.cadastrarProprietario(dados);
             msg.exibirMensagem(resp.mensagem(), resp.cadastrou());
         } catch(Exception e){
+            msg.exibirMensagem(e.getMessage(), false);
+        }
+    }
+    
+    public void obterProprietario(){
+        try{
+            Proprietario p = prop.obterProprietario();
+            jTextFieldNome.setText(p.getNome());
+            jFormattedTextFieldCPF.setText(p.getCpf());
+            jFormattedTextFieldTelefone.setText(p.getTelefone());
+            jFormattedTextFieldCNH.setText(p.getCnh());
+            jComboBoxCategoriaCNH.setSelectedItem(p.getCategoriaCnh());
+            jTextFieldEmail.setText(p.getEmail());
+        } catch (Exception e){
             msg.exibirMensagem(e.getMessage(), false);
         }
     }
