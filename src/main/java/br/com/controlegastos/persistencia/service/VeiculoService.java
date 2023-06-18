@@ -42,6 +42,7 @@ public class VeiculoService {
                         rs.getLong("idVeiculo"),
                         rs.getBoolean("temPlaca"),
                         rs.getString("placa"),
+                        rs.getString("descricao_veiculo"),
                         rs.getString("tipoCombustivel"),
                         rs.getFloat("quilometragem"),
                         rs.getString("categoriaVeiculo"),
@@ -208,6 +209,7 @@ public class VeiculoService {
             lista.add(new Veiculo(
                     rs.getLong("idVeiculo"),
                     rs.getBoolean("temPlaca"),
+                    rs.getString("descricao_veiculo"),
                     rs.getString("placa"),
                     rs.getString("tipoCombustivel"),
                     rs.getFloat("quilometragem"),
