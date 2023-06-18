@@ -4,6 +4,14 @@
  */
 package br.com.controlegastos.front.view;
 
+import br.com.controlegastos.controle.MarcaController;
+import br.com.controlegastos.controle.ModeloController;
+import br.com.controlegastos.controle.VeiculoController;
+import br.com.controlegastos.entidades.Marca;
+import br.com.controlegastos.entidades.Modelo;
+import br.com.controlegastos.front.modal.ModalCadastroMarca;
+import br.com.controlegastos.front.modal.ModalCadastroModelo;
+import br.com.controlegastos.front.modal.ModalMensagem;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -13,6 +21,11 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Rodrigo
  */
 public class TelaVeiculo extends javax.swing.JInternalFrame {
+    
+    MarcaController marca = new MarcaController();
+    ModeloController modelo = new ModeloController();
+    VeiculoController veiculo = new VeiculoController();
+    ModalMensagem msg = new ModalMensagem();
 
     /**
      * Creates new form TelaVeiculo
@@ -37,6 +50,35 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jComboBoxCategoria.setOpaque(false);
         jComboBoxCategoria.setBackground(new Color(0, 0, 0, 0));
         
+        setComboBoxs();
+    }
+    
+    public void setComboBoxs(){
+        try{            
+            setComboBoxMarca();
+            setComboBoxModelo();
+            setComboBoxCategoria();
+        } catch(Exception e){
+            msg.exibirMensagem(e.getMessage(), false);
+        }
+    }
+    
+    public void setComboBoxMarca() throws Exception{
+        jComboBoxMarca.removeAllItems();
+        for (Marca m : marca.listarMarcas()){
+            jComboBoxMarca.addItem(m.getNome());
+        }
+    }
+    
+    public void setComboBoxModelo() throws Exception{
+        jComboBoxModelo.removeAllItems();
+        for (Modelo model : modelo.listaModelos()){
+            jComboBoxModelo.addItem(model.getNome());
+        }
+    }
+    
+    public void setComboBoxCategoria() throws Exception{
+        jComboBoxCategoria.removeAllItems();
     }
 
     /**
@@ -66,9 +108,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         setBorder(null);
         getContentPane().setLayout(null);
 
-        jComboBoxModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jComboBoxModelo);
-        jComboBoxModelo.setBounds(540, 149, 160, 22);
+        jComboBoxModelo.setBounds(540, 149, 160, 26);
 
         jTableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,13 +143,11 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().add(jScrollPaneVeiculos);
         jScrollPaneVeiculos.setBounds(22, 182, 860, 260);
 
-        jComboBoxMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jComboBoxMarca);
-        jComboBoxMarca.setBounds(540, 106, 160, 22);
+        jComboBoxMarca.setBounds(540, 106, 160, 26);
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jComboBoxCategoria);
-        jComboBoxCategoria.setBounds(540, 65, 160, 22);
+        jComboBoxCategoria.setBounds(540, 65, 160, 26);
 
         jLabelExcluirVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -178,15 +217,24 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jLabelAddMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddMarcaMouseClicked
         // TODO add your handling code here:
-        
-        
-        
+        try {
+            ModalCadastroMarca modal = new ModalCadastroMarca();
+            setComboBoxMarca();
+        } catch (Exception ex) {
+            msg.exibirMensagem(ex.getMessage(), false);
+        }
     }//GEN-LAST:event_jLabelAddMarcaMouseClicked
 
     private void jLabelAddModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddModeloMouseClicked
         // TODO add your handling code here:
         
-        
+        try{
+            ModalCadastroModelo modalModelo = new ModalCadastroModelo();
+            setComboBoxModelo();
+        } catch (Exception e){
+            msg.exibirMensagem(e.getMessage(), false);
+        }
+               
         
     }//GEN-LAST:event_jLabelAddModeloMouseClicked
 
