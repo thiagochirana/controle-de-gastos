@@ -28,7 +28,7 @@ public class TelaGraficoControle extends javax.swing.JFrame {
     public TelaGraficoControle() {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Gráfico Barra");
+        setTitle("Dashboard Controle de Gastos");
         setSize(910,520);
         setLocationRelativeTo(null);
         
@@ -41,14 +41,10 @@ public class TelaGraficoControle extends javax.swing.JFrame {
         DefaultCategoryDataset barra = new DefaultCategoryDataset();
         barra.setValue(1400, "Hugo", "");
         
-        JFreeChart grafico = ChartFactory.createBarChart("A", "B", "C", barra, PlotOrientation.VERTICAL, true, true, true);
+        JFreeChart grafico = ChartFactory.createBarChart3D("A", "B", "C", barra, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel painel = new ChartPanel(grafico);
         add(painel);
     }
-    
-//    public static void main(String[] args) {
-//        new TelaGraficoControle();
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,8 +75,6 @@ public class TelaGraficoControle extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        new TelaGraficoControle();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
