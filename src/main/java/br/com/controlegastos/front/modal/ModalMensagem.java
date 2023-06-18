@@ -16,7 +16,7 @@ public class ModalMensagem extends javax.swing.JFrame {
     public ModalMensagem() {
         initComponents();
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Gráfico Barra");
         setSize(400, 330);
         setLocationRelativeTo(null);

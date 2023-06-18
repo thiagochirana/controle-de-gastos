@@ -20,7 +20,7 @@ public class ModalCadastroModelo extends javax.swing.JFrame {
     public ModalCadastroModelo() {
         initComponents();
         
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Cadastre um Modelo");
         setSize(360, 275);
         setLocationRelativeTo(null);
