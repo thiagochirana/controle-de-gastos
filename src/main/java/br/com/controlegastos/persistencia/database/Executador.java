@@ -21,7 +21,7 @@ public class Executador {
 
     public static ResultSet obterResultado(String query) throws SQLException{
         try{
-            LOG.debug("Vou realizar a consulta ao banco");
+            LOG.debug("Vou realizar a consulta ao banco: "+query);
             Statement stm = con.createStatement();
             ResultSet resultSet = stm.executeQuery(query);
             LOG.debug("Consulta realizada, vou devolver a resposta ao cliente");
@@ -37,7 +37,7 @@ public class Executador {
 
     public static ResultSet obterResultado(PreparedStatement query) throws SQLException{
         try{
-            LOG.info("Vou realizar a consulta ao banco. Query é "+query.toString());
+            LOG.info("Vou realizar a consulta ao banco: "+query.toString());
             ResultSet resultSet = query.executeQuery();
             LOG.info("Consulta realizada, vou devolver a resposta ao cliente");
             return resultSet;
@@ -52,7 +52,7 @@ public class Executador {
 
     public static int insertUpdateNoBanco(PreparedStatement query) throws Exception{
         try {
-            LOG.debug("Vou realizar a inserção/update ao banco.");
+            LOG.debug("Vou realizar a inserção/update ao banco. Query: "+query);
             int row = query.executeUpdate();
             LOG.debug("Ação de insert/update no banco executada");
             ResultSet generatedKeys = query.getGeneratedKeys();
