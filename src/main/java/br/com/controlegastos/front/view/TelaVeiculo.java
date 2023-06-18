@@ -26,7 +26,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Rodrigo
  */
 public class TelaVeiculo extends javax.swing.JInternalFrame {
-    
+
     MarcaController marca = new MarcaController();
     ModeloController modelo = new ModeloController();
     VeiculoController veiculo = new VeiculoController();
@@ -39,14 +39,20 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     public TelaVeiculo() throws PropertyVetoException {
         initComponents();
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
+        BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
-        setMaximum(true);    
-        
+        setMaximum(true);
+
+        setComboBoxs();
+        estilizaFields();
+    }
+
+    private void estilizaFields() {
+
         jComboBoxMarca.setOpaque(false);
         jComboBoxMarca.setBackground(new Color(0, 0, 0, 0));
-        jTextFieldCombustivel.setOpaque(false);
-        jTextFieldCombustivel.setBackground(new Color(0, 0, 0, 0));
+        jComboBoxCombustivel.setOpaque(false);
+        jComboBoxCombustivel.setBackground(new Color(0, 0, 0, 0));
         jComboBoxModelo.setOpaque(false);
         jComboBoxModelo.setBackground(new Color(0, 0, 0, 0));
         jTextFieldPlaca.setOpaque(false);
@@ -55,45 +61,43 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jTextFieldQuilometragem.setBackground(new Color(0, 0, 0, 0));
         jComboBoxCategoria.setOpaque(false);
         jComboBoxCategoria.setBackground(new Color(0, 0, 0, 0));
-        
-        setComboBoxs();
+
     }
-    
-    public void setComboBoxs(){
-        try{            
+
+    public void setComboBoxs() {
+        try {
             setComboBoxMarca();
             setComboBoxModelo();
             setComboBoxCategoria();
-        } catch(Exception e){
+        } catch (Exception e) {
             msg.exibirMensagem(e.getMessage(), false);
         }
     }
-    
-    public void setComboBoxMarca() throws Exception{
+
+    public void setComboBoxMarca() throws Exception {
         jComboBoxMarca.removeAllItems();
-        for (Marca m : marca.listarMarcas()){
+        for (Marca m : marca.listarMarcas()) {
             jComboBoxMarca.addItem(m.getNome());
         }
     }
-    
-    public void setComboBoxCategoria() throws Exception{
-        try{
+
+    public void setComboBoxCategoria() throws Exception {
+        try {
             jComboBoxCategoria.removeAllItems();
-            for (CategoriaGasto cat : catGasto.listarCategoria()){
-                jComboBoxCategoria.addItem(cat.getIdCategoria()+" - "+cat.getNome());
+            for (CategoriaGasto cat : catGasto.listarCategoria()) {
+                jComboBoxCategoria.addItem(cat.getIdCategoria() + " - " + cat.getNome());
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             msg.exibirMensagem(e.getMessage(), false);
         }
     }
-    
-    public void setComboBoxModelo() throws Exception{
+
+    public void setComboBoxModelo() throws Exception {
         jComboBoxModelo.removeAllItems();
-        for (Modelo model : modelo.listaModelos()){
+        for (Modelo model : modelo.listaModelos()) {
             jComboBoxModelo.addItem(model.getNome());
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,6 +108,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBoxCombustivel = new javax.swing.JComboBox<>();
+        jLabelAddCombustivel = new javax.swing.JLabel();
         jComboBoxModelo = new javax.swing.JComboBox<>();
         jScrollPaneVeiculos = new javax.swing.JScrollPane();
         jTableVeiculos = new javax.swing.JTable();
@@ -115,15 +121,25 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabelAddMarca = new javax.swing.JLabel();
         jLabelAddModelo = new javax.swing.JLabel();
         jTextFieldQuilometragem = new javax.swing.JTextField();
-        jTextFieldCombustivel = new javax.swing.JTextField();
         jTextFieldPlaca = new javax.swing.JTextField();
         jLabelFundoVeiculo = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(null);
 
+        getContentPane().add(jComboBoxCombustivel);
+        jComboBoxCombustivel.setBounds(206, 146, 180, 22);
+
+        jLabelAddCombustivel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAddCombustivelMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelAddCombustivel);
+        jLabelAddCombustivel.setBounds(400, 140, 0, 40);
+
         getContentPane().add(jComboBoxModelo);
-        jComboBoxModelo.setBounds(540, 149, 160, 26);
+        jComboBoxModelo.setBounds(540, 149, 160, 22);
 
         jTableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,11 +173,23 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().add(jScrollPaneVeiculos);
         jScrollPaneVeiculos.setBounds(22, 182, 860, 260);
 
+        jComboBoxMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxMarcaMouseClicked(evt);
+            }
+        });
         getContentPane().add(jComboBoxMarca);
-        jComboBoxMarca.setBounds(540, 106, 160, 26);
+        jComboBoxMarca.setBounds(540, 106, 160, 22);
 
+        jComboBoxCategoria.setToolTipText("");
+        jComboBoxCategoria.setName(""); // NOI18N
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBoxCategoria);
-        jComboBoxCategoria.setBounds(540, 65, 160, 26);
+        jComboBoxCategoria.setBounds(540, 65, 160, 22);
 
         jLabelExcluirVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -207,10 +235,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().add(jTextFieldQuilometragem);
         jTextFieldQuilometragem.setBounds(205, 105, 180, 25);
 
-        jTextFieldCombustivel.setBorder(null);
-        getContentPane().add(jTextFieldCombustivel);
-        jTextFieldCombustivel.setBounds(205, 145, 180, 25);
-
         jTextFieldPlaca.setBorder(null);
         getContentPane().add(jTextFieldPlaca);
         jTextFieldPlaca.setBounds(205, 65, 180, 25);
@@ -224,15 +248,15 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jLabelAddCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddCategoriaMouseClicked
         // TODO add your handling code here:
-        
-        try{
+
+        try {
             ModalCadastroCategoria cat = new ModalCadastroCategoria();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             msg.exibirMensagem(ex.getMessage(), false);
-        } finally{
+        } finally {
             setComboBoxs();
         }
-        
+
     }//GEN-LAST:event_jLabelAddCategoriaMouseClicked
 
     private void jLabelAddMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddMarcaMouseClicked
@@ -248,37 +272,52 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
     private void jLabelAddModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddModeloMouseClicked
         // TODO add your handling code here:
-        
-        try{
+
+        try {
             ModalCadastroModelo modalModelo = new ModalCadastroModelo();
-        } catch (Exception e){
+        } catch (Exception e) {
             msg.exibirMensagem(e.getMessage(), false);
         } finally {
             setComboBoxs();
         }
-               
-        
+
+
     }//GEN-LAST:event_jLabelAddModeloMouseClicked
 
     private void jLabelCadastrarVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastrarVeiculoMouseClicked
         // TODO add your handling code here:
-        
-        
-        
+
+
     }//GEN-LAST:event_jLabelCadastrarVeiculoMouseClicked
 
     private void jLabelExcluirVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExcluirVeiculoMouseClicked
         // TODO add your handling code here:
-        
-        
-        
+
+
     }//GEN-LAST:event_jLabelExcluirVeiculoMouseClicked
+
+    private void jComboBoxMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxMarcaMouseClicked
+        // TODO add your handling code here:
+        setComboBoxs();
+        
+    }//GEN-LAST:event_jComboBoxMarcaMouseClicked
+
+    private void jLabelAddCombustivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAddCombustivelMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jLabelAddCombustivelMouseClicked
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JComboBox<String> jComboBoxCombustivel;
     private javax.swing.JComboBox<String> jComboBoxMarca;
     private javax.swing.JComboBox<String> jComboBoxModelo;
     private javax.swing.JLabel jLabelAddCategoria;
+    private javax.swing.JLabel jLabelAddCombustivel;
     private javax.swing.JLabel jLabelAddMarca;
     private javax.swing.JLabel jLabelAddModelo;
     private javax.swing.JLabel jLabelCadastrarVeiculo;
@@ -286,7 +325,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelFundoVeiculo;
     private javax.swing.JScrollPane jScrollPaneVeiculos;
     private javax.swing.JTable jTableVeiculos;
-    private javax.swing.JTextField jTextFieldCombustivel;
     private javax.swing.JTextField jTextFieldPlaca;
     private javax.swing.JTextField jTextFieldQuilometragem;
     // End of variables declaration//GEN-END:variables

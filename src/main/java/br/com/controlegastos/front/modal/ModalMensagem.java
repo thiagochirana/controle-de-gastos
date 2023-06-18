@@ -38,8 +38,8 @@ public class ModalMensagem extends javax.swing.JFrame {
             jTextAreaMensagem.setForeground(Color.RED);
         }
 
-        icon = new ImageIcon(getClass().getResource(iconPath));
-        jLabelIconMensagem.setIcon(icon);
+//        icon = new ImageIcon(getClass().getResource(iconPath));
+//        jLabelIconMensagem.setIcon(icon);
 
         setVisible(true);
         main(null);

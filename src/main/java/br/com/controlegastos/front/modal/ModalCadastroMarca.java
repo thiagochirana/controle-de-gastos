@@ -3,6 +3,7 @@ package br.com.controlegastos.front.modal;
 import br.com.controlegastos.controle.MarcaController;
 import br.com.controlegastos.entidades.records.DadosCadastroMarca;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroMarca;
+import br.com.controlegastos.front.view.TelaVeiculo;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
@@ -118,6 +119,8 @@ public class ModalCadastroMarca extends javax.swing.JFrame {
                 null
         );
         
+        
+        
         this.dispose();
         
         try {
@@ -125,7 +128,9 @@ public class ModalCadastroMarca extends javax.swing.JFrame {
             modalMsg.exibirMensagem(resp.mensagem(), resp.cadastrou());
         } catch (Exception ex) {
             modalMsg.exibirMensagem(ex.getMessage(),false);
-        }        
+        }    
+        
+        
     }//GEN-LAST:event_jButtonCadastrarMarcaMouseClicked
 
     /**
