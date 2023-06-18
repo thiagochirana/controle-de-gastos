@@ -174,6 +174,8 @@ public class TelaHomeSwing extends javax.swing.JFrame {
 
     private void jLabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSairMouseClicked
         // TODO add your handling code here:
+        
+        this.dispose();
     }//GEN-LAST:event_jLabelSairMouseClicked
 
     private void jLabelControleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelControleMouseClicked

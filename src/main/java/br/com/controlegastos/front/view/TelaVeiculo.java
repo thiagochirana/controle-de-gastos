@@ -164,7 +164,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(null);
 
         getContentPane().add(jComboBoxCombustivel);
-        jComboBoxCombustivel.setBounds(206, 146, 180, 26);
+        jComboBoxCombustivel.setBounds(206, 146, 180, 22);
 
         jLabelAddCombustivel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -175,7 +175,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabelAddCombustivel.setBounds(400, 140, 0, 40);
 
         getContentPane().add(jComboBoxModelo);
-        jComboBoxModelo.setBounds(540, 149, 160, 26);
+        jComboBoxModelo.setBounds(540, 148, 160, 20);
 
         jTableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,7 +223,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jComboBoxMarca);
-        jComboBoxMarca.setBounds(540, 106, 160, 26);
+        jComboBoxMarca.setBounds(540, 106, 160, 22);
 
         jComboBoxCategoria.setToolTipText("");
         jComboBoxCategoria.setName(""); // NOI18N
@@ -233,7 +233,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jComboBoxCategoria);
-        jComboBoxCategoria.setBounds(540, 65, 160, 26);
+        jComboBoxCategoria.setBounds(540, 65, 160, 22);
 
         jLabelExcluirVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
