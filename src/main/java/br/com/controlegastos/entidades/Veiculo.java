@@ -5,6 +5,9 @@ public class Veiculo {
     private long idVeiculo;
     private boolean temPlaca;
     private String placa;
+
+    private String descricaoVeiculo;
+
     private String tipoCombustivel;
     private float quilometragem;
     private String categoriaVeiculo;
@@ -13,10 +16,11 @@ public class Veiculo {
     private boolean ativo;
 
 
-    public Veiculo(long idVeiculo, boolean temPlaca, String placa, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
+    public Veiculo(long idVeiculo, boolean temPlaca, String placa, String descricaoVeiculo, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
         this.idVeiculo = idVeiculo;
         this.temPlaca = temPlaca;
         this.placa = placa;
+        this.descricaoVeiculo = descricaoVeiculo;
         this.tipoCombustivel = tipoCombustivel;
         this.quilometragem = quilometragem;
         this.categoriaVeiculo = categoriaVeiculo;
@@ -25,9 +29,10 @@ public class Veiculo {
         this.ativo = ativo;
     }
 
-    public Veiculo(long idVeiculo, String placa, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
+    public Veiculo(long idVeiculo, String placa, String descricaoVeiculo, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
         this.idVeiculo = idVeiculo;
         this.placa = placa;
+        this.descricaoVeiculo = descricaoVeiculo;
         this.tipoCombustivel = tipoCombustivel;
         this.quilometragem = quilometragem;
         this.categoriaVeiculo = categoriaVeiculo;
@@ -44,6 +49,14 @@ public class Veiculo {
         this.modeloId = modeloId;
         this.proprietarioId = proprietarioId;
         this.ativo = ativo;
+    }
+
+    public String getDescricaoVeiculo() {
+        return descricaoVeiculo;
+    }
+
+    public void setDescricaoVeiculo(String descricaoVeiculo) {
+        this.descricaoVeiculo = descricaoVeiculo;
     }
 
     public boolean isTemPlaca() {
