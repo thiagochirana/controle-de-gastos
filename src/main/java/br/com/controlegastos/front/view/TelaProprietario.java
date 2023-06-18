@@ -188,6 +188,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jFormattedTextFieldCNH.setText("");
         jFormattedTextFieldCNH.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jFormattedTextFieldCNH.setEnabled(false);
+        jFormattedTextFieldCNH.setName(""); // NOI18N
         jFormattedTextFieldCNH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextFieldCNHActionPerformed(evt);
@@ -195,6 +196,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         });
         getContentPane().add(jFormattedTextFieldCNH);
         jFormattedTextFieldCNH.setBounds(640, 103, 190, 20);
+        jFormattedTextFieldCNH.getAccessibleContext().setAccessibleName("");
 
         jLabelButtonSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -275,19 +277,28 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
             String nome = jTextFieldNome.getText();
             String cpf = jFormattedTextFieldCPF.getText().replace(".","").replace("-","");
             String telefone = jFormattedTextFieldTelefone.getText().replace("(","").replace(")","").replace(" ","").replace("-","");
-            String cnh = jFormattedTextFieldCNH.getText();
+            String cnh = jFormattedTextFieldCNH.getText().trim();
             String catCNH = jComboBoxCategoriaCNH.getSelectedItem().toString();
             String email = jTextFieldEmail.getText();
-            
-            cadastrarProprietario(new DadosCadastroProprietario(
-                    cpf,
-                    nome,
-                    telefone,
-                    email,
-                    cnh,
-                    catCNH
-            ));
-            
+            try {
+                if( jTextFieldNome.getText()==null ||  jFormattedTextFieldCPF.getText() == null ||  jFormattedTextFieldTelefone.getText() == null |
+                        jFormattedTextFieldCNH.getText() == null ||
+                        jComboBoxCategoriaCNH.getSelectedItem() == null | jTextFieldEmail.getText() == null ){
+                    msg.exibirMensagem("Não é possível cadastrar sem as informações preenchidas!", false);
+                }else {
+                    cadastrarProprietario(new DadosCadastroProprietario(
+                            cpf,
+                            nome,
+                            telefone,
+                            email,
+                            cnh,
+                            catCNH
+                    ));
+
+                }
+            } catch (Exception e) {
+                msg.exibirMensagem(e.getMessage(), false);
+            }
         } catch(Exception e){
             msg.exibirMensagem(e.getMessage(), false);
         }

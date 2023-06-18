@@ -76,29 +76,36 @@ public class ProprietarioService {
     }
 
     public DadosRespostaCadastroProprietario cadastrarProprietario(DadosCadastroProprietario dados) throws Exception{
-        try{
-            LOG.info("Vou persistir o proprietario dos veículos");
-            String sql = "INSERT INTO Proprietario (cpf,nome,telefone,email,cnh,categoria_cnh)" +
-                    " VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, dados.cpf());
-            ps.setString(2, dados.nome());
-            ps.setString(3, dados.telefone());
-            ps.setString(4, dados.email());
-            ps.setString(5, dados.cnh());
-            ps.setString(6, dados.categoriaCnh());
 
-            int id = Executador.insertUpdateNoBanco(ps);
-            if (id > 0){
-                LOG.info("Proprietario "+dados.nome()+" cadastrado com sucesso.");
-                return new DadosRespostaCadastroProprietario(dados.nome(),true,"Proprietario "+dados.nome()+" cadastrado com sucesso.");
-            } else {
-                LOG.warn("Proprietario "+dados.nome()+" não foi cadastrado.");
-                return new DadosRespostaCadastroProprietario(dados.nome(),false,"Proprietario "+dados.nome()+" não foi cadastrado. Verifique o porquê.");
+        if(dados.nome() == null || dados.cpf() == null || dados.telefone() == null || dados.email() == null || dados.cnh() == null || dados.categoriaCnh() == null){
+            try{
+                LOG.info("Vou persistir o proprietario dos veículos");
+                String sql = "INSERT INTO Proprietario (cpf,nome,telefone,email,cnh,categoria_cnh)" +
+                        " VALUES (?,?,?,?,?,?)";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, dados.cpf());
+                ps.setString(2, dados.nome());
+                ps.setString(3, dados.telefone());
+                ps.setString(4, dados.email());
+                ps.setString(5, dados.cnh());
+                ps.setString(6, dados.categoriaCnh());
+
+                int id = Executador.insertUpdateNoBanco(ps);
+                if (id > 0){
+                    LOG.info("Proprietario "+dados.nome()+" cadastrado com sucesso.");
+                    return new DadosRespostaCadastroProprietario(dados.nome(),true,"Proprietario "+dados.nome()+" cadastrado com sucesso.");
+                } else {
+                    LOG.warn("Proprietario "+dados.nome()+" não foi cadastrado.");
+                    return new DadosRespostaCadastroProprietario(dados.nome(),false,"Proprietario "+dados.nome()+" não foi cadastrado. Verifique o porquê.");
+                }
+            } catch (Exception e){
+                LOG.error("Houve um erro ao tentar cadastrar novo proprietário.",e);
+                return new DadosRespostaCadastroProprietario(dados.nome(),false,"Proprietario "+dados.nome()+" não foi cadastrado. Motivo: "+e.getMessage());
             }
-        } catch (Exception e){
-            LOG.error("Houve um erro ao tentar cadastrar novo proprietário.",e);
-            return new DadosRespostaCadastroProprietario(dados.nome(),false,"Proprietario "+dados.nome()+" não foi cadastrado. Motivo: "+e.getMessage());
+
+        }else {
+            LOG.error("Não possui dados para inserir ");
+            throw new Exception("Não possuo dados para inserir");
         }
     }
 }
