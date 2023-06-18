@@ -17,7 +17,7 @@ public class ModalMensagem extends javax.swing.JFrame {
         initComponents();
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setTitle("Gráfico Barra");
+        setTitle("Resposta");
         setSize(400, 330);
         setLocationRelativeTo(null);
         this.setResizable(false);
@@ -38,8 +38,8 @@ public class ModalMensagem extends javax.swing.JFrame {
             jTextAreaMensagem.setForeground(Color.RED);
         }
 
-//        icon = new ImageIcon(getClass().getResource(iconPath));
-//        jLabelIconMensagem.setIcon(icon);
+        icon = new ImageIcon(getClass().getResource(iconPath));
+        jLabelIconMensagem.setIcon(icon);
 
         setVisible(true);
         main(null);

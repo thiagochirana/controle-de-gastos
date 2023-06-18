@@ -29,6 +29,18 @@ public class Veiculo {
         this.ativo = ativo;
     }
 
+    public Veiculo(long idVeiculo, boolean temPlaca, String placa, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
+        this.idVeiculo = idVeiculo;
+        this.temPlaca = temPlaca;
+        this.placa = placa;
+        this.tipoCombustivel = tipoCombustivel;
+        this.quilometragem = quilometragem;
+        this.categoriaVeiculo = categoriaVeiculo;
+        this.modeloId = modeloId;
+        this.proprietarioId = proprietarioId;
+        this.ativo = ativo;
+    }
+
     public Veiculo(long idVeiculo, String placa, String descricaoVeiculo, String tipoCombustivel, float quilometragem, String categoriaVeiculo, long modeloId, long proprietarioId, boolean ativo) {
         this.idVeiculo = idVeiculo;
         this.placa = placa;
