@@ -171,6 +171,11 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jFormattedTextFieldCNH.setText("");
         jFormattedTextFieldCNH.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jFormattedTextFieldCNH.setEnabled(false);
+        jFormattedTextFieldCNH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldCNHActionPerformed(evt);
+            }
+        });
         getContentPane().add(jFormattedTextFieldCNH);
         jFormattedTextFieldCNH.setBounds(640, 103, 190, 20);
 
@@ -208,6 +213,11 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jComboBoxCategoriaCNH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "C", "D", "E" }));
         jComboBoxCategoriaCNH.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jComboBoxCategoriaCNH.setEnabled(false);
+        jComboBoxCategoriaCNH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaCNHActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBoxCategoriaCNH);
         jComboBoxCategoriaCNH.setBounds(640, 150, 190, 22);
 
@@ -274,6 +284,14 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jFormattedTextFieldCPF.setEnabled(false);
 
     }//GEN-LAST:event_jLabelButtonSalvarMouseClicked
+
+    private void jFormattedTextFieldCNHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldCNHActionPerformed
+
+    private void jComboBoxCategoriaCNHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaCNHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaCNHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
