@@ -49,7 +49,7 @@ public class TelaControleGrafico extends javax.swing.JInternalFrame {
                 
         // Criar o JFrame e adicionar o painel do gráfico
         JFrame frame = new JFrame("Dashboard Controle de Gastos");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(910, 520);
         frame.getContentPane().add(chartPanel);
         frame.setLocationRelativeTo(null);
