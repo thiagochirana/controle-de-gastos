@@ -1,4 +1,4 @@
-package br.com.controlegastos.service;
+package br.com.controlegastos.persistencia.service;
 
 import br.com.controlegastos.entidades.records.DadosCadastroProprietario;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroProprietario;

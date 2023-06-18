@@ -1,15 +1,12 @@
-package br.com.controlegastos.service;
+package br.com.controlegastos.persistencia.service;
 
 import br.com.controlegastos.entidades.records.DadosLogin;
 import br.com.controlegastos.entidades.records.DadosRespostaLogin;
 import br.com.controlegastos.persistencia.database.ConexaoDB;
-import br.com.controlegastos.persistencia.database.Executador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class AcessoService {
 

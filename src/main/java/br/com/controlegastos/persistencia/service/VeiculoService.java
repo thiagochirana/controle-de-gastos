@@ -1,6 +1,7 @@
-package br.com.controlegastos.service;
+package br.com.controlegastos.persistencia.service;
 
 import br.com.controlegastos.entidades.Veiculo;
+import br.com.controlegastos.entidades.enums.TipoCombustivel;
 import br.com.controlegastos.entidades.records.DadosCadastroVeiculo;
 import br.com.controlegastos.entidades.records.DadosRespostaVeiculo;
 import br.com.controlegastos.persistencia.database.ConexaoDB;
@@ -31,7 +32,7 @@ public class VeiculoService {
     public Veiculo obterDadosVeiculoById(long id) throws Exception{
         try{
             LOG.info("Vou buscar o veículo de ID "+id);
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo WHERE idVeiculo =?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo WHERE id_veiculo =?");
             ps.setLong(1, id);
 
             ResultSet rs = Executador.obterResultado(ps);
@@ -68,7 +69,7 @@ public class VeiculoService {
             placa = placa.trim().toUpperCase();
 
             PreparedStatement ps = con.prepareStatement("INSERT INTO Veiculo" +
-                    "(temPlaca,placa,tipoCombustivel,quilometragem,categoriaVeiculo,ativo,modeloId,proprietarioId)" +
+                    "(tem_placa,placa,tipo_combustivel,quilometragem,categoria_veiculo,ativo,modelo_id,proprietario_id)" +
                     "VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
             ps.setBoolean(1, dados.temPlaca());
@@ -91,7 +92,7 @@ public class VeiculoService {
             );
             return resposta;
         }catch (Exception e){
-            LOG.error("Hovue um erro ao tentar cadastrar o veículo");
+            LOG.error("Houve um erro ao tentar cadastrar o veículo");
             return new DadosRespostaVeiculo(
                     -1,
                     "Erro ao tentar cadastrar o veículo",
@@ -104,7 +105,7 @@ public class VeiculoService {
         try{
             LOG.info("Irei "+ (atividade ? "ativar": "desativar") +" veiculo de id "+id);
 
-            PreparedStatement ps = con.prepareStatement("UPDATE Veiculo SET ativo = ? WHERE idVeiculo = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("UPDATE Veiculo SET ativo = ? WHERE id_veiculo = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setBoolean(1, atividade);
             ps.setLong(2, id);
             int idObtido = Executador.insertUpdateNoBanco(ps);
@@ -152,6 +153,14 @@ public class VeiculoService {
         }
     }
 
+    public List<String> listarTiposCombustivel(){
+        List<String> lista = new ArrayList<>();
+        for (TipoCombustivel tipo : TipoCombustivel.values()){
+            lista.add(tipo.toString().replace("_"," "));
+        }
+        return lista;
+    }
+
 
     //Utils da classe
     public boolean verificaCadastroPlaca(String placa) throws Exception{
@@ -171,6 +180,25 @@ public class VeiculoService {
         }catch (Exception e){
             LOG.info("Houve um erro ao tentar buscar Veículo pela placa "+placa,e);
             throw new Exception("Erro ao tentar buscar veículo de placa "+placa);
+        }
+    }
+
+    public boolean verificaSeVeiculoIdExiste(long id) throws Exception{
+        try {
+            LOG.info("Irei verificar se existe veículo cadastrado com id "+id);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo WHERE id_veiculo = ?",Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(1,id);
+            boolean result = Executador.obterResultado(ps).next();
+            if (result) {
+                LOG.info("Veículo de id "+id+" existe salvo no banco local");
+                return true;
+            } else {
+                LOG.info("Veículo de id "+id+" não existe salvo localmente");
+                return false;
+            }
+        } catch (Exception e){
+            LOG.error("Houve um erro ao tentar consultar veículo com id "+id,e);
+            throw e;
         }
     }
 
