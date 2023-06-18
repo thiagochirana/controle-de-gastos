@@ -5,11 +5,17 @@
 package br.com.controlegastos.front.view;
 
 import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -24,6 +30,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         initComponents();
         
         estilizaFields();
+        formataTextData();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
@@ -68,7 +75,30 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         } catch (NumberFormatException e) {
             jTextFieldValorGasto.setText("");
         }
+    }
+    
+    private void formataTextData() {
 
+        try {
+            // Criação da máscara para formatar a data (dd/mm/aaaa)
+            MaskFormatter maskFormatter = new MaskFormatter("##/##/####");
+            maskFormatter.setPlaceholderCharacter('_'); // Define o caractere de preenchimento para campos vazios
+
+            // Criação do componente JFormattedTextField com a máscara
+            JFormattedTextField jFormattedTextFieldData = new JFormattedTextField(maskFormatter);
+
+            // Define um listener para limpar o campo quando ganhar o foco
+            jFormattedTextFieldData.addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    jFormattedTextFieldData.setText("");
+                }
+            });
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -80,6 +110,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jTextFieldValorGasto = new javax.swing.JTextField();
         jScroolPaneGasto = new javax.swing.JScrollPane();
         jTableGastos = new javax.swing.JTable();
@@ -93,6 +124,10 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
 
         setBorder(null);
         getContentPane().setLayout(null);
+
+        jDateChooser1.setFocusCycleRoot(true);
+        getContentPane().add(jDateChooser1);
+        jDateChooser1.setBounds(540, 140, 160, 22);
 
         jTextFieldValorGasto.setBorder(null);
         jTextFieldValorGasto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -222,6 +257,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxBuscarVeiculo;
     private javax.swing.JComboBox<String> jComboBoxTipoGasto;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JFormattedTextField jFormattedTextFieldData;
     private javax.swing.JLabel jLabelAddTipoGasto;
     private javax.swing.JLabel jLabelExcluirGasto;
