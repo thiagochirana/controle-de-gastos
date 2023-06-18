@@ -36,7 +36,7 @@ public class TelaGraficoControle extends javax.swing.JFrame {
 
         // Criar o JFrame e adicionar o painel do gráfico
         JFrame frame = new JFrame("Gráfico de Barras");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(500, 400);
         frame.getContentPane().add(chartPanel);
         frame.setVisible(true);
