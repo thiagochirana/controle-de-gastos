@@ -2,7 +2,7 @@ package br.com.controlegastos.controle;
 
 import br.com.controlegastos.entidades.records.DadosLogin;
 import br.com.controlegastos.entidades.records.DadosRespostaLogin;
-import br.com.controlegastos.service.AcessoService;
+import br.com.controlegastos.persistencia.service.AcessoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
