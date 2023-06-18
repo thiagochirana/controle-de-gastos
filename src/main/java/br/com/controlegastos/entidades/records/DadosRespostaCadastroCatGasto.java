@@ -2,7 +2,7 @@ package br.com.controlegastos.entidades.records;
 
 public record DadosRespostaCadastroCatGasto(
         long id,
-        String nome,
+        String resposta,
         boolean cadastrou
 ) {
 }

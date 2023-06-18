@@ -1,6 +1,7 @@
 package br.com.controlegastos.persistencia.service;
 
 import br.com.controlegastos.entidades.CategoriaGasto;
+import br.com.controlegastos.entidades.records.DadosCadastroCategoriaGasto;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroCatGasto;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroModelo;
 import br.com.controlegastos.persistencia.database.ConexaoDB;
@@ -32,17 +33,19 @@ public class CategoriaGastoService {
     public CategoriaGastoService() {
     }
 
-    public DadosRespostaCadastroCatGasto cadastrarCategoria(String nomeNovaCategoria){
+    public DadosRespostaCadastroCatGasto cadastrarCategoria(DadosCadastroCategoriaGasto nomeNovaCategoria){
         try{
             LOG.info("Vou buscar cadastrar nova categoria de nome "+nomeNovaCategoria);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria_Gasto (nome) VALUES (?)");
-            ps.setString(1,nomeNovaCategoria);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria_Gasto (nome,descricao_categoria) VALUES (?,?)");
+            ps.setString(1,nomeNovaCategoria.nome());
+            ps.setString(2,nomeNovaCategoria.descricao());
             int id = Executador.insertUpdateNoBanco(ps);
 
             if (id != -1) {
                 LOG.info("Categoria foi cadastrada com sucesso!");
                 return gerarResposta(id, "Categoria "+nomeNovaCategoria+" foi cadastrada com sucesso!",true);
             } else {
+                LOG.info("Categoria não foi cadastrada!");
                 return gerarResposta(id, "Categoria "+nomeNovaCategoria+" não foi cadastrada.",false);
             }
 
@@ -63,14 +66,15 @@ public class CategoriaGastoService {
     public List<CategoriaGasto> listarCategoriasGasto() throws Exception {
         try{
             LOG.info("Obtendo lista de categorias de gasto registradas");
-            String query = "SELECT * FROM Categoria_Gasto";
-            ResultSet rs = Executador.obterResultado(query);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Categoria_Gasto");
+            ResultSet rs = Executador.obterResultado(ps);
             List<CategoriaGasto> lista = new ArrayList<>();
 
             while (rs.next()) {
                 CategoriaGasto categoriaGasto = new CategoriaGasto();
-                categoriaGasto.setIdCategoria(rs.getLong("id"));
+                categoriaGasto.setIdCategoria(rs.getLong("id_categoria"));
                 categoriaGasto.setNome(rs.getString("nome"));
+                categoriaGasto.setDescricaoCategoria(rs.getString("descricao_categoria"));
                 lista.add(categoriaGasto);
             }
 
