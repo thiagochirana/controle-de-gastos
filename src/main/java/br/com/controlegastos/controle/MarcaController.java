@@ -3,7 +3,7 @@ package br.com.controlegastos.controle;
 import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.records.DadosCadastroMarca;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroMarca;
-import br.com.controlegastos.service.MarcaService;
+import br.com.controlegastos.persistencia.service.MarcaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
