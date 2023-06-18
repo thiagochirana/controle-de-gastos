@@ -276,6 +276,16 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jLabelAddModelo.setBounds(720, 140, 30, 30);
 
         jTextFieldQuilometragem.setBorder(null);
+        jTextFieldQuilometragem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldQuilometragemActionPerformed(evt);
+            }
+        });
+        jTextFieldQuilometragem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQuilometragemKeyTyped(evt);
+            }
+        });
         getContentPane().add(jTextFieldQuilometragem);
         jTextFieldQuilometragem.setBounds(205, 105, 180, 25);
 
@@ -381,6 +391,19 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    private void jTextFieldQuilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldQuilometragemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldQuilometragemActionPerformed
+
+    private void jTextFieldQuilometragemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuilometragemKeyTyped
+        // TODO add your handling code here:char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldQuilometragemKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxCategoria;
