@@ -5,7 +5,6 @@ import br.com.controlegastos.controle.ModeloController;
 import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.records.DadosCadastroModelo;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroModelo;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
  *
@@ -22,7 +21,7 @@ public class ModalCadastroModelo extends javax.swing.JFrame {
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Cadastre um Modelo");
-        setSize(360, 275);
+        setSize(360, 290);
         setLocationRelativeTo(null);
         this.setResizable(false);
         setComboBoxMarca();
