@@ -7,11 +7,9 @@ package br.com.controlegastos.front.view;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import javax.swing.JFormattedTextField;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -24,8 +22,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
      */
     public TelaControleGasto() throws PropertyVetoException {
         initComponents();
-
-        formataTextFieldValor();
+        
         estilizaFields();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -56,21 +53,22 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
 
         try {
             long numero = Long.parseLong(texto);
-            String textoFormatado = String.format("%,d", numero).replace(",", "");
 
-            // Adicionar a vírgula antes dos dois últimos dígitos
-            int tamanho = textoFormatado.length();
-            if (tamanho > 2) {
-                textoFormatado = textoFormatado.substring(0, tamanho - 2) + ","
-                        + textoFormatado.substring(tamanho - 2);
-            } else {
-                textoFormatado = "," + String.format("%02d", numero);
-            }
+            // Criar um objeto NumberFormat para formatar o valor em moeda
+            NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+            // Configurar o símbolo da moeda para R$
+            numberFormat.setCurrency(java.util.Currency.getInstance("BRL"));
+
+            // Obter o valor em moeda formatado
+            String textoFormatado = numberFormat.format(numero / 100.0);
 
             jTextFieldValorGasto.setText(textoFormatado);
+
         } catch (NumberFormatException e) {
             jTextFieldValorGasto.setText("");
         }
+
     }
 
     /**
