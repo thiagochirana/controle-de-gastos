@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Locale;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
@@ -30,13 +31,16 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         initComponents();
         
         estilizaFields();
-        formataTextData();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         setMaximum(true);
-
+        
+        Calendar cal = Calendar.getInstance();
+        jDateChooserDataGasto.setMaxSelectableDate(cal.getTime());
+        jDateChooserDataGasto.getDateEditor().setEnabled(false);
+        
     }
 
     private void estilizaFields() {
@@ -45,8 +49,6 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         jComboBoxBuscarVeiculo.setBackground(new Color(0, 0, 0, 0));
         jComboBoxTipoGasto.setOpaque(false);
         jComboBoxTipoGasto.setBackground(new Color(0, 0, 0, 0));
-        jFormattedTextFieldData.setOpaque(false);
-        jFormattedTextFieldData.setBackground(new Color(0, 0, 0, 0));
         jTextFieldValorGasto.setOpaque(false);
         jTextFieldValorGasto.setBackground(new Color(0, 0, 0, 0));
         jScroolPaneGasto.setOpaque(false);
@@ -76,30 +78,6 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
             jTextFieldValorGasto.setText("");
         }
     }
-    
-    private void formataTextData() {
-
-        try {
-            // Criação da máscara para formatar a data (dd/mm/aaaa)
-            MaskFormatter maskFormatter = new MaskFormatter("##/##/####");
-            maskFormatter.setPlaceholderCharacter('_'); // Define o caractere de preenchimento para campos vazios
-
-            // Criação do componente JFormattedTextField com a máscara
-            JFormattedTextField jFormattedTextFieldData = new JFormattedTextField(maskFormatter);
-
-            // Define um listener para limpar o campo quando ganhar o foco
-            jFormattedTextFieldData.addFocusListener(new FocusAdapter() {
-                @Override
-                public void focusGained(FocusEvent e) {
-                    jFormattedTextFieldData.setText("");
-                }
-            });
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,14 +88,13 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataGasto = new com.toedter.calendar.JDateChooser();
         jTextFieldValorGasto = new javax.swing.JTextField();
         jScroolPaneGasto = new javax.swing.JScrollPane();
         jTableGastos = new javax.swing.JTable();
         jLabelExcluirGasto = new javax.swing.JLabel();
         jLabelSalvarGasto = new javax.swing.JLabel();
         jLabelAddTipoGasto = new javax.swing.JLabel();
-        jFormattedTextFieldData = new javax.swing.JFormattedTextField();
         jComboBoxBuscarVeiculo = new javax.swing.JComboBox<>();
         jComboBoxTipoGasto = new javax.swing.JComboBox<>();
         jLabelFundoGastos = new javax.swing.JLabel();
@@ -125,9 +102,11 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         setBorder(null);
         getContentPane().setLayout(null);
 
-        jDateChooser1.setFocusCycleRoot(true);
-        getContentPane().add(jDateChooser1);
-        jDateChooser1.setBounds(540, 140, 160, 22);
+        jDateChooserDataGasto.setForeground(new java.awt.Color(0, 102, 255));
+        jDateChooserDataGasto.setDateFormatString("dd/MM/yyyy");
+        jDateChooserDataGasto.setFocusCycleRoot(true);
+        getContentPane().add(jDateChooserDataGasto);
+        jDateChooserDataGasto.setBounds(540, 108, 160, 25);
 
         jTextFieldValorGasto.setBorder(null);
         jTextFieldValorGasto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -198,11 +177,6 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
         getContentPane().add(jLabelAddTipoGasto);
         jLabelAddTipoGasto.setBounds(715, 60, 35, 35);
 
-        jFormattedTextFieldData.setBorder(null);
-        jFormattedTextFieldData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        getContentPane().add(jFormattedTextFieldData);
-        jFormattedTextFieldData.setBounds(540, 110, 160, 20);
-
         jComboBoxBuscarVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jComboBoxBuscarVeiculo);
         jComboBoxBuscarVeiculo.setBounds(190, 70, 190, 22);
@@ -257,8 +231,7 @@ public class TelaControleGasto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxBuscarVeiculo;
     private javax.swing.JComboBox<String> jComboBoxTipoGasto;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JFormattedTextField jFormattedTextFieldData;
+    private com.toedter.calendar.JDateChooser jDateChooserDataGasto;
     private javax.swing.JLabel jLabelAddTipoGasto;
     private javax.swing.JLabel jLabelExcluirGasto;
     private javax.swing.JLabel jLabelFundoGastos;
