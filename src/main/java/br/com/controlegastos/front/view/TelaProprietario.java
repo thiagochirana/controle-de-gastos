@@ -157,6 +157,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldCPF.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jFormattedTextFieldCPF.setEnabled(false);
         getContentPane().add(jFormattedTextFieldCPF);
         jFormattedTextFieldCPF.setBounds(190, 149, 220, 20);
@@ -167,6 +168,8 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldCNH.setText("");
+        jFormattedTextFieldCNH.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jFormattedTextFieldCNH.setEnabled(false);
         getContentPane().add(jFormattedTextFieldCNH);
         jFormattedTextFieldCNH.setBounds(640, 103, 190, 20);
@@ -180,13 +183,14 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jLabelButtonSalvar.setBounds(730, 440, 150, 40);
 
         jTextFieldEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldEmail.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jTextFieldEmail.setBorder(null);
         jTextFieldEmail.setEnabled(false);
         getContentPane().add(jTextFieldEmail);
         jTextFieldEmail.setBounds(645, 197, 185, 25);
 
         jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldNome.setToolTipText("");
+        jTextFieldNome.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jTextFieldNome.setBorder(null);
         jTextFieldNome.setEnabled(false);
         getContentPane().add(jTextFieldNome);
@@ -202,6 +206,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         jLabelButtonEditar.setBounds(570, 440, 150, 40);
 
         jComboBoxCategoriaCNH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "C", "D", "E" }));
+        jComboBoxCategoriaCNH.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jComboBoxCategoriaCNH.setEnabled(false);
         getContentPane().add(jComboBoxCategoriaCNH);
         jComboBoxCategoriaCNH.setBounds(640, 150, 190, 22);
@@ -212,6 +217,7 @@ public class TelaProprietario extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldTelefone.setToolTipText("Clique em \"Editar\" para liberar os campos.");
         jFormattedTextFieldTelefone.setEnabled(false);
         getContentPane().add(jFormattedTextFieldTelefone);
         jFormattedTextFieldTelefone.setBounds(190, 198, 220, 20);

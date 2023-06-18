@@ -34,6 +34,7 @@
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="###.###.###-##" subtype="-1" type="5"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Clique em &quot;Editar&quot; para liberar os campos."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
@@ -50,6 +51,8 @@
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="##########" subtype="-1" type="5"/>
         </Property>
+        <Property name="text" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Clique em &quot;Editar&quot; para liberar os campos."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
@@ -73,6 +76,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Clique em &quot;Editar&quot; para liberar os campos."/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -89,7 +93,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Clique em &quot;Editar&quot; para liberar os campos."/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -126,6 +130,7 @@
             <StringItem index="5" value="E"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Clique em &quot;Editar&quot; para liberar os campos."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
@@ -145,6 +150,7 @@
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="(##)#####-####" subtype="-1" type="5"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Clique em &quot;Editar&quot; para liberar os campos."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
