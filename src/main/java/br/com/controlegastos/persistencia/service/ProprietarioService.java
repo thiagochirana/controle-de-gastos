@@ -1,5 +1,6 @@
 package br.com.controlegastos.persistencia.service;
 
+import br.com.controlegastos.entidades.Proprietario;
 import br.com.controlegastos.entidades.records.DadosCadastroProprietario;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroProprietario;
 import br.com.controlegastos.persistencia.database.ConexaoDB;
@@ -34,43 +35,64 @@ public class ProprietarioService {
             String query = "SELECT * FROM Proprietario";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = Executador.obterResultado(ps);
-            int row = rs.getRow();
-            return (row > 0);
+            if (rs.next()) {
+                LOG.info("Encontrado um proprietário cadastrado localmente");
+                return true;
+            } else {
+                LOG.warn("Nenhum proprietário encontrado salvo localmente. Deve cadastrar um proprietario.");
+                return false;
+            }
         }catch (Exception e){
             LOG.error("Houve erro em tentar verificar se existe Proprietario já cadastrado localmente", e);
         }
         return false;
     }
 
+    public Proprietario obterProprietario() throws Exception{
+        try{
+            LOG.info("Obtendo os dados do proprietario atual");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Proprietario");
+            ResultSet rs = Executador.obterResultado(ps);
+
+            if (rs.next()){
+                return new Proprietario(
+                       rs.getLong("id_proprietario"),
+                       rs.getString("cpf"),
+                       rs.getString("nome"),
+                       rs.getString("telefone"),
+                       rs.getString("email"),
+                       rs.getString("cnh"),
+                       rs.getString("categoria_cnh")
+                );
+
+            } else {
+                LOG.info("Nenhum proprietario encontrado, vou retonar null");
+                return null;
+            }
+        } catch (Exception e){
+            LOG.error("Houve um erro ao tentar obter o proprietário local.",e);
+            return null;
+        }
+    }
+
     public DadosRespostaCadastroProprietario cadastrarProprietario(DadosCadastroProprietario dados) throws Exception{
         try{
-            LOG.info("Vou tentar persistir proprietario de nome "+dados.nome()+ " e CPF "+dados.cpf());
-            StringBuilder sql = new StringBuilder();
-            String nome = dados.nome();
-            sql.append("INSERT INTO Proprietario (id_proprietario,cpf,nome,telefone,email,cnh,categoria_cnh) VALUES (");
+            LOG.info("Vou persistir o proprietario dos veículos");
+            String sql = "INSERT INTO Proprietario (cpf,nome,telefone,email,cnh,categoria_cnh)" +
+                    " VALUES (?,?,?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
 
-            sql.append("DEFAULT, '");
-            sql.append(dados.cpf()).append("' , '");
-            sql.append(dados.nome()).append("' , '");
-            sql.append(dados.telefone()).append("' , '");
-            sql.append(dados.email()).append("' , '");
-            sql.append(dados.cnh()).append("' , '");
-            sql.append(dados.categoriaCnh()).append("' );");
-
-            ResultSet rs = Executador.obterResultado(sql.toString());
-
-            boolean result = rs.next();
-
-            if(result){
-                LOG.info("Proprietario "+nome+" cadastrado com sucesso.");
-                return new DadosRespostaCadastroProprietario(nome,true,"Proprietario "+nome+" cadastrado com sucesso.");
+            int id = Executador.insertUpdateNoBanco(ps);
+            if (id > 0){
+                LOG.info("Proprietario "+dados.nome()+" cadastrado com sucesso.");
+                return new DadosRespostaCadastroProprietario(dados.nome(),true,"Proprietario "+dados.nome()+" cadastrado com sucesso.");
             } else {
-                throw new Exception("Houve um erro ao cadastrar o proprietario "+nome);
+                LOG.warn("Proprietario "+dados.nome()+" não foi cadastrado.");
+                return new DadosRespostaCadastroProprietario(dados.nome(),false,"Proprietario "+dados.nome()+" não foi cadastrado. Verifique o porquê.");
             }
-
-        }catch (Exception e){
-            LOG.error("Houve um erro ao cadastrar proprietario de nome "+dados.nome(),e);
-            return new DadosRespostaCadastroProprietario(dados.nome(),false,"Houve um erro ao cadastrar proprietario de nome "+dados.nome()+". "+e.getMessage());
+        } catch (Exception e){
+            LOG.error("Houve um erro ao tentar cadastrar novo proprietário.",e);
+            return new DadosRespostaCadastroProprietario(dados.nome(),false,"Proprietario "+dados.nome()+" não foi cadastrado. Motivo: "+e.getMessage());
         }
     }
 }

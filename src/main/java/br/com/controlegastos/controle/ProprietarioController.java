@@ -1,5 +1,6 @@
 package br.com.controlegastos.controle;
 
+import br.com.controlegastos.entidades.Proprietario;
 import br.com.controlegastos.entidades.records.DadosCadastroProprietario;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroProprietario;
 import br.com.controlegastos.persistencia.service.ProprietarioService;
@@ -35,6 +36,10 @@ public class ProprietarioController {
 
     public boolean verificaSePropriatarioExiste() throws Exception {
         return propService.verificaSeExisteProprietario();
+    }
+
+    public Proprietario obterProprietario() throws Exception{
+        return propService.obterProprietario();
     }
 
 }

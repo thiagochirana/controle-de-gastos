@@ -48,6 +48,14 @@ public class Proprietario {
         this.categoriaCnh = dados.categoriaCnh();
     }
 
+    public String getCategoriaCnh() {
+        return categoriaCnh;
+    }
+
+    public void setCategoriaCnh(String categoriaCnh) {
+        this.categoriaCnh = categoriaCnh;
+    }    
+
     public long getId_proprietario() {
         return id_proprietario;
     }
