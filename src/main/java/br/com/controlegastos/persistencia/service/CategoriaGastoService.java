@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CategoriaGastoService {
     public DadosRespostaCadastroCatGasto cadastrarCategoria(DadosCadastroCategoriaGasto nomeNovaCategoria){
         try{
             LOG.info("Vou buscar cadastrar nova categoria de nome "+nomeNovaCategoria);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria_Gasto (nome,descricao_categoria) VALUES (?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria_Gasto (nome,descricao_categoria) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,nomeNovaCategoria.nome());
             ps.setString(2,nomeNovaCategoria.descricao());
             int id = Executador.insertUpdateNoBanco(ps);

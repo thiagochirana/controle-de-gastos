@@ -8,5 +8,5 @@ public enum TipoCombustivel {
     ELETRICO,
     HIBRIDO,
     GNV,
-    SEM_COMBUSTIVEL
+    NAO_SE_APLICA
 }

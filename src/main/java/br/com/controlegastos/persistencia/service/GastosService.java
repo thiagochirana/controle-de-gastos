@@ -12,10 +12,7 @@ import br.com.controlegastos.persistencia.database.Executador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,7 +45,7 @@ public class GastosService {
 
             LOG.info("Registro de gasto iniciado. Buscarei registrar este dado: "+dados);
             PreparedStatement ps = con.prepareStatement("INSERT INTO Gastos (descricao, data, valor, veiculo_id, categoria_id)" +
-                    "VALUES (?, ?, ?, ?, ?)");
+                    "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dados.descricao());
             ps.setDate(2,java.sql.Date.valueOf(data));
             ps.setDouble(3, dados.valor());
@@ -141,7 +138,7 @@ public class GastosService {
             contadorDeParametros++;
             sql.append("WHERE id_gastos = ?");
 
-            PreparedStatement ps = con.prepareStatement(sql.toString());
+            PreparedStatement ps = con.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 
             if (posDescricao > 0){
                 ps.setString(posDescricao, dados.descricao());

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class ProprietarioService {
 
@@ -82,7 +83,7 @@ public class ProprietarioService {
                 LOG.info("Vou persistir o proprietario dos veículos");
                 String sql = "INSERT INTO Proprietario (cpf,nome,telefone,email,cnh,categoria_cnh)" +
                         " VALUES (?,?,?,?,?,?)";
-                PreparedStatement ps = con.prepareStatement(sql);
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, dados.cpf());
                 ps.setString(2, dados.nome());
                 ps.setString(3, dados.telefone());
