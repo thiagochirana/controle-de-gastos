@@ -9,20 +9,17 @@ import br.com.controlegastos.controle.MarcaController;
 import br.com.controlegastos.controle.ModeloController;
 import br.com.controlegastos.controle.VeiculoController;
 import br.com.controlegastos.entidades.CategoriaGasto;
-import br.com.controlegastos.entidades.CategoriaVeiculo;
 import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.Modelo;
 import br.com.controlegastos.entidades.Veiculo;
 import br.com.controlegastos.entidades.records.DadosCadastroVeiculo;
 import br.com.controlegastos.entidades.records.DadosRespostaVeiculo;
-import br.com.controlegastos.entidades.records.DadosVeiculo;
 import br.com.controlegastos.front.modal.ModalCadastroCategoria;
 import br.com.controlegastos.front.modal.ModalCadastroMarca;
 import br.com.controlegastos.front.modal.ModalCadastroModelo;
 import br.com.controlegastos.front.modal.ModalMensagem;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -125,8 +122,8 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     public void setComboBoxCategoria() throws Exception {
         try {
             jComboBoxCategoria.removeAllItems();
-            for (CategoriaVeiculo cat : veiculo.listarCategoriaVeiculo()) {
-                jComboBoxCategoria.addItem(cat.getIdCategoriaVeiculo() + " - " + cat.getNome());
+            for (CategoriaGasto cat : catGasto.listarCategoria()) {
+                jComboBoxCategoria.addItem(cat.getIdCategoria() + " - " + cat.getNome());
             }
         } catch (Exception e) {
             msg.exibirMensagem(e.getMessage(), false);
@@ -134,40 +131,32 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     }
 
     public void setComboBoxModelo() throws Exception {
-        String[] itemSelecionadoMarca = jComboBoxMarca.getSelectedItem().toString().split(" - ");
-        long idMarca = Long.parseLong(itemSelecionadoMarca[0]);
-        
         jComboBoxModelo.removeAllItems();
-        for (Modelo model : modelo.listaModeloByIdMarca(idMarca)) {
+        for (Modelo model : modelo.listaModelos()) {
             jComboBoxModelo.addItem(model.getIdModelo()+" - "+model.getNome());
         }
     }
     
     public void setTableVeiculos() throws Exception{
-        List<DadosVeiculo> veiculos = veiculo.listarVeiculos(true);
+        List<Veiculo> veiculos = veiculo.listarVeiculos(true);
         
-        //DefaultTableModel modelTable = new DefaultTableModel();
-        DefaultTableModel modelTable = (DefaultTableModel) jTableVeiculos.getModel();
+        DefaultTableModel modelTable = new DefaultTableModel();
         modelTable.setNumRows(0);
         
-        Iterator<DadosVeiculo> listagem = veiculos.iterator();
         
-        while(listagem.hasNext()){
+        for (Veiculo v : veiculos){
             String[] cell = new String[7];
             
-            DadosVeiculo v = listagem.next();
-            
-            cell[0] = v.idVeiculo()+"";
-            cell[1] = v.placa();
-            cell[2] = v.modelo();
-            cell[3] = v.marca();
-            cell[4] = v.categoria();
-            cell[5] = v.quilometragem()+"";
-            cell[6] = v.tipoCombustivel();
+            cell[0] = v.getIdVeiculo()+"";
+            cell[1] = v.getPlaca();
+            cell[2] = v.getModeloId()+"";
+            cell[3] = "MARCA AQUI";
+            cell[4] = v.getCategoriaVeiculo();
+            cell[5] = v.getQuilometragem()+"";
+            cell[6] = v.getTipoCombustivel();
             
             modelTable.addRow(cell);
         }
-        
     }
     
     private void validarPlaca() {
@@ -219,7 +208,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(null);
 
         getContentPane().add(jComboBoxCombustivel);
-        jComboBoxCombustivel.setBounds(206, 146, 180, 26);
+        jComboBoxCombustivel.setBounds(206, 146, 180, 22);
 
         jLabelAddCombustivel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -229,11 +218,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         getContentPane().add(jLabelAddCombustivel);
         jLabelAddCombustivel.setBounds(400, 140, 0, 40);
 
-        jComboBoxModelo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxModeloMouseEntered(evt);
-            }
-        });
         getContentPane().add(jComboBoxModelo);
         jComboBoxModelo.setBounds(540, 148, 160, 20);
 
@@ -283,7 +267,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jComboBoxMarca);
-        jComboBoxMarca.setBounds(540, 106, 160, 26);
+        jComboBoxMarca.setBounds(540, 106, 160, 22);
 
         jComboBoxCategoria.setToolTipText("");
         jComboBoxCategoria.setName(""); // NOI18N
@@ -293,7 +277,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jComboBoxCategoria);
-        jComboBoxCategoria.setBounds(540, 65, 160, 26);
+        jComboBoxCategoria.setBounds(540, 65, 160, 22);
 
         jLabelExcluirVeiculo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -475,14 +459,6 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         
         validarPlaca();
     }//GEN-LAST:event_jTextFieldPlacaKeyReleased
-
-    private void jComboBoxModeloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxModeloMouseEntered
-        try {
-            setComboBoxModelo();        // TODO add your handling code here:
-        } catch (Exception ex) {
-            
-        }
-    }//GEN-LAST:event_jComboBoxModeloMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxCategoria;
