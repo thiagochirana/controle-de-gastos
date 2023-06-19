@@ -122,4 +122,9 @@ public class ModeloController {
         LOG.info("Quantidade de modelos cadastrados e listados: "+lista.size());
         return lista;
     }
+
+    public List<Modelo> listaModeloByIdMarca(long id) throws Exception{
+        LOG.info("Solicitado buscar listagem de modelos já cadastrados com o id "+id+". Vou buscar a lista e retornar ao cliente.");
+        return model.listaModeloByIdMarca(id);
+    }
 }

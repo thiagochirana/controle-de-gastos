@@ -108,6 +108,30 @@ public class ModeloService {
         }
     }
 
+    public List<Modelo> listaModeloByIdMarca(long id) throws Exception{
+        try{
+            LOG.info("Montarei lista de modelos cadastrados com a marca id "+id+" e enviarei ao cliente.");
+            List<Modelo> lista = new ArrayList<Modelo>();
+            String query = "SELECT * FROM Modelo WHERE marca_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setLong(1, id);
+            ResultSet rs = Executador.obterResultado(ps);
+            while (rs.next()) {
+                lista.add(new Modelo(
+                       rs.getLong("id_modelo"),
+                       rs.getString("nome"),
+                       rs.getBytes("imagem"),
+                       rs.getLong("marca_id")
+                ));
+            }
+            LOG.info("Lista obtida, tamanho da lista: "+lista.size());
+            return lista;
+        } catch (Exception e){
+            LOG.error("Erro ao buscar lista de modelos cadastrados.",e);
+            throw e;
+        }
+    }
+
     public Modelo obterModeloById(Long id) throws Exception {
         try{
             LOG.info("Buscando modelo pelo id "+id+" ...");
