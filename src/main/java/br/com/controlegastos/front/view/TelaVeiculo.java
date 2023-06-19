@@ -71,7 +71,7 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
                     return;
                 }
 
-                super.replace(fb, offset, length, text, attrs);
+                super.replace(fb, offset, length, text.toUpperCase(), attrs);
             }
         });
     }
@@ -338,6 +338,9 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldPlacaKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldPlacaKeyTyped(evt);
+            }
         });
         getContentPane().add(jTextFieldPlaca);
         jTextFieldPlaca.setBounds(205, 65, 180, 25);
@@ -459,6 +462,16 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         
         validarPlaca();
     }//GEN-LAST:event_jTextFieldPlacaKeyReleased
+
+    private void jTextFieldPlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPlacaKeyTyped
+        // TODO add your handling code here:
+        char inputChar = evt.getKeyChar();
+        
+        if (!Character.isLetterOrDigit(inputChar) && inputChar != '-') {
+            evt.consume(); // Impede a digitação de caracteres inválidos
+        }
+        
+    }//GEN-LAST:event_jTextFieldPlacaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxCategoria;
