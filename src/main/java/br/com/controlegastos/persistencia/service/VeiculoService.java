@@ -1,9 +1,14 @@
 package br.com.controlegastos.persistencia.service;
 
+import br.com.controlegastos.entidades.CategoriaVeiculo;
+import br.com.controlegastos.entidades.Marca;
+import br.com.controlegastos.entidades.Modelo;
 import br.com.controlegastos.entidades.Veiculo;
 import br.com.controlegastos.entidades.enums.TipoCombustivel;
 import br.com.controlegastos.entidades.records.DadosCadastroVeiculo;
+import br.com.controlegastos.entidades.records.DadosRespostaCadastroCategoriaVeiculo;
 import br.com.controlegastos.entidades.records.DadosRespostaVeiculo;
+import br.com.controlegastos.entidades.records.DadosVeiculo;
 import br.com.controlegastos.persistencia.database.ConexaoDB;
 import br.com.controlegastos.persistencia.database.Executador;
 import org.slf4j.Logger;
@@ -16,6 +21,9 @@ import java.util.List;
 public class VeiculoService {
 
     private static Logger LOG = LoggerFactory.getLogger(VeiculoService.class);
+
+    MarcaService marca = new MarcaService();
+    ModeloService modelo = new ModeloService();
 
     private static Connection con;
 
@@ -128,29 +136,136 @@ public class VeiculoService {
         }
     }
 
+    //Persistencia das Categorias
+
+    public DadosRespostaCadastroCategoriaVeiculo cadastrarCategoriaVeiculo(String categoria){
+        try{
+            String cate = categoria.trim().toUpperCase();
+            LOG.info("Irei cadastrar uma nova categoria de veiculos");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Categoria_Veiculo (nome) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1,cate);
+
+            long id = Executador.insertUpdateNoBanco(ps);
+            if (id != -1){
+                LOG.info("Cadastro de categoria de veículo de nome "+cate+" realizado com sucesso");
+                return new DadosRespostaCadastroCategoriaVeiculo(
+                        id,
+                        cate,
+                        "Cadastro de categoria de veículo "+cate+" realizado com sucesso",
+                        true
+                );
+            } else {
+                LOG.warn("Cadastro de categoria de veículo de nome "+cate+" não aconteceu.");
+                return new DadosRespostaCadastroCategoriaVeiculo(
+                        id,
+                        cate,
+                        "Cadastro de categoria de veículo "+cate+" não foi realizada com sucesso",
+                        false
+                );
+            }
+        } catch (Exception e){
+            LOG.error("Houve um erro ao tentar cadastrar categoria de veículo "+categoria,e);
+            return new DadosRespostaCadastroCategoriaVeiculo(
+                    0,
+                    categoria,
+                    "Cadastro de categoria de veículo "+categoria+" não foi realizada. "+e.getMessage(),
+                    false
+            );
+        }
+    }
+
+    public boolean verificarSeCategoriaExisteCadastrada(String categoria) throws Exception{
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Categoria_Veiculo WHERE nome = ?");
+            ps.setString(1,categoria.trim().toUpperCase());
+            ResultSet rs = Executador.obterResultado(ps);
+            if (rs.next()){
+                LOG.info("Consulta para verificar se tem categoria já cadastrada com mesmo nome obteve um resultado");
+                String cat = rs.getString("nome");
+                if (cat.equalsIgnoreCase(categoria)){
+                    LOG.info("Categoria de nome "+categoria+" já cadastrada. Vou retornar true para o cliente");
+                    return true;
+                } else {
+                    LOG.info("Categoria de nome "+categoria+" não foi cadastrada localmente pois resultado obtivo não é igual ao cadastrado no banco local. Categoria de nome "+categoria+" pode ser cadastrada.");
+                    return false;
+                }
+            } else {
+                LOG.info("Categoria de nome "+categoria+" não foi cadastrada localmente. Pode ser cadastrada.");
+                return false;
+            }
+        } catch (Exception e){
+            LOG.error("Houve um erro ao tentar obter informação de que se a categoria já foi cadastrada anteriormente",e);
+            throw e;
+        }
+    }
+
+    public List<CategoriaVeiculo> listarCategoriaVeiculo(){
+        try{
+            LOG.info("Irei listar todas as categorias de veículo e devolver ao cliente");
+            List<CategoriaVeiculo> lista = new ArrayList<>();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Categoria_Veiculo");
+            ResultSet rs = Executador.obterResultado(ps);
+            while (rs.next()){
+                lista.add(new CategoriaVeiculo(
+                        rs.getLong("id_categoria"),
+                        rs.getString("nome")
+                ));
+            }
+            LOG.info("Listagem obtida, tamanho da lista: "+lista.size());
+            return lista;
+        } catch (Exception e){
+            LOG.error("Houve um erro ao listar todas as categorias de veiculo",e);
+            return null;
+        }
+    }
+
+    public CategoriaVeiculo obterCategoriaVeiculoById(long id){
+        try{
+            LOG.info("Vou buscar Categoria Veiculo de id "+id);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Categoria_Veiculo WHERE id_categoria = ?");
+            ps.setLong(1,id);
+            ResultSet rs = Executador.obterResultado(ps);
+            if (rs.next()){
+                CategoriaVeiculo cat = new CategoriaVeiculo(
+                        rs.getLong("id_categoria"),
+                        rs.getString("nome")
+                );
+                LOG.info("Categoria de id "+id+" obtida: "+cat);
+                return cat;
+            } else {
+                LOG.warn("Categoria não encotrada, vou retornar null");
+                return null;
+            }
+        } catch (Exception e){
+            LOG.error("Houve erro em obter Categoria de Veículo pelo id "+id,e);
+            return null;
+        }
+    }
+
     //Listar veículo de acordo com a atividade do mesmo
-    public List<Veiculo> listarVeiculos(boolean atividade) throws Exception{
+    public List<DadosVeiculo> listarVeiculos(boolean atividade) throws Exception{
         try{
             List<Veiculo> lista = new ArrayList<>();
             LOG.info("Irei listar todos os veículos "+ (atividade ? "ativos": "desativados") +" cadastrados");
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo WHERE ativo = ? ", Statement.RETURN_GENERATED_KEYS);
             ps.setBoolean(1,atividade);
-            List<Veiculo> listagem = getVeiculos(lista, ps);
-            LOG.info("Veículos "+ (atividade? "ativos": "desativados") +" cadastrados: "+listagem.size());
-            return listagem;
+
+            return getDadosVeiculos(lista, ps);
         } catch ( Exception e){
             LOG.error("Houve um erro ao listar veículos "+ (atividade ? "ativos": "desativados"),e);
             throw e;
         }
     }
 
+
+
     //Listar todos os veículos já cadastrados
-    public List<Veiculo> listarVeiculos() throws Exception{
+    public List<DadosVeiculo> listarVeiculos() throws Exception{
         try{
             List<Veiculo> lista = new ArrayList<>();
             LOG.info("Irei listar todos os veículos cadastrados");
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Veiculo", Statement.RETURN_GENERATED_KEYS);
-            return getVeiculos(lista, ps);
+            return getDadosVeiculos(lista, ps);
         } catch ( Exception e){
             LOG.error("Houve um erro ao listar todos os veículos ",e);
             throw e;
@@ -204,6 +319,28 @@ public class VeiculoService {
             LOG.error("Houve um erro ao tentar consultar veículo com id "+id,e);
             throw e;
         }
+    }
+
+
+    private List<DadosVeiculo> getDadosVeiculos(List<Veiculo> lista, PreparedStatement ps) throws Exception {
+        List<DadosVeiculo> listagem = new ArrayList<>();
+        for (Veiculo v : getVeiculos(lista, ps)){
+            Modelo m = modelo.obterModeloById(v.getModeloId());
+            CategoriaVeiculo cat = obterCategoriaVeiculoById(Long.parseLong(v.getCategoriaVeiculo()));
+            Marca ma = marca.obterMarcaById(m.getMarcaId());
+            DadosVeiculo data = new DadosVeiculo(
+                    v.getIdVeiculo(),
+                    v.getPlaca(),
+                    m.getNome(),
+                    ma.getNome(),
+                    cat.getNome(),
+                    v.getQuilometragem(),
+                    v.getTipoCombustivel()
+            );
+            listagem.add(data);
+        }
+        LOG.info("Veículos cadastrados: "+listagem.size());
+        return listagem;
     }
 
     private List<Veiculo> getVeiculos(List<Veiculo> lista, PreparedStatement ps) throws SQLException {

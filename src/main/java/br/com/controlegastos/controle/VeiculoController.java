@@ -1,10 +1,13 @@
 package br.com.controlegastos.controle;
 
+import br.com.controlegastos.entidades.CategoriaVeiculo;
 import br.com.controlegastos.entidades.Marca;
 import br.com.controlegastos.entidades.Modelo;
 import br.com.controlegastos.entidades.Veiculo;
 import br.com.controlegastos.entidades.records.DadosCadastroVeiculo;
+import br.com.controlegastos.entidades.records.DadosRespostaCadastroCategoriaVeiculo;
 import br.com.controlegastos.entidades.records.DadosRespostaVeiculo;
+import br.com.controlegastos.entidades.records.DadosVeiculo;
 import br.com.controlegastos.persistencia.service.MarcaService;
 import br.com.controlegastos.persistencia.service.ModeloService;
 import br.com.controlegastos.persistencia.service.VeiculoService;
@@ -53,6 +56,34 @@ public class VeiculoController {
         return veiculo.cadastrarVeiculo(dados);
     }
 
+    public DadosRespostaCadastroCategoriaVeiculo cadastrarCategoriaVeiculo(String categoria) throws Exception{
+
+        if (categoria.equals("") || categoria == null){
+            return new DadosRespostaCadastroCategoriaVeiculo(
+                    -1,
+                    categoria,
+                    "Não é possível salvar categoria de nome vazio ou inexistente.",
+                    false
+            );
+        }
+
+        if (veiculo.verificarSeCategoriaExisteCadastrada(categoria)){
+            return new DadosRespostaCadastroCategoriaVeiculo(
+                    0,
+                    categoria,
+                    "Categoria "+categoria+" já existe cadastrada.",
+                    false
+            );
+        }
+
+        categoria = categoria.trim().toUpperCase();
+        return veiculo.cadastrarCategoriaVeiculo(categoria);
+    }
+
+    public List<CategoriaVeiculo> listarCategoriaVeiculo(){
+        return veiculo.listarCategoriaVeiculo();
+    }
+
     public DadosRespostaVeiculo ativaDesativaVeiculo(long id, boolean atividade) throws Exception{
         //Verificar se ID veiculo existe
         if (!veiculo.verificaSeVeiculoIdExiste(id)){
@@ -79,11 +110,11 @@ public class VeiculoController {
         return veiculo.listarTiposCombustivel();
     }
 
-    public List<Veiculo> listarVeiculos(boolean atividade) throws Exception{
+    public List<DadosVeiculo> listarVeiculos(boolean atividade) throws Exception{
         return veiculo.listarVeiculos(atividade);
     }
 
-    public List<Veiculo> listarVeiculos() throws Exception{
+    public List<DadosVeiculo> listarVeiculos() throws Exception{
         return veiculo.listarVeiculos();
     }
 }
