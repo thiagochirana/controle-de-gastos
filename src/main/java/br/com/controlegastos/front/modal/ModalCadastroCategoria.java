@@ -1,8 +1,10 @@
 package br.com.controlegastos.front.modal;
 
 import br.com.controlegastos.controle.CategoriaGastoController;
+import br.com.controlegastos.controle.VeiculoController;
 import br.com.controlegastos.entidades.records.DadosCadastroCategoriaGasto;
 import br.com.controlegastos.entidades.records.DadosRespostaCadastroCatGasto;
+import br.com.controlegastos.entidades.records.DadosRespostaCadastroCategoriaVeiculo;
 
 
 
@@ -15,14 +17,14 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
     
     ModalMensagem modalMsg = new ModalMensagem();
     
-    CategoriaGastoController catGasto = new CategoriaGastoController();
+    VeiculoController veiculo = new VeiculoController();
     
     public ModalCadastroCategoria() {
         initComponents();
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Cadastre uma Categoria");
-        setSize(360, 350);
+        setSize(360, 230);
         setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -42,9 +44,6 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
         jTextFieldNomeCategoria = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButtonCadastrarCategoria = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaDescricaoCategoria = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -80,17 +79,6 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 51, 153));
-        jLabel3.setText("Descrição");
-
-        jTextAreaDescricaoCategoria.setBackground(new java.awt.Color(255, 255, 255));
-        jTextAreaDescricaoCategoria.setColumns(20);
-        jTextAreaDescricaoCategoria.setForeground(new java.awt.Color(0, 51, 153));
-        jTextAreaDescricaoCategoria.setRows(5);
-        jTextAreaDescricaoCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 153)));
-        jScrollPane1.setViewportView(jTextAreaDescricaoCategoria);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,11 +87,9 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                     .addComponent(jTextFieldNomeCategoria)
-                    .addComponent(jButtonCadastrarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                    .addComponent(jButtonCadastrarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -115,13 +101,9 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(3, 3, 3)
                 .addComponent(jTextFieldNomeCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCadastrarCategoria)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -137,11 +119,10 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
     private void jButtonCadastrarCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCadastrarCategoriaMouseClicked
         try{
             String nome = jTextFieldNomeCategoria.getText();
-            String descricao = jTextAreaDescricaoCategoria.getText();
 
-            DadosRespostaCadastroCatGasto resp = catGasto.cadastrarCategoria(new DadosCadastroCategoriaGasto(nome,descricao));
+            DadosRespostaCadastroCategoriaVeiculo resp =veiculo.cadastrarCategoriaVeiculo(nome);
             
-            modalMsg.exibirMensagem(resp.resposta(), resp.cadastrou());
+            modalMsg.exibirMensagem(resp.mensagem(), resp.cadastrou());
             
         } catch (Exception e){
             modalMsg.exibirMensagem(e.getMessage(), false);
@@ -193,10 +174,7 @@ public class ModalCadastroCategoria extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCadastrarCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaDescricaoCategoria;
     private javax.swing.JTextField jTextFieldNomeCategoria;
     // End of variables declaration//GEN-END:variables
 }
