@@ -14,12 +14,14 @@ import br.com.controlegastos.entidades.Modelo;
 import br.com.controlegastos.entidades.Veiculo;
 import br.com.controlegastos.entidades.records.DadosCadastroVeiculo;
 import br.com.controlegastos.entidades.records.DadosRespostaVeiculo;
+import br.com.controlegastos.entidades.records.DadosVeiculo;
 import br.com.controlegastos.front.modal.ModalCadastroCategoria;
 import br.com.controlegastos.front.modal.ModalCadastroMarca;
 import br.com.controlegastos.front.modal.ModalCadastroModelo;
 import br.com.controlegastos.front.modal.ModalMensagem;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -138,24 +140,25 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
     }
     
     public void setTableVeiculos() throws Exception{
-        List<Veiculo> veiculos = veiculo.listarVeiculos(true);
         
-        DefaultTableModel modelTable = new DefaultTableModel();
+//        DefaultTableModel modelTable = new DefaultTableModel();
+        DefaultTableModel modelTable = (DefaultTableModel) jTableVeiculos.getModel();
         modelTable.setNumRows(0);
-        
-        
-        for (Veiculo v : veiculos){
-            String[] cell = new String[7];
-            
-            cell[0] = v.getIdVeiculo()+"";
-            cell[1] = v.getPlaca();
-            cell[2] = v.getModeloId()+"";
-            cell[3] = "MARCA AQUI";
-            cell[4] = v.getCategoriaVeiculo();
-            cell[5] = v.getQuilometragem()+"";
-            cell[6] = v.getTipoCombustivel();
-            
-            modelTable.addRow(cell);
+
+        Iterator<DadosVeiculo> listagem = veiculo.listarVeiculos(true).iterator();
+
+        while(listagem.hasNext()){
+            String[] c = new String[7];
+            DadosVeiculo dados = listagem.next();
+            c[0] = dados.idVeiculo()+"";
+            c[1] = dados.placa();
+            c[2] = dados.modelo();
+            c[3] = dados.marca();
+            c[4] = dados.categoria();
+            c[5] = dados.quilometragem()+"";
+            c[6] = dados.tipoCombustivel();
+
+            modelTable.addRow(c);
         }
     }
     
