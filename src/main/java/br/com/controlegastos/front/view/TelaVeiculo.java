@@ -21,10 +21,14 @@ import br.com.controlegastos.front.modal.ModalMensagem;
 import java.awt.Color;
 import java.beans.PropertyVetoException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.NavigationFilter.FilterBypass;
 
 /**
  *
@@ -50,6 +54,26 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
 
         setComboBoxs();
         estilizaFields();
+        
+        // Limita a quantidade de caracteres do JTextField para PLACA
+        ((AbstractDocument) jTextFieldPlaca.getDocument()).setDocumentFilter(new DocumentFilter() {
+            private final int MAX_LENGTH_WITH_HYPHEN = 8;
+            private final int MAX_LENGTH_WITHOUT_HYPHEN = 7;
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                int currentLength = fb.getDocument().getLength();
+                boolean hasHyphen = fb.getDocument().getText(0, currentLength).contains("-");
+
+                int maxLength = hasHyphen ? MAX_LENGTH_WITH_HYPHEN : MAX_LENGTH_WITHOUT_HYPHEN;
+                int insertLength = text.length();
+                if (currentLength - length + insertLength > maxLength) {
+                    return;
+                }
+
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
     }
 
     private void estilizaFields() {
@@ -132,6 +156,26 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             cell[6] = v.getTipoCombustivel();
             
             modelTable.addRow(cell);
+        }
+    }
+    
+    private void validarPlaca() {
+        String placa = jTextFieldPlaca.getText();
+
+        // Define as expressões regulares para validação das placas
+        String regexPlacaAnterior = "[A-Z]{3}-[0-9]{4}"; // AAA-1234
+        String regexPlacaMercosul = "[A-Z]{3}[0-9][A-Z][0-9]{2}"; // ABC1D23
+
+        // Verifica se a placa corresponde a algum dos modelos
+        boolean placaValida = Pattern.matches(regexPlacaAnterior, placa) || Pattern.matches(regexPlacaMercosul, placa);
+
+        // Atualiza a aparência do JTextField conforme a validação
+        if (placaValida) {
+            jTextFieldPlaca.setForeground(null); // Cor padrão do texto
+            jTextFieldPlaca.setToolTipText(null); // Remove a dica de ferramenta
+        } else {
+            jTextFieldPlaca.setForeground(Color.RED); // Cor vermelha para indicar erro
+            jTextFieldPlaca.setToolTipText("Placa inválida"); // Dica de ferramenta com mensagem de erro
         }
     }
 
@@ -290,6 +334,11 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
         jTextFieldQuilometragem.setBounds(205, 105, 180, 25);
 
         jTextFieldPlaca.setBorder(null);
+        jTextFieldPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPlacaKeyReleased(evt);
+            }
+        });
         getContentPane().add(jTextFieldPlaca);
         jTextFieldPlaca.setBounds(205, 65, 180, 25);
 
@@ -404,6 +453,12 @@ public class TelaVeiculo extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldQuilometragemKeyTyped
+
+    private void jTextFieldPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPlacaKeyReleased
+        // TODO add your handling code here:
+        
+        validarPlaca();
+    }//GEN-LAST:event_jTextFieldPlacaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxCategoria;
