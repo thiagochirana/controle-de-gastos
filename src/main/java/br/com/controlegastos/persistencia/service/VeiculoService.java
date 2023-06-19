@@ -47,15 +47,14 @@ public class VeiculoService {
 
             if(rs.next()){
                 Veiculo ve = new Veiculo(
-                        rs.getLong("idVeiculo"),
-                        rs.getBoolean("temPlaca"),
+                        rs.getLong("id_veiculo"),
+                        rs.getBoolean("tem_placa"),
                         rs.getString("placa"),
-                        rs.getString("descricao_veiculo"),
-                        rs.getString("tipoCombustivel"),
+                        rs.getString("tipo_combustivel"),
                         rs.getFloat("quilometragem"),
-                        rs.getString("categoriaVeiculo"),
-                        rs.getLong("modeloId"),
-                        rs.getLong("proprietarioId"),
+                        rs.getString("categoria_veiculo"),
+                        rs.getLong("modelo_id"),
+                        rs.getLong("proprietario_id"),
                         rs.getBoolean("ativo")
                 );
                 LOG.info("Resultado obtido: "+ve+". Vou retornar o cliente.");

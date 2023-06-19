@@ -4,6 +4,7 @@ import br.com.controlegastos.entidades.CategoriaGasto;
 import br.com.controlegastos.entidades.Gastos;
 import br.com.controlegastos.entidades.Modelo;
 import br.com.controlegastos.entidades.Veiculo;
+import br.com.controlegastos.entidades.records.DadosGastos;
 import br.com.controlegastos.entidades.records.DadosListaGastoCategoria;
 import br.com.controlegastos.entidades.records.DadosRegistroDeGasto;
 import br.com.controlegastos.entidades.records.DadosRespostaRegistroGasto;
@@ -13,10 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class GastosService {
 
@@ -25,6 +28,10 @@ public class GastosService {
     private static Connection con;
     
     private CategoriaGastoService catGastosService;
+
+    private ModeloService modelo;
+
+    private VeiculoService veiculoS;
 
     static {
         try {
@@ -36,6 +43,8 @@ public class GastosService {
 
     public GastosService() {
         this.catGastosService = new CategoriaGastoService();
+        this.modelo = new ModeloService();
+        this.veiculoS = new VeiculoService();
     }
 
     public DadosRespostaRegistroGasto registrarGasto(DadosRegistroDeGasto dados) throws Exception{
@@ -206,8 +215,8 @@ public class GastosService {
             List<DadosListaGastoCategoria> listaGastos = new ArrayList<>();
             LOG.info("Vou listar os gastos totais de cada Categoria");
             PreparedStatement psGastos = con.prepareStatement("SELECT * FROM Gastos WHERE data BETWEEN ? AND ?");
-            psGastos.setString(1, dataInicial);
-            psGastos.setString(2, dataFinal);
+            psGastos.setDate(1, java.sql.Date.valueOf(dataInicial));
+            psGastos.setDate(2, java.sql.Date.valueOf(dataFinal));
             List<Gastos> listaAux = getGastosListados(psGastos);
 
             List<CategoriaGasto> listaCategoria = catGastosService.listarCategoriasGasto();
@@ -240,16 +249,36 @@ public class GastosService {
         }
     }
 
-    public List<Gastos> listarGastosDeVeiculoEspecifico(Veiculo veiculo, String dataInicial, String dataFinal){
+    public List<DadosGastos> listarGastosDeVeiculoEspecifico(Veiculo veiculo, String dataInicial, String dataFinal){
         try{
+            Date dataIni = Date.valueOf(dataInicial);
+            Date dataFim = Date.valueOf(dataFinal);
+
             LOG.info("Irei gerar lista de gastos de veículo "+veiculo.getDescricaoVeiculo());
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Gastos WHERE veiculo_id = ? AND data BETWEEN? AND ?");
+
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Gastos WHERE veiculo_id = ? AND data BETWEEN ? AND ?");
             ps.setLong(1, veiculo.getIdVeiculo());
-            ps.setString(2, dataInicial);
-            ps.setString(3, dataFinal);
+            ps.setDate(2, dataIni.valueOf(dataInicial));
+            ps.setDate(3, dataFim.valueOf(dataFinal));
             List<Gastos> lista = getGastosListados(ps);
             LOG.info("Lista filtrada e obtida para datas. Tamanho da lista: "+lista.size());
-            return lista;
+            List<DadosGastos> dg = new ArrayList<>();
+
+            for(Gastos g : lista){
+                Veiculo v = veiculoS.obterDadosVeiculoById(g.getVeiculoId());
+                Modelo m = modelo.obterModeloById(v.getModeloId());
+                CategoriaGasto cg = catGastosService.obterCategoriaById(g.getCategoriaId());
+                DadosGastos d = new DadosGastos(
+                    v.getPlaca()+" - "+m.getNome(),
+                        g.getValor(),
+                        cg.getNome(),
+                        g.getData().toString()
+                );
+
+                dg.add(d);
+            }
+
+            return dg;
         } catch (Exception e){
             LOG.error("Houve um erro ao tentar obter lista.",e);
             return null;
@@ -263,8 +292,8 @@ public class GastosService {
                     "JOIN Veiculo v ON g.veiculo_id = v.id_veiculo " +
                     "WHERE v.ativo= ? AND g.data BETWEEN ? AND ?");
             ps.setBoolean(1, ativo);
-            ps.setString(2, dataInicial);
-            ps.setString(3, dataFinal);
+            ps.setDate(2, java.sql.Date.valueOf(dataInicial));
+            ps.setDate(3, java.sql.Date.valueOf(dataFinal));
 
             List<Gastos> lista = getGastosListados(ps);
             LOG.info("Lista filtrada e obtida para datas. Tamanho da lista: "+lista.size());

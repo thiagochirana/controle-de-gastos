@@ -56,6 +56,30 @@ public class CategoriaGastoService {
         }
     }
 
+    public CategoriaGasto obterCategoriaById(long id){
+        try{
+            LOG.info("Vou obter a categoria Gasto pelo seu id "+id);
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Categoria_Gasto WHERE id_categoria = ?");
+            ps.setLong(1,id);
+            ResultSet rs = Executador.obterResultado(ps);
+            if (rs.next()){
+                CategoriaGasto cat = new CategoriaGasto(
+                       rs.getLong("id_categoria"),
+                       rs.getString("nome"),
+                       rs.getString("descricao_categoria")
+                );
+                LOG.info("Encontrado Categoria com o id "+id);
+                return cat;
+            } else {
+                LOG.warn("Categoria de id "+id+" não encontrada");
+                return null;
+            }
+        } catch (Exception e){
+            LOG.error("houve um erro ao tentar obter a categoria",e);
+            return null;
+        }
+    }
+
     private DadosRespostaCadastroCatGasto gerarResposta(long id, String mensagem, boolean cadastrou){
         return new DadosRespostaCadastroCatGasto(
                 id,

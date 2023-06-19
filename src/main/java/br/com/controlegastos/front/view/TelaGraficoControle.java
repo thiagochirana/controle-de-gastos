@@ -22,6 +22,10 @@ public class TelaGraficoControle extends javax.swing.JFrame {
      */
     public TelaGraficoControle() {
         initComponents();
+        
+    }
+
+    public void ajustarTelaGrafico(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(10, "Série 1", "Item 1");
         dataset.addValue(15, "Série 1", "Item 2");
@@ -41,15 +45,7 @@ public class TelaGraficoControle extends javax.swing.JFrame {
         frame.getContentPane().add(chartPanel);
         frame.setVisible(true);
     }
-
-//    public void criarGrafico() {
-//        DefaultCategoryDataset barra = new DefaultCategoryDataset();
-//        barra.setValue(1400, "Hugo", "");
-//        
-//        JFreeChart grafico = ChartFactory.createBarChart3D("A", "B", "C", barra, PlotOrientation.VERTICAL, true, true, false);
-//        ChartPanel painel = new ChartPanel(grafico);
-//        add(painel);
-//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
